@@ -1,0 +1,18 @@
+.tile {
+
+    width: 100px;
+    height: 100px;
+
+    .red {
+        svg circle {
+            fill: red;
+            ;
+        }
+    }
+
+    .blue {
+        svg circle {
+            fill: blue;
+        }
+    }
+}

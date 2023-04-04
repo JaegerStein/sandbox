@@ -1,0 +1,10 @@
+.tile {
+  width: 100px;
+  height: 100px;
+}
+.tile .red svg circle {
+  fill: red;
+}
+.tile .blue svg circle {
+  fill: blue;
+}/*# sourceMappingURL=schieben.css.map */
