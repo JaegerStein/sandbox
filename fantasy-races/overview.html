@@ -1,0 +1,98 @@
+<!DOCTYPE html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Übersicht Verfügbarer Völker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: beige;
+        }
+    </style>
+
+    <script type="text/javascript">
+        // GENERAL
+        const make = (tag) => document.createElement(tag);
+        const get = (id) => document.getElementById(id);
+        const query = (selector) => document.querySelector(selector);
+        const queryAll = (selector) => document.querySelectorAll(selector);
+        // END GENERAL
+
+        // TABLES
+        function createAttributeTable(data) {
+            const table = make("table");
+
+            const cell = (text) => {
+                const cell = make("th");
+                cell.innerText = text;
+                return cell;
+            }
+
+            const headerRow = make("tr");
+            headerRow.appendChild(cell("STÄ"));
+            headerRow.appendChild(cell("ATH"));
+            headerRow.appendChild(cell("GES"));
+            headerRow.appendChild(cell("KON"));
+            headerRow.appendChild(cell("WAH"));
+            headerRow.appendChild(cell("INT"));
+            headerRow.appendChild(cell("WEI"));
+            headerRow.appendChild(cell("CHA"));
+
+            table.appendChild(headerRow);
+
+
+            const dataRow = make("tr");
+            for (const value in data) {
+                const val = make("td");
+                val.innerText = data[value];
+                dataRow.appendChild(val);
+            }
+
+            table.appendChild(dataRow);
+
+
+            return table;
+        }
+
+        function builtTables() {
+            const attributeContainers = queryAll('.attributes');
+            for (const container of attributeContainers) {
+                const data = container.getAttribute('data-values').split(',');
+                const table = createAttributeTable(data);
+                container.appendChild(table);
+            }
+        }
+        // END TABLES
+
+        window.onload = () => {
+            builtTables();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="entry" id="human">
+        <h1>Mensch</h1>
+        <div class="attributes" data-values="10,10,10,10,10,10,10,10"></div>
+    </div>
+    <div class="entry" id="elf">
+        <h1>Elfe</h1>
+        <div class="attributes" data-values="10,12,12,10,12,10,10,11"></div>
+    </div>
+
+
+</body>
+
+</html>
