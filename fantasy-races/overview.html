@@ -1,4 +1,6 @@
-<!DOCTYPE html lang="en">
+<!DOCTYPE html>
+
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -11,15 +13,41 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
 
-        * {
             font-family: Arial, Helvetica, sans-serif;
         }
 
         body {
             background-color: beige;
+
+            display: flex;
+            flex-flow: row wrap;
+            gap: 1rem;
         }
+
+        .entry {
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 4px 4px 8px rgba(0 0 0 / .25);
+        }
+
+        .attributes table {
+            border-collapse: collapse;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .attributes thead {
+            font-weight: bold;
+        }
+
+        .attributes th, .attributes td {
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid black;
+        }
+
     </style>
 
     <script type="text/javascript">
@@ -50,17 +78,20 @@
             headerRow.appendChild(cell("WEI"));
             headerRow.appendChild(cell("CHA"));
 
-            table.appendChild(headerRow);
+            const thead = make("thead");
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
 
 
             const dataRow = make("tr");
+            const tbody = make("tbody");
             for (const value in data) {
                 const val = make("td");
                 val.innerText = data[value];
                 dataRow.appendChild(val);
             }
-
-            table.appendChild(dataRow);
+            tbody.appendChild(dataRow);
+            table.appendChild(tbody);
 
 
             return table;
@@ -91,8 +122,59 @@
         <h1>Elfe</h1>
         <div class="attributes" data-values="10,12,12,10,12,10,10,11"></div>
     </div>
+    <div class="entry" id="dwarf">
+        <h1>Zwerg</h1>
+        <div class="attributes" data-values="12,10,10,12,10,10,11,10"></div>
+    </div>
+    <div class="entry" id="gnome">
+        <h1>Gnom</h1>
+        <div class="attributes" data-values="10,10,12,10,10,12,10,11"></div>
+    </div>
+    <div class="entry" id="kenku">
+        <h1>Kenku</h1>
+        <div class="attributes" data-values="8,11,11,9,10,10,11,10"></div>
+    </div>
+    <div class="entry" id="mime">
+        <h1>Mime</h1>
+        <div class="attributes" data-values="*,*,*,*,*,10,10,12"></div>
+    </div>
+    <div class="entry" id="drow">
+        <h1>Albe</h1>
+        <div class="attributes" data-values="10,12,12,10,12,10,10,11"></div>
+    </div>
+    <div class="entry" id="orc">
+        <h1>Ork</h1>
+        <div class="attributes" data-values="12,11,10,12,10,9,10,10"></div>
+    </div>
+    <div class="entry" id="goblin">
+        <h1>Goblin</h1>
+        <div class="attributes" data-values="10,10,12,11,10,9,10,10"></div>
+    </div>
+    <div class="entry" id="kobold">
+        <h1>Kobold</h1>
+        <div class="attributes" data-values="9,11,12,10,11,10,10,10"></div>
+    </div>
+    <div class="entry" id="faun">
+        <h1>Faun</h1>
+        <div class="attributes" data-values="10,10,12,10,10,10,10,12"></div>
+    </div>
 
-
+    <div class="entry" id="goatman">
+        <h1>Llekampa</h1>
+        <div class="attributes" data-values="10,10,12,11,10,11,10,8"></div>
+    </div>
+    <div class="entry" id="gnoll">
+        <h1>Gnoll</h1>
+        <div class="attributes" data-values="12,12,10,10,12,10,10,6"></div>
+    </div>
+    <div class="entry" id="giant">
+        <h1>Riese</h1>
+        <div class="attributes" data-values="14,10,8,14,10,10,10,10"></div>
+    </div>
+    <div class="entry" id="owlin">
+        <h1>Yespest</h1>
+        <div class="attributes" data-values="9,10,10,9,12,10,12,10"></div>
+    </div>
 </body>
 
 </html>
