@@ -12,8 +12,6 @@
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-
             font-family: Arial, Helvetica, sans-serif;
         }
 
@@ -22,18 +20,63 @@
 
             display: flex;
             flex-flow: row wrap;
+            justify-content: space-evenly;
             gap: 1rem;
+            padding: 1rem;
         }
 
         .entry {
             padding: 1rem;
             border-radius: 1rem;
-            box-shadow: 4px 4px 8px rgba(0 0 0 / .25);
+            box-sizing: border-box;
+            box-shadow: 4px 4px 16px rgba(0 0 0 / .25);
+
+            background-color: ivory;
+            width: 45%;
+        }
+
+        .entry h1 {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .entry img {
+            width: 50%;
+            float: right;
+            margin: 0 0 1rem 1rem;
+            border-radius: 1rem;
+            box-shadow: -4px 4px 8px rgba(0 0 0 / .5);
+        }
+
+        .entry h2 {
+            margin-bottom: .5rem;
+        }
+
+        .entry h3 {
+            margin-bottom: .25rem;
+        }
+
+        .entry .traits table {
+            border-collapse: collapse;
+        }
+
+        .entry .traits .border {
+            padding: 2px;
+            border: 1px dotted rgba(0 0 0 / .25);
+        }
+
+        .entry hr {
+            margin: .5rem 0;
+        }
+
+        .attributes {
+            margin-bottom: 1rem;
         }
 
         .attributes table {
+            table-layout: fixed;
             border-collapse: collapse;
-            border-radius: 20px;
+            width: 100%;
             overflow: hidden;
         }
 
@@ -41,13 +84,45 @@
             font-weight: bold;
         }
 
-        .attributes th, .attributes td {
+        .attributes th,
+        .attributes td {
             padding: 8px;
             text-align: center;
             vertical-align: middle;
             border: 1px solid black;
         }
 
+        .sta {
+            background-color: rgba(255 0 0 / .5);
+        }
+
+        .ath {
+            background-color: rgba(255 128 0 / .5);
+        }
+
+        .ges {
+            background-color: rgba(255 255 0 / .5);
+        }
+
+        .kon {
+            background-color: rgba(0 255 0 / .5);
+        }
+
+        .wah {
+            background-color: rgba(0 255 128 / .5);
+        }
+
+        .int {
+            background-color: rgba(0 255 255 / .5);
+        }
+
+        .wei {
+            background-color: rgba(0 128 255 / .5);
+        }
+
+        .cha {
+            background-color: rgba(255 0 255 / .5);
+        }
     </style>
 
     <script type="text/javascript">
@@ -58,25 +133,35 @@
         const queryAll = (selector) => document.querySelectorAll(selector);
         // END GENERAL
 
-        // TABLES
+        //---TABLES---
+
+        const cell = (text, cl) => {
+            const cell = make("th");
+            cell.innerText = text;
+            if (cl) cell.className = cl;
+            return cell;
+        }
+
+        const cellB = (text, cl) => {
+            const cell = make("td");
+            cell.innerText = text;
+            if (cl) cell.className = cl;
+            return cell;
+        }
+
+        //------TABLES ATTRIBUTES------
         function createAttributeTable(data) {
             const table = make("table");
 
-            const cell = (text) => {
-                const cell = make("th");
-                cell.innerText = text;
-                return cell;
-            }
-
             const headerRow = make("tr");
-            headerRow.appendChild(cell("STÄ"));
-            headerRow.appendChild(cell("ATH"));
-            headerRow.appendChild(cell("GES"));
-            headerRow.appendChild(cell("KON"));
-            headerRow.appendChild(cell("WAH"));
-            headerRow.appendChild(cell("INT"));
-            headerRow.appendChild(cell("WEI"));
-            headerRow.appendChild(cell("CHA"));
+            headerRow.appendChild(cell("STÄ", 'sta'));
+            headerRow.appendChild(cell("ATH", 'ath'));
+            headerRow.appendChild(cell("GES", 'ges'));
+            headerRow.appendChild(cell("KON", 'kon'));
+            headerRow.appendChild(cell("WAH", 'wah'));
+            headerRow.appendChild(cell("INT", 'int'));
+            headerRow.appendChild(cell("WEI", 'wei'));
+            headerRow.appendChild(cell("CHA", 'cha'));
 
             const thead = make("thead");
             thead.appendChild(headerRow);
@@ -96,32 +181,116 @@
 
             return table;
         }
+        //------END TABLES ATTRIBUTES------
 
-        function builtTables() {
+        //------TABLES TRAITS------
+        function createTraitTable(age, height, speed, lang, plus) {
+            const table = make("table");
+            const tbody = make("tbody");
+
+            const maxAge = make("tr");
+            maxAge.appendChild(cellB("Lebenserwartung:", 'border'));
+            maxAge.appendChild(cellB(age[0], 'border'));
+            const minAge = make("tr");
+            minAge.appendChild(cellB("Ausgewachsen:", 'border'));
+            minAge.appendChild(cellB(age[1], 'border'));
+
+            const avgHeight = make("tr");
+            avgHeight.appendChild(cellB("Größe:", 'border'));
+            avgHeight.appendChild(cellB(height[0] + " Fuß", 'border'));
+            const sizeCategory = make("tr");
+            sizeCategory.appendChild(cellB("Größenkategorie:", 'border'));
+            sizeCategory.appendChild(cellB(height[1], 'border'));
+            const mvmtSpeed = make("tr");
+            mvmtSpeed.appendChild(cellB("Bewegungsrate:", 'border'));
+            mvmtSpeed.appendChild(cellB(speed + " Fuß", 'border'));
+
+            const languages = make("tr");
+            languages.appendChild(cellB("Sprachen:", 'border'));
+            languages.appendChild(cellB(lang, 'border'));
+            const additionalLanguages = make("tr");
+            additionalLanguages.appendChild(cellB("Andere Sprachen:", 'border'));
+            additionalLanguages.appendChild(cellB(plus, 'border'));
+
+            const emptyRow = () => {
+                const row = make("tr");
+                const cell = make("td");
+                cell.setAttribute("colspan", "2");
+                cell.appendChild(make("br"));
+                row.appendChild(cell);
+                return row;
+            }
+
+            tbody.appendChild(maxAge);
+            tbody.appendChild(minAge);
+
+            tbody.appendChild(emptyRow());
+
+            tbody.appendChild(avgHeight);
+            tbody.appendChild(sizeCategory);
+            tbody.appendChild(mvmtSpeed);
+
+            tbody.appendChild(emptyRow());
+
+            tbody.appendChild(languages);
+            tbody.appendChild(additionalLanguages);
+
+            table.appendChild(tbody);
+            return table;
+        }
+        //------END TABLES TRAITS------
+
+        function buildTables() {
             const attributeContainers = queryAll('.attributes');
             for (const container of attributeContainers) {
                 const data = container.getAttribute('data-values').split(',');
                 const table = createAttributeTable(data);
                 container.appendChild(table);
             }
+
+            const traitContainers = queryAll('.traits');
+            for (const container of traitContainers) {
+                const age = container.getAttribute('data-age').split(',');
+                const height = container.getAttribute('data-height').split(',');
+                const speed = container.getAttribute('data-speed');
+                const lang = container.getAttribute('data-lang');
+                const plus = container.getAttribute('data-plus');
+                const table = createTraitTable(age, height, speed, lang, plus);
+                container.appendChild(table);
+            }
         }
-        // END TABLES
+        //---END TABLES---
 
         window.onload = () => {
-            builtTables();
+            buildTables();
         }
     </script>
 </head>
 
 <body>
+
     <div class="entry" id="human">
         <h1>Mensch</h1>
+        <img src="human.jpg" alt="Mensch">
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="60 Jahre,20 Jahre" data-height="5 bis 6, Mittel" data-speed="30" data-lang="Gemeinsprache"
+            data-plus="Malravisch, Mesrisch, Satdit, Fremdsprache"></div>
+        <hr>
+        <h2>Beschreibung</h2>
+        <p>Die Menschen sind das am weitesten verbreitete Volk in den <b>Siebenlanden</b>. Ältere Völker mögen sie als simpel</p>
         <div class="attributes" data-values="10,10,10,10,10,10,10,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Menschliche Vielfalt</h3>
+        <p>Du darfst bei der Charaktererstellung den Wert zweier beliebiger Attribute um +1 steigern. Zusätzlich darfst
+            du eine beliebige Fähigkeit um +2 steigern und erlangst Kompetenz in dieser Fähigkeit. Außerdem kannst du
+            ein zusätzliches Talent wählen.</p>
     </div>
+
     <div class="entry" id="elf">
         <h1>Elfe</h1>
-        <div class="attributes" data-values="10,12,12,10,12,10,10,11"></div>
+        <div class="attributes" data-values="10,11,11,10,10,11,11,10"></div>
     </div>
+
     <div class="entry" id="dwarf">
         <h1>Zwerg</h1>
         <div class="attributes" data-values="12,10,10,12,10,10,11,10"></div>
