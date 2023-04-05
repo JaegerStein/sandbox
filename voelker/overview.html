@@ -123,6 +123,35 @@
         .cha {
             background-color: rgba(255 0 255 / .5);
         }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            text-decoration: dotted underline;
+        }
+
+        .tooltiptext {
+            visibility: hidden;
+
+            width: 20vw;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -10vw;
+
+            background-color: rgba(0 0 0 / .25);
+            backdrop-filter: blur(4px);
+
+            text-align: center;
+            padding: .5rem;
+            border-radius: 1rem;
+
+            position: absolute;
+            z-index: 1;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
     </style>
 
     <script type="text/javascript">
@@ -282,7 +311,7 @@
         <h2>Volkseigenschaften</h2>
         <h3>Menschliche Vielfalt</h3>
         <p>Du darfst bei der Charaktererstellung den Wert zweier beliebiger Attribute um +1 steigern. Zusätzlich darfst
-            du eine beliebige Fähigkeit um +2 steigern und erlangst Kompetenz in dieser Fähigkeit. Außerdem kannst du
+            du eine beliebige Fähigkeit um +2 steigern und erlangst <span class="tooltip">Kompetenz<span class="tooltiptext">Wenn man eine 1 wirft, darf man einmalig erneut werfen. Das zweite Ergebnis gilt.</span></span> in dieser Fähigkeit. Außerdem kannst du
             ein zusätzliches Talent wählen.</p>
     </div>
 
