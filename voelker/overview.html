@@ -156,6 +156,11 @@
         .tooltip:hover .tooltiptext {
             visibility: visible;
         }
+
+        .additional {
+            display: inline-block;
+            margin: .5rem 0;
+        }
     </style>
 
     <script type="text/javascript">
@@ -217,7 +222,7 @@
         //------END TABLES ATTRIBUTES------
 
         //------TABLES TRAITS------
-        function createTraitTable(age, height, speed, lang, plus) {
+        function createTraitTable(age, height, speed, lang) {
             const table = make("table");
             const tbody = make("tbody");
 
@@ -241,9 +246,6 @@
             const languages = make("tr");
             languages.appendChild(cellB("Sprachen:", 'border'));
             languages.appendChild(cellB(lang, 'border'));
-            const additionalLanguages = make("tr");
-            additionalLanguages.appendChild(cellB("Andere Sprachen:", 'border'));
-            additionalLanguages.appendChild(cellB(plus, 'border'));
 
             const emptyRow = () => {
                 const row = make("tr");
@@ -266,7 +268,6 @@
             tbody.appendChild(emptyRow());
 
             tbody.appendChild(languages);
-            tbody.appendChild(additionalLanguages);
 
             table.appendChild(tbody);
             return table;
@@ -287,8 +288,7 @@
                 const height = container.getAttribute('data-height').split(',');
                 const speed = container.getAttribute('data-speed');
                 const lang = container.getAttribute('data-lang');
-                const plus = container.getAttribute('data-plus');
-                const table = createTraitTable(age, height, speed, lang, plus);
+                const table = createTraitTable(age, height, speed, lang);
                 container.appendChild(table);
             }
         }
@@ -307,36 +307,15 @@
         <img src="human.jpg" alt="Mensch">
         <h2>Merkmale</h2>
         <div class="traits" data-age="60 Jahre,20 Jahre" data-height="5 bis 6, Mittel" data-speed="30"
-            data-lang="Gemeinsprache" data-plus="Malravisch, Mesrisch, Satdit, Fremdsprache"></div>
+            data-lang="Gemeinsprache, Malravisch, Mesrisch, Satdit, Fremdsprache"></div>
         <hr>
         <h2>Beschreibung</h2>
         <p>Die Menschen zählen zu den jüngsten Völker der <b>Siebenlande</b>. Dennoch konnten sie sich innerhalb
             kürzester Zeit zur vorherrschenden Macht des Kontinents aufschwingen. Obwohl ältere Völker sie gelegentlich
             als simpel und unkultiviert abtun, sind Menschen äußerst anpassungs- und widerstandsfähig. Es gibt keine
             Umgebung, die sie sich nicht zu Untertan machen können. Sie werden auch als das <i>Beständige Volk</i>
-            bezeichnet.</p><br>
-        <h2>Varianten</h2>
-        <h3>Siebenländer</h3>
-        <p>Siebenländer sind die Bewohner derjenigen sieben Nationen, die dem Kontinent seinen gemeinsprachlichen Namen
-            verschaffen. Dazu gehören die Königreiche Ausperlend, Ennelend, Kaukand, Padrinal, Travenien, die Bennetei,
-            sowie die Republik Merin.</p>
-        <h3>Niedermarker</h3>
-        <p>Malravier - oder Niedermarker, wie sie in der Gemeinsprache genannt werden - sind die Bewohner des
-            Großherzogtums Malravien, einer Grenzmark von Padrinal. Aufgrund ihrer gesonderten Lage besitzen sie eine
-            eigene Kultur und Sprache; Malravier sind stolz auf ihre Nationalidentität und zählen sich selbst nicht zu
-            den Siebenlanden.</p>
-        <h3>Südländer</h3>
-        <p>Die Migranten des Kontinents jenseits des Südmeeres stammen überwiegend aus dem Zauberreich Mesra, seltener
-            sogar aus den unerforschten Weiten hinter den Kona-Bergen. Viele sind Händler, die ihre Verbindungen zu den
-            hochkulturellen Südreichen spielen lassen, um Siebenländern billigen Tand zu überhöhten preisen anzubieten;
-            andere sind Söldner, die sich leichte Münze in vergleichsweise gefahrlosen Landen verdingen wollen; und
-            wenige sind einfach nur schaulustige Abenteurer, die sich von der rückständigen Kultur der nördlichen Reiche
-            selbst ein Bild machen wollen.</p>
-        <h3>Satdit</h3>
-        <p>Die Bewohner der Insel Satdial mögen den Mesrern kulturell viel ähnlicher sein als den Siebenländern, unterhalten aber gute Beziheungen mit beiden. Zwischen der Republik und dem Festland besteht seit jeher schon reger Handel; ein reisender Satdit ist auf dem Kontinent nicht schwer zu finden.</p>
-        <h3>Fremdländer</h3>
-        <p>Alle jene Zuwanderer, die aus den unbekannten Landen weit jenseits der schützenden Berge der Siebenlande stammen, werden gemeinhin als Fremdländer bezeichnet.</p>
-        <hr>
+            bezeichnet.</p>
+        <br>
         <div class="attributes" data-values="10,10,10,10,10,10,10,10"></div>
         <h2>Volkseigenschaften</h2>
         <h3>Menschliche Vielfalt</h3>
@@ -345,11 +324,67 @@
                     class="tooltiptext">Wenn man eine 1 wirft, darf man einmalig erneut werfen. Das zweite Ergebnis
                     gilt.</span></span> in dieser Fähigkeit. Außerdem kannst du
             ein zusätzliches Talent wählen.</p>
+        <hr>
+        <h2>Varianten</h2>
+        <h3>Siebenländer</h3>
+        <p>Siebenländer sind die Bewohner derjenigen sieben Nationen, die dem Kontinent seinen gemeinsprachlichen Namen
+            verschaffen. Dazu gehören die Königreiche Ausperlend, Ennelend, Kaukand, Padrinal, Travenien, die Bennetei,
+            sowie die Republik Merin.</p>
+        <span class="additional"><i>Gemeinsprache</i></span>
+        <h3>Niedermarker</h3>
+        <p>Malravier - oder Niedermarker, wie sie in der Gemeinsprache genannt werden - sind die Bewohner des
+            Großherzogtums Malravien, einer Grenzmark von Padrinal. Aufgrund ihrer gesonderten Lage besitzen sie eine
+            eigene Kultur und Sprache; Malravier sind stolz auf ihre Nationalidentität und zählen sich selbst nicht zu
+            den Siebenlanden.</p>
+        <span class="additional"><i>Gemeinsprache</i>, <i>Malravisch</i></span>
+        <h3>Südländer</h3>
+        <p>Die Migranten des Kontinents jenseits des Südmeeres stammen überwiegend aus dem Zauberreich Mesra, seltener
+            sogar aus den unerforschten Weiten hinter den Kona-Bergen. Viele sind Händler, die ihre Verbindungen zu den
+            hochkulturellen Südreichen spielen lassen, um Siebenländern billigen Tand zu überhöhten preisen anzubieten;
+            andere sind Söldner, die sich leichte Münze in vergleichsweise gefahrlosen Landen verdingen wollen; und
+            wenige sind einfach nur schaulustige Abenteurer, die sich von der rückständigen Kultur der nördlichen Reiche
+            selbst ein Bild machen wollen.</p>
+        <span class="additional"><i>Gemeinsprache</i>, <i>Mesrisch</i></span>
+        <h3>Satdit</h3>
+        <p>Die Bewohner der Insel Satdial mögen den Mesrern kulturell viel ähnlicher sein als den Siebenländern,
+            unterhalten aber gute Beziheungen mit beiden. Zwischen der Republik und dem Festland besteht seit jeher
+            schon reger Handel; ein reisender Satdit ist auf dem Kontinent nicht schwer zu finden.</p>
+        <span class="additional"><i>Gemeinsprache</i>, <i>Satdit</i></span>
+        <h3>Fremdländer</h3>
+        <p>Alle jene Zuwanderer, die aus den unbekannten Landen weit jenseits der schützenden Berge der Siebenlande
+            stammen, werden gemeinhin als Fremdländer bezeichnet.</p>
+        <span class="additional"><i>Gemeinsprache</i>, <i>Fremdsprache</i></span>
     </div>
 
     <div class="entry" id="elf">
         <h1>Elfe</h1>
+        <img src="elf.jpg" alt="Elfe">
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="Unsterblich,100 Jahre" data-height="5½ bis 6½, Mittel" data-speed="30"
+            data-lang="Gemeinsprache, Elfisch, Dreys, Fremdsprache"></div>
+        <hr>
+        <h2>Beschreibung</h2>
+        <p>Elfen sind eines der ältesten Völker der Siebenlande.</p>
+        <span class="additional"><i>Überlegene Dunkelsicht</i>, <i>Immunität</i></span>
+        <br>
         <div class="attributes" data-values="10,11,11,10,10,11,11,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Elfische Trance</h3>
+        <p>Statt zu schlafen kannst du in einem tranceartigen Zustand meditieren und in nur 4 Stunden den gleichen Grad
+            an Erholung erhalten, für den die meisten Völker 8 Stunden Schlaf benötigen.</p>
+        <h3>Elfische Erhabenheit</h3>
+        <p>Du kannst während der Charaktererstellung zwei beliebige Attribute um +1 erhöhen. Zusätzlich kannst du 6
+            Charakterpunkte für Fähigkeiten, Waffenkunde, oder Magie ausgeben.</p>
+        <hr>
+        <h2>Varianten</h2>
+        <h3>Hochelfe</h3>
+        <p>Die Hochelfen sind die Bewohner Llésindurs.</p>
+        <h3>Freie Elfe</h3>
+        <p>Freie Elfen sind jene, die unter den Menschen in deren Reichen leben.</p>
+        <h3>Waldelfe</h3>
+        <p>Die Waldelfen, oder Gláddan-Elfen, sind jene, die im Gláddan-Wald leben.</p>
+        <h3>Fremdländische Elfe</h3>
+        <p>Elfen von jenseits der Berge.</p>
     </div>
 
     <div class="entry" id="dwarf">
