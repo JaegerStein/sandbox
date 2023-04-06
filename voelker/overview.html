@@ -39,13 +39,19 @@
             /* background-color: ivory; */
             background-image: url("images/other/parchment.jpg");
             background-size: cover;
-            width: 45%;
+            width: 30%;
         }
 
         .entry h1,
         .entry h2,
         .entry h3 {
             font-family: "Angie", serif;
+        }
+
+        .entry .smaller {
+            font-family: "Angie", serif;
+            font-size: 1.5rem;
+            font-style: italic;
         }
 
         .entry h1 {
@@ -214,7 +220,13 @@
             margin-bottom: 1rem;
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 1400px) {
+            .entry {
+                width: 45%;
+            }
+        }
+
+        @media screen and (max-width: 960px) {
             .entry {
                 width: 100%;
             }
@@ -288,7 +300,7 @@
         //------END ATTRIBUTES TABLES------
 
         //------TRAITS LISTS------
-        function createTraitsList(age, height, speed, common) {
+        function createTraitsList(age, health, height, speed, common) {
             const list = make("ul");
 
             const ageItem = make("li");
@@ -296,6 +308,10 @@
             const agetext = "<nobr>" + age[0] + "</nobr>";
             const mature = "<nobr>(" + age[1] + ")</nobr>"; // Add tooltip;
             ageItem.innerHTML = expected + " " + agetext + " " + mature;
+
+            const healthItem = make("li");
+            const healthlabel = "<b>Basisausdauer</b> " + health;
+            healthItem.innerHTML = healthlabel;
 
             const heightItem = make("li");
             const heightlabel = "<b>Größe</b>";
@@ -309,6 +325,7 @@
             speedItem.innerHTML = speedlabel + " " + speedtext;
 
             list.appendChild(ageItem);
+            list.appendChild(healthItem);
             list.appendChild(heightItem);
             list.appendChild(speedItem);
 
@@ -341,10 +358,11 @@
             const traitContainers = queryAll('.traits');
             for (const container of traitContainers) {
                 const age = container.getAttribute('data-age').split(',');
+                const health = container.getAttribute('data-health');
                 const height = container.getAttribute('data-height').split(',');
                 const speed = container.getAttribute('data-speed');
                 const common = container.getAttribute('data-common')?.split(',');
-                const list = createTraitsList(age, height, speed, common);
+                const list = createTraitsList(age, health, height, speed, common);
                 container.appendChild(list);
             }
 
@@ -376,7 +394,8 @@
         <hr>
 
         <h2>Merkmale</h2>
-        <div class="traits" data-age="60 Jahre,20 Jahre" data-height="5 bis 6, Mittel" data-speed="30"></div>
+        <div class="traits" data-age="60 Jahre,20 Jahre" data-health="20" data-height="5 bis 6,Mittel" data-speed="30">
+        </div>
         <hr>
         <h2>Beschreibung</h2>
         <p>Die Menschen zählen zu den jüngsten Völker der <b>Siebenlande</b>. Dennoch konnten sie sich innerhalb
@@ -389,7 +408,7 @@
         <div class="attributes" data-values="10,10,10,10,10,10,10,10"></div>
         <h2>Volkseigenschaften</h2>
         <h3>Menschliche Vielfalt</h3>
-        <p>Du darfst bei der Charaktererstellung den Wert zweier beliebiger Attribute um +2 steigern. Zusätzlich darfst
+        <p>Du darfst bei der Charaktererstellung den Wert zweier beliebiger Attribute um +1 steigern. Zusätzlich darfst
             du eine beliebige Fähigkeit um +2 steigern und erlangst <span class="tooltip">Kompetenz<span
                     class="tooltiptext">Wenn man eine 1 wirft, darf man einmalig erneut werfen. Das zweite Ergebnis
                     gilt.</span></span> in dieser Fähigkeit. Außerdem kannst du
@@ -401,13 +420,13 @@
         <p>Siebenländer sind die Bewohner derjenigen sieben Nationen, die dem Kontinent seinen gemeinsprachlichen Namen
             verschaffen. Dazu gehören die Königreiche Ausperlend, Ennelend, Kaukand, Padrinal, Travenien, die Bennetei,
             sowie die Republik Merin.</p>
-        <span class="additional"><i>Gemeinsprache</i></span>
+        <div class="languages" data-lang="Gemeinsprache"></div>
         <h3>Niedermarker</h3>
         <p>Malravier - oder Niedermarker, wie sie in der Gemeinsprache genannt werden - sind die Bewohner des
             Großherzogtums Malravien, einer Grenzmark von Padrinal. Aufgrund ihrer gesonderten Lage besitzen sie eine
             eigene Kultur und Sprache; Malravier sind stolz auf ihre Nationalidentität und zählen sich selbst nicht zu
             den Siebenlanden.</p>
-        <span class="additional"><i>Gemeinsprache</i>, <i>Malravisch</i></span>
+        <div class="languages" data-lang="Malravisch,Gemeinsprache"></div>
         <h3>Südländer</h3>
         <p>Die Migranten des Kontinents jenseits des Südmeeres stammen überwiegend aus dem Zauberreich Mesra, seltener
             sogar aus den unerforschten Weiten hinter den Kona-Bergen. Viele sind Händler, die ihre Verbindungen zu den
@@ -415,30 +434,30 @@
             andere sind Söldner, die sich leichte Münze in vergleichsweise gefahrlosen Landen verdingen wollen; und
             wenige sind einfach nur schaulustige Abenteurer, die sich von der rückständigen Kultur der nördlichen Reiche
             selbst ein Bild machen wollen.</p>
-        <span class="additional"><i>Gemeinsprache</i>, <i>Mesrisch</i></span>
+        <div class="languages" data-lang="Mesrisch,Gemeinsprache"></div>
         <h3>Satdit</h3>
         <p>Die Bewohner der Insel Satdial mögen den Mesrern kulturell viel ähnlicher sein als den Siebenländern,
             unterhalten aber gute Beziheungen mit beiden. Zwischen der Republik und dem Festland besteht seit jeher
             schon reger Handel; ein reisender Satdit ist auf dem Kontinent nicht schwer zu finden.</p>
-        <span class="additional"><i>Gemeinsprache</i>, <i>Satdit</i></span>
+        <div class="languages" data-lang="Satdit,Gemeinsprache"></div>
         <h3>Fremdländer</h3>
         <p>Alle jene Zuwanderer, die aus den unbekannten Landen weit jenseits der schützenden Berge der Siebenlande
             stammen, werden gemeinhin als Fremdländer bezeichnet.</p>
-        <span class="additional"><i>Gemeinsprache</i>, <i>Fremdsprache</i></span>
+        <div class="languages" data-lang="Fremdsprache,Gemeinsprache"></div>
     </div>
 
     <div class="entry" id="elf">
-        <h1>Elfe</h1>
+        <h1>Elfe <span class="smaller">Elbe</span></h1>
         <img src="images/voelker/elf.jpg" alt="Elfe">
         <hr>
 
         <h2>Merkmale</h2>
-        <div class="traits" data-age="Unsterblich,100 Jahre" data-height="6 bis 6½, Mittel" data-speed="30"
-            data-common="Überlegene Dunkelsicht, Immunität"></div>
+        <div class="traits" data-age="Unsterblich,100 Jahre" data-health="20" data-height="6 bis 6½,Mittel"
+            data-speed="30" data-common="Überlegene Dunkelsicht,Immunität,Beidhändigkeit"></div>
         <hr>
         <h2>Beschreibung</h2>
         <p>Elfen sind eines der ältesten Völker der Siebenlande.</p>
-        <br>
+        <hr>
         <div class="attributes" data-values="10,11,11,10,10,11,11,10"></div>
         <h2>Volkseigenschaften</h2>
         <h3>Elfische Trance</h3>
@@ -451,12 +470,16 @@
         <h2>Varianten</h2>
         <h3>Hochelfe</h3>
         <p>Die Hochelfen sind die Bewohner Llésindurs.</p>
+        <div class="languages" data-lang="Elfisch,Gemeinsprache"></div>
         <h3>Freie Elfe</h3>
         <p>Freie Elfen sind jene, die unter den Menschen in deren Reichen leben.</p>
+        <div class="languages" data-lang="Gemeinsprache,Elfisch+"></div>
         <h3>Waldelfe</h3>
         <p>Die Waldelfen, oder Gláddan-Elfen, sind jene, die im Gláddan-Wald leben.</p>
+        <div class="languages" data-lang="Dreys,Gemeinsprache"></div>
         <h3>Fremdländische Elfe</h3>
         <p>Elfen von jenseits der Berge.</p>
+        <div class="languages" data-lang="Elfisch,Gemeinsprache"></div>
     </div>
 
     <div class="entry" id="dwarf">
@@ -465,35 +488,92 @@
         <hr>
 
         <h2>Merkmale</h2>
-        <div class="traits" data-age="600 Jahre,50 Jahre" data-height="4 bis 5, Mittel" data-speed="30"
+        <div class="traits" data-age="600 Jahre,50 Jahre" data-health="20" data-height="4 bis 5, Mittel" data-speed="25"
             data-common="Dunkelsicht"></div>
         <hr>
         <h2>Beschreibung</h2>
         <p>Zwerge sind toll.</p>
         <hr>
 
-        <div class="attributes" data-values="12,10,10,12,10,10,11,10"></div>
+        <div class="attributes" data-values="11,10,10,11,10,10,11,10"></div>
         <h2>Volkseigenschaften</h2>
+        <h3>Zwergische Widerstandskraft</h3>
+        <p>Du hast bei Rettungswürfen gegen Vergiftung Vorteil und erhälst eine natürliche +4 Resistenz gegen
+            Giftattacken.</p>
+        <h3>Zwergische Kampftausbildung</h3>
+        <p>Du bist Kompetent im Umgang mit Kriegshämmern und -äxten. Gilt nicht für Freie Zwerge</p>
+        <h3>Zwergischer Trotz</h3>
+        <p>Deine Basisausdauer steigt oder sinkt um den Wert deines Konstitutionsmodifikators.<sup>?</sup></p>
         <hr>
         <h2>Varianten</h2>
         <h3>Stammeszwerg</h3>
         <p></p>
-        <div class="languages" data-lang="Zwergisch, Gemeinsprache"></div>
+        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
         <h3>Freier Zwerg</h3>
         <p></p>
-        <div class="languages" data-lang="Gemeinsprache, Zwergisch+"></div>
+        <div class="languages" data-lang="Gemeinsprache,Zwergisch+"></div>
         <h3>Apostat</h3>
         <p></p>
-        <div class="languages" data-lang="Zwergisch, Gemeinsprache"></div>
+        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
     </div>
 
     <div class="entry" id="gnome">
-        <h1>Gnom</h1>
-        <div class="attributes" data-values="10,10,12,10,10,12,10,11"></div>
+        <h1>Gnom <span class="smaller">Halbling</span></h1>
+        <img src="images/voelker/gnome.jpg" alt="Gnom">
+        <hr>
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="250 Jahre,35 Jahre" data-health="15" data-height="3 bis 4, Klein" data-speed="30"
+            data-common="Überlegene Dunkelsicht"></div>
+        <hr>
+        <h2>Beschreibung</h2>
+        <p>Gnome sind toll.</p>
+        <hr>
+        <div class="attributes" data-values="10,10,11,10,10,11,10,11"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Flink</h3>
+        <p>Du kannst dich durch Felder von Kreaturen hindurchbewegen, die mindestens eine Kategorie größer sind als du. Gegner müssen einen <i>SG10 + dein GES-Modifikator</i> Reaktionswurf bestehen, um einen Gelegenheitsangriff gegen dich führen zu können.</p>
+        <h3>Natürlicher Feilscher</h3>
+        <p>Du hast bei Kreaturen, die dir neutral oder wohlgesonnen sind, einen Vorteil bei Diplomatie- und Täuschungswürfen.</p>
+        <h3>Halblingsglück</h3>
+        <p>Wenn du auf einen Wurf Vorteil hast, kannst du dich stattdessen dazu entscheiden, den umgekehrten Wert des Ergebnisses zu nehmen; eine 9 wird zu einer 11, eine 15 zu einer 5, eine 1 zu einer 19, etc.</p>
+        <hr>
+        <h2>Varianten</h2>
+        <h3>Freier Gnom</h3>
+        <p>Gnome, die unter den Menschen leben.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+        <h3>Weswam-Gnom</h3>
+        <p>Gnome, die aus der Weswam-Kommune stammen.</p>
+        <div class="languages" data-lang="Gemeinsprache,Weswam-Gnomisch"></div>
+        <h3>Zwergengnom</h3>
+        <p>Gnome, die unter den Zwergen leben.</p>
+        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
     </div>
+
     <div class="entry" id="kenku">
         <h1>Kenku</h1>
-        <div class="attributes" data-values="8,11,11,9,10,10,11,10"></div>
+        <img src="images/voelker/kenku.jpg" alt="Kenku">
+        <hr>
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="45 Jahre,12 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30"
+            data-common="Überlegene Dunkelsicht,Stählerner Magen"></div>
+        <hr>
+        <h2>Beschreibung</h2>
+        <p>Kenku sind toll.</p>
+        <hr>
+        <div class="attributes" data-values="10,11,11,9,10,10,11,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Leichtfüßig</h3>
+        <p>Du erhälts beim Schleichen einen +2 Bonus auf Heimlichkeit.</p>
+        <h3>Spitze Finger</h3>
+        <p>Du verfügst über außergewöhnliche Feinmotorik; Du erhältst Kompetenz auf alle Fingerfertigkeits- und Gaukeleiwürfe.</p>
+        <hr>
+        <h2>Varianten</h2>
+        <h3>Freier Kenku</h3>
+        <p>Ein Kenku, der unter den Menschen lebt.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+        <h3>Vergelterschar</h3>
+        <p>Ein religiöser Fanatiker, der sich der Vernichtung des eigenen Gottes verschrieben hat.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
     </div>
     <div class="entry" id="mime">
         <h1>Mime</h1>
