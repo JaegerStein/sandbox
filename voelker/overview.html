@@ -50,6 +50,7 @@
 
         .entry h1 {
             display: inline-block;
+            font-size: 3rem;
         }
 
         .entry img {
@@ -61,15 +62,30 @@
         }
 
         .entry h2 {
+            font-size: 1.8rem;
             margin-bottom: .5rem;
         }
 
         .entry h3 {
+            font-size: 1.4rem;
             margin-bottom: .25rem;
         }
 
         .entry p {
             margin-bottom: 1rem;
+            text-align: justify;
+            text-align-last: none;
+            hyphens: auto;
+        }
+
+        .entry p,
+        .entry ul {
+            font-size: 1rem;
+        }
+
+        .entry b {
+            font-weight: bolder;
+            font-size: 1.05rem;
         }
 
         .entry .traits table {
@@ -194,6 +210,10 @@
             margin: .5rem 0;
         }
 
+        .entry .languages {
+            margin-bottom: 1rem;
+        }
+
         @media screen and (max-width: 768px) {
             .entry {
                 width: 100%;
@@ -279,7 +299,7 @@
 
             const heightItem = make("li");
             const heightlabel = "<b>Größe</b>";
-            const heighttext = "<nobr>" + height[0] + "</nobr>"; // Add tooltip;
+            const heighttext = "<nobr>" + height[0] + " Fuß</nobr>"; // Add tooltip;
             const sizecat = height[1];
             heightItem.innerHTML = heightlabel + " " + heighttext + ", " + sizecat;
 
@@ -294,9 +314,11 @@
 
             if (common) {
                 const commonItem = make("li");
-                const commonlabel = "<b>Eigenschaften </b>";
-                common.array.forEach(element => {
-                    commonlabel += ", " + element;
+                let commonlabel = "<b>Eigenschaften </b>";
+                let first = true;
+                common.forEach(element => {
+                    commonlabel += (first ? "" : ", ") + element;
+                    first = false;
                 });
                 commonItem.innerHTML = commonlabel;
 
@@ -322,8 +344,20 @@
                 const height = container.getAttribute('data-height').split(',');
                 const speed = container.getAttribute('data-speed');
                 const common = container.getAttribute('data-common')?.split(',');
-                const list = createTraitsList(age, height, speed);
+                const list = createTraitsList(age, height, speed, common);
                 container.appendChild(list);
+            }
+
+            const languageContainer = queryAll('.languages');
+            for (const container of languageContainer) {
+                const languages = container.getAttribute('data-lang').split(',');
+                let langText = "<b>Sprachen</b> ";
+                let first = true;
+                languages.forEach(element => {
+                    langText += (first ? "" : ", ") + element;
+                    first = false;
+                });
+                container.innerHTML = langText;
             }
         }
         //---END AUTO GENERATE---
@@ -342,8 +376,7 @@
         <hr>
 
         <h2>Merkmale</h2>
-        <div class="traits" data-age="60 Jahre,20 Jahre" data-height="5 bis 6, Mittel" data-speed="30"
-            data-lang="Gemeinsprache, Malravisch, Mesrisch, Satdit, Fremdsprache"></div>
+        <div class="traits" data-age="60 Jahre,20 Jahre" data-height="5 bis 6, Mittel" data-speed="30"></div>
         <hr>
         <h2>Beschreibung</h2>
         <p>Die Menschen zählen zu den jüngsten Völker der <b>Siebenlande</b>. Dennoch konnten sie sich innerhalb
@@ -400,12 +433,11 @@
         <hr>
 
         <h2>Merkmale</h2>
-        <div class="traits" data-age="Unsterblich,100 Jahre" data-height="5½ bis 6½, Mittel" data-speed="30"
-            data-lang="Gemeinsprache, Elfisch, Dreys, Fremdsprache"></div>
+        <div class="traits" data-age="Unsterblich,100 Jahre" data-height="6 bis 6½, Mittel" data-speed="30"
+            data-common="Überlegene Dunkelsicht, Immunität"></div>
         <hr>
         <h2>Beschreibung</h2>
         <p>Elfen sind eines der ältesten Völker der Siebenlande.</p>
-        <span class="additional"><i>Überlegene Dunkelsicht</i>, <i>Immunität</i></span>
         <br>
         <div class="attributes" data-values="10,11,11,10,10,11,11,10"></div>
         <h2>Volkseigenschaften</h2>
@@ -435,17 +467,11 @@
         <h2>Merkmale</h2>
         <div class="traits" data-age="600 Jahre,50 Jahre" data-height="4 bis 5, Mittel" data-speed="30"
             data-common="Dunkelsicht"></div>
-        <ul>
-            <li><b>Lebenswerwartung</b> <nobr>600 Jahre</nobr> <nobr>(50 Jahre)</nobr></li>
-            <li><b>Größe</b> <nobr>4 bis 5 Fuß</nobr>, <i>Mittel</i></li>
-            <li><b>Bewegungsrate</b> <nobr>30 Fuß</nobr></li>
-            <br>
-            <li><b>Eigenschaften</b> <i>Dunkelsicht</i></li>
-        </ul>
-
+        <hr>
         <h2>Beschreibung</h2>
         <p>Zwerge sind toll.</p>
         <hr>
+
         <div class="attributes" data-values="12,10,10,12,10,10,11,10"></div>
         <h2>Volkseigenschaften</h2>
         <hr>
