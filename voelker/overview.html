@@ -86,6 +86,11 @@
             box-shadow: 0 4px 8px rgba(0 0 0 / .5);
         }
 
+        .entry ul {
+            list-style-type: none;
+            padding-bottom: 1rem;
+        }
+
         .attributes {
             margin: 1rem 0;
         }
@@ -212,7 +217,7 @@
         const queryAll = (selector) => document.querySelectorAll(selector);
         // END GENERAL
 
-        //---TABLES---
+        //---AUTO GENERATE---
 
         const cell = (text, cl) => {
             const cell = make("th");
@@ -228,7 +233,7 @@
             return cell;
         }
 
-        //------TABLES ATTRIBUTES------
+        //------ATTRIBUTES TABLES------
         function createAttributeTable(data) {
             const table = make("table");
 
@@ -260,62 +265,50 @@
 
             return table;
         }
-        //------END TABLES ATTRIBUTES------
+        //------END ATTRIBUTES TABLES------
 
-        //------TABLES TRAITS------
-        function createTraitTable(age, height, speed, lang) {
-            const table = make("table");
-            const tbody = make("tbody");
+        //------TRAITS LISTS------
+        function createTraitsList(age, height, speed, common) {
+            const list = make("ul");
 
-            const maxAge = make("tr");
-            maxAge.appendChild(cellB("Lebenserwartung:", 'border'));
-            maxAge.appendChild(cellB(age[0], 'border'));
-            const minAge = make("tr");
-            minAge.appendChild(cellB("Ausgewachsen:", 'border'));
-            minAge.appendChild(cellB(age[1], 'border'));
+            const ageItem = make("li");
+            const expected = "<b>Lebenserwartung</b>"
+            const agetext = "<nobr>" + age[0] + "</nobr>";
+            const mature = "<nobr>(" + age[1] + ")</nobr>"; // Add tooltip;
+            ageItem.innerHTML = expected + " " + agetext + " " + mature;
 
-            const avgHeight = make("tr");
-            avgHeight.appendChild(cellB("Größe:", 'border'));
-            avgHeight.appendChild(cellB(height[0] + " Fuß", 'border'));
-            const sizeCategory = make("tr");
-            sizeCategory.appendChild(cellB("Größenkategorie:", 'border'));
-            sizeCategory.appendChild(cellB(height[1], 'border'));
-            const mvmtSpeed = make("tr");
-            mvmtSpeed.appendChild(cellB("Bewegungsrate:", 'border'));
-            mvmtSpeed.appendChild(cellB(speed + " Fuß", 'border'));
+            const heightItem = make("li");
+            const heightlabel = "<b>Größe</b>";
+            const heighttext = "<nobr>" + height[0] + "</nobr>"; // Add tooltip;
+            const sizecat = height[1];
+            heightItem.innerHTML = heightlabel + " " + heighttext + ", " + sizecat;
 
-            const languages = make("tr");
-            languages.appendChild(cellB("Sprachen:", 'border'));
-            languages.appendChild(cellB(lang, 'border'));
+            const speedItem = make("li");
+            const speedlabel = "<b>Bewegungsrate</b>";
+            const speedtext = "<nobr>" + speed + " Fuß</nobr>";
+            speedItem.innerHTML = speedlabel + " " + speedtext;
 
-            const emptyRow = () => {
-                const row = make("tr");
-                const cell = make("td");
-                cell.setAttribute("colspan", "2");
-                cell.appendChild(make("br"));
-                row.appendChild(cell);
-                return row;
+            list.appendChild(ageItem);
+            list.appendChild(heightItem);
+            list.appendChild(speedItem);
+
+            if (common) {
+                const commonItem = make("li");
+                const commonlabel = "<b>Eigenschaften </b>";
+                common.array.forEach(element => {
+                    commonlabel += ", " + element;
+                });
+                commonItem.innerHTML = commonlabel;
+
+                list.appendChild(make('br'));
+                list.appendChild(commonItem);
             }
 
-            tbody.appendChild(maxAge);
-            tbody.appendChild(minAge);
-
-            tbody.appendChild(emptyRow());
-
-            tbody.appendChild(avgHeight);
-            tbody.appendChild(sizeCategory);
-            tbody.appendChild(mvmtSpeed);
-
-            tbody.appendChild(emptyRow());
-
-            tbody.appendChild(languages);
-
-            table.appendChild(tbody);
-            return table;
+            return list;
         }
-        //------END TABLES TRAITS------
+        //------END TRAITS LISTS------
 
-        function buildTables() {
+        function buildAuto() {
             const attributeContainers = queryAll('.attributes');
             for (const container of attributeContainers) {
                 const data = container.getAttribute('data-values').split(',');
@@ -328,15 +321,15 @@
                 const age = container.getAttribute('data-age').split(',');
                 const height = container.getAttribute('data-height').split(',');
                 const speed = container.getAttribute('data-speed');
-                const lang = container.getAttribute('data-lang');
-                const table = createTraitTable(age, height, speed, lang);
-                container.appendChild(table);
+                const common = container.getAttribute('data-common')?.split(',');
+                const list = createTraitsList(age, height, speed);
+                container.appendChild(list);
             }
         }
-        //---END TABLES---
+        //---END AUTO GENERATE---
 
         window.onload = () => {
-            buildTables();
+            buildAuto();
         }
     </script>
 </head>
@@ -436,8 +429,38 @@
 
     <div class="entry" id="dwarf">
         <h1>Zwerg</h1>
+        <img src="images/voelker/dwarf.jpg" alt="Zwerg">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="600 Jahre,50 Jahre" data-height="4 bis 5, Mittel" data-speed="30"
+            data-common="Dunkelsicht"></div>
+        <ul>
+            <li><b>Lebenswerwartung</b> <nobr>600 Jahre</nobr> <nobr>(50 Jahre)</nobr></li>
+            <li><b>Größe</b> <nobr>4 bis 5 Fuß</nobr>, <i>Mittel</i></li>
+            <li><b>Bewegungsrate</b> <nobr>30 Fuß</nobr></li>
+            <br>
+            <li><b>Eigenschaften</b> <i>Dunkelsicht</i></li>
+        </ul>
+
+        <h2>Beschreibung</h2>
+        <p>Zwerge sind toll.</p>
+        <hr>
         <div class="attributes" data-values="12,10,10,12,10,10,11,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <hr>
+        <h2>Varianten</h2>
+        <h3>Stammeszwerg</h3>
+        <p></p>
+        <div class="languages" data-lang="Zwergisch, Gemeinsprache"></div>
+        <h3>Freier Zwerg</h3>
+        <p></p>
+        <div class="languages" data-lang="Gemeinsprache, Zwergisch+"></div>
+        <h3>Apostat</h3>
+        <p></p>
+        <div class="languages" data-lang="Zwergisch, Gemeinsprache"></div>
     </div>
+
     <div class="entry" id="gnome">
         <h1>Gnom</h1>
         <div class="attributes" data-values="10,10,12,10,10,12,10,11"></div>
