@@ -295,10 +295,13 @@
         function createTraitsList(age, health, height, speed, common) {
             const list = make("ul");
 
+            const ageToolOpen = '<span class="tool adult">';
+            const ageToolClose = '</span>';
+
             const ageItem = make("li");
             const expected = "<b>Lebenserwartung</b>"
             const agetext = "<nobr>" + age[0] + "</nobr>";
-            const mature = "<nobr>(" + age[1] + ")</nobr>"; // Add tooltip;
+            const mature = "<nobr>(" + ageToolOpen + age[1] + ageToolClose + ")</nobr>";
             ageItem.innerHTML = expected + " " + agetext + " " + mature;
 
             const healthItem = make("li");
@@ -443,7 +446,7 @@
         <hr>
 
         <h2>Merkmale</h2>
-        <div class="traits" data-age="60 Jahre,20 Jahre" data-health="20" data-height="5 bis 6,Mittel" data-speed="30">
+        <div class="traits" data-age="60 Jahre,16 Jahre" data-health="20" data-height="5 bis 6,Mittel" data-speed="30">
         </div>
         <hr>
         <h2>Beschreibung</h2>
