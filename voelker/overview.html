@@ -181,34 +181,26 @@
             background: linear-gradient(180deg, rgba(255 0 255 / .2) 0%, rgba(255 0 255 / .1) 50%, rgba(0 0 0 / 0) 100%);
         }
 
-        .tooltip {
-            position: relative;
+        .tool {
             display: inline-block;
             text-decoration: dotted underline;
         }
 
-        .tooltiptext {
-            visibility: hidden;
+        .tooltip {
+            position: absolute;
 
-            width: 10vw;
-            bottom: 100%;
-            left: 50%;
-            margin-left: -5vw;
-
-            background-color: rgba(255 255 255 / .25);
+            background-color: rgba(64, 64, 48, 0.25);
+            box-shadow: 0 0 8px rgba(128 128 128 / .8);
             backdrop-filter: blur(1rem);
             outline: 1px solid rgba(0 0 0 / .1);
 
             text-align: center;
+            text-shadow: 2px 2px 4px rgba(0 0 0 / 1);
+            color: ivory;
             padding: .5rem;
             border-radius: 1rem;
 
-            position: absolute;
             z-index: 1;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
         }
 
         .additional {
@@ -380,8 +372,65 @@
         }
         //---END AUTO GENERATE---
 
+        //---LISTENERS---
+        const tooltips = {
+            "comp": "Wenn du bei einer Aktivität, in der du kompetent bist, eine 1 würfelst, kannst du den Wurf einmalig wiederholen. Das zweite Ergebnis zählt.",
+            "adult": "Das durchschnittliche Alter der physiologischen, psychologischen, und kulturellen Reife. Angehörige dieses Volkes werden allgemein ab diesem Alter als Erwachsene betrachtet.",
+        }
+
+        function buildTooltips() {
+
+            //---HELPER FUNCTIONS---
+            const findToolText = (t) => {
+                let toolText = null;
+                t.classList.forEach(c => {
+                    if (c in tooltips) {
+                        if (toolText) console.error(`Error: Tooltip element ${t} has multiple matching classes: ${toolText} and ${c}`);
+                        else toolText = tooltips[c];
+                    }
+                });
+                return toolText;
+            }
+
+            const styleToolTip = (t, tt) => {
+                const tRect = t.getBoundingClientRect();
+                const ttRect = tt.getBoundingClientRect();
+                tt.style.top = tRect.top - ttRect.height -10 + 'px';
+                tt.style.left = tRect.left + (tRect.width - ttRect.width) / 2 + 'px';
+            }
+            //---END HELPER FUNCTIONS---
+
+            // finds all elements that can have tooltips
+            const tools = queryAll('.tool');
+
+            tools.forEach(tool => {
+                const toolText = findToolText(tool);
+                if (!toolText) {
+                    console.error(`Error: Tooltip element ${tool} has no matching classes`);
+                    return;
+                };
+
+                tool.onmouseenter = () => {
+                    console.log(toolText);
+                    const toolBox = make('div');
+                    toolBox.classList.add('tooltip');
+                    toolBox.innerText = toolText;
+                    document.body.appendChild(toolBox);
+
+                    styleToolTip(tool, toolBox);
+                }
+
+                tool.onmouseleave = () => {
+                    const toolBox = query('.tooltip');
+                    toolBox.remove();
+                }
+            });
+        }
+        //---END LISTENERS---
+
         window.onload = () => {
             buildAuto();
+            buildTooltips();
         }
     </script>
 </head>
@@ -409,9 +458,8 @@
         <h2>Volkseigenschaften</h2>
         <h3>Menschliche Vielfalt</h3>
         <p>Du darfst bei der Charaktererstellung den Wert zweier beliebiger Attribute um +1 steigern. Zusätzlich darfst
-            du eine beliebige Fähigkeit um +2 steigern und erlangst <span class="tooltip">Kompetenz<span
-                    class="tooltiptext">Wenn man eine 1 wirft, darf man einmalig erneut werfen. Das zweite Ergebnis
-                    gilt.</span></span> in dieser Fähigkeit. Außerdem kannst du
+            du eine beliebige Fähigkeit um +2 steigern und erlangst <span class="tool comp">Kompetenz</span> in dieser
+            Fähigkeit. Außerdem kannst du
             ein zusätzliches Talent wählen.</p>
         <hr>
 
@@ -531,11 +579,15 @@
         <div class="attributes" data-values="10,10,11,10,10,11,10,11"></div>
         <h2>Volkseigenschaften</h2>
         <h3>Flink</h3>
-        <p>Du kannst dich durch Felder von Kreaturen hindurchbewegen, die mindestens eine Kategorie größer sind als du. Gegner müssen einen <i>SG10 + dein GES-Modifikator</i> Reaktionswurf bestehen, um einen Gelegenheitsangriff gegen dich führen zu können.</p>
+        <p>Du kannst dich durch Felder von Kreaturen hindurchbewegen, die mindestens eine Kategorie größer sind als du.
+            Gegner müssen einen <i>SG10 + dein GES-Modifikator</i> Reaktionswurf bestehen, um einen Gelegenheitsangriff
+            gegen dich führen zu können.</p>
         <h3>Natürlicher Feilscher</h3>
-        <p>Du hast bei Kreaturen, die dir neutral oder wohlgesonnen sind, einen Vorteil bei Diplomatie- und Täuschungswürfen.</p>
+        <p>Du hast bei Kreaturen, die dir neutral oder wohlgesonnen sind, einen Vorteil bei Diplomatie- und
+            Täuschungswürfen.</p>
         <h3>Halblingsglück</h3>
-        <p>Wenn du auf einen Wurf Vorteil hast, kannst du dich stattdessen dazu entscheiden, den umgekehrten Wert des Ergebnisses zu nehmen; eine 9 wird zu einer 11, eine 15 zu einer 5, eine 1 zu einer 19, etc.</p>
+        <p>Wenn du auf einen Wurf Vorteil hast, kannst du dich stattdessen dazu entscheiden, den umgekehrten Wert des
+            Ergebnisses zu nehmen; eine 9 wird zu einer 11, eine 15 zu einer 5, eine 1 zu einer 19, etc.</p>
         <hr>
         <h2>Varianten</h2>
         <h3>Freier Gnom</h3>
@@ -565,7 +617,8 @@
         <h3>Leichtfüßig</h3>
         <p>Du erhälts beim Schleichen einen +2 Bonus auf Heimlichkeit.</p>
         <h3>Spitze Finger</h3>
-        <p>Du verfügst über außergewöhnliche Feinmotorik; Du erhältst Kompetenz auf alle Fingerfertigkeits- und Gaukeleiwürfe.</p>
+        <p>Du verfügst über außergewöhnliche Feinmotorik; Du erhältst Kompetenz auf alle Fingerfertigkeits- und
+            Gaukeleiwürfe.</p>
         <hr>
         <h2>Varianten</h2>
         <h3>Freier Kenku</h3>
