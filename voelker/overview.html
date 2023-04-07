@@ -183,20 +183,18 @@
 
         .tool {
             display: inline-block;
-            text-decoration: dotted underline;
+            text-decoration: 1.5px dotted underline;
         }
 
         .tooltip {
             position: fixed;
 
-            background-color: rgba(64, 64, 48, 0.25);
-            box-shadow: 0 0 8px rgba(128 128 128 / .8);
-            backdrop-filter: blur(1rem);
-            outline: 1px solid rgba(0 0 0 / .1);
+            background-color: rgba(128, 128, 128, 0.25);
+            background-image: url("images/other/parchment.jpg");
+            background-size: cover;
+            box-shadow: 0 0 1rem rgba(0 0 0 / .5);
 
             text-align: center;
-            text-shadow: 2px 2px 4px rgba(0 0 0 / 1);
-            color: ivory;
             padding: .5rem;
             border-radius: 1rem;
 
@@ -305,13 +303,15 @@
         function createTraitsList(age, health, height, speed, common) {
             const list = make("ul");
 
+            const tool = (tool, content) => `<span class="tool ${tool}">${content}</span>`;
+
             const ageToolOpen = '<span class="tool adult">';
             const ageToolClose = '</span>';
 
             const ageItem = make("li");
             const expected = "<b>Lebenserwartung</b>"
             const agetext = "<nobr>" + age[0] + "</nobr>";
-            const mature = "<nobr>(" + ageToolOpen + age[1] + ageToolClose + ")</nobr>";
+            const mature = "<nobr>(" + tool('adult', age[1]) + ")</nobr>";
             ageItem.innerHTML = expected + " " + agetext + " " + mature;
 
             const healthItem = make("li");
@@ -321,7 +321,18 @@
             const heightItem = make("li");
             const heightlabel = "<b>Größe</b>";
             const heighttext = "<nobr>" + height[0] + " Fuß</nobr>"; // Add tooltip;
-            const sizecat = height[1];
+            let sizecat = height[1];
+            switch (sizecat) {
+                case "Mittel":
+                    sizecat = tool('medium', sizecat);
+                    break;
+                case "Klein":
+                    sizecat = tool('small', sizecat);
+                    break;
+                default:
+                    break;
+            }
+
             heightItem.innerHTML = heightlabel + " " + heighttext + ", " + sizecat;
 
             const speedItem = make("li");
@@ -389,7 +400,11 @@
         //---LISTENERS---
         const tooltips = {
             "comp": "Wenn du bei einer Aktivität, in der du kompetent bist, eine 1 würfelst, kannst du den Wurf einmalig wiederholen. Das zweite Ergebnis zählt.",
-            "adult": "Das durchschnittliche Alter der physiologischen, psychologischen, und kulturellen Reife. Angehörige dieses Volkes werden allgemein ab diesem Alter als Erwachsene betrachtet.",
+            "adult": "Das durchschnittliche Alter der physiologischen, psychologischen, und kulturellen Reife. Angehörige dieses Volkes werden ab diesem Alter als Erwachsene betrachtet.",
+            "zwkon": "Aufgrund ihrer Größenkategorie haben Zwerge eine natürliche Basisausdauer von 20; da sie aber standardmäßig eine Konstitution von 11 besitzen, steigt die Basisausdauer durch diese Eigenschaft auf 21. Daraus ergibt sich eine tatsächliche Ausdauer von<br>⌊ 21 + 1 * 0.1 * 21 ⌋ = 23<br>Bei einer Konsitution von 20 beträgt die Basisausdauer 30, die tatsächliche Ausdauer<br>⌊ 30 + 10 * 0.1 * 30 ⌋ = 60",
+            "medium": "Deine Größenkategoie hat keine speziellen Auswirkungen.",
+            "small": "Deine Basisausdauer beträgt bloß 15. Du hast einen Malus von -4 auf Stärkewürfe. Du hast einen Bonus von +2 aufs Ausweichen, Verstecken und Schleichen.",
+            "bihand": "Nicht nur kannst du beide Hände im gleichen Maße gut benutzen, du verfügst auch über genügen Hand-Augen-Koordination, um sie simultan für zwei verschiede Aufgaben zu verwenden."
         }
 
         function buildTooltips() {
@@ -434,7 +449,7 @@
                 tool.onmouseenter = (event) => {
                     const tooltip = make('div');
                     tooltip.classList.add('tooltip');
-                    tooltip.innerText = toolText;
+                    tooltip.innerHTML = toolText;
                     document.body.appendChild(tooltip);
 
                     styleToolTip(tooltip, event);
@@ -456,7 +471,7 @@
 </head>
 
 <body>
-
+    <!-- MENSCH -->
     <div class="entry" id="human">
         <h1>Mensch</h1>
         <img src="images/voelker/human.jpg" alt="Mensch">
@@ -467,12 +482,12 @@
         </div>
         <hr>
         <h2>Beschreibung</h2>
-        <p>Die Menschen zählen zu den jüngsten Völker der <b>Siebenlande</b>. Dennoch konnten sie sich innerhalb
-            kürzester Zeit zur vorherrschenden Macht des Kontinents aufschwingen. Obwohl ältere Völker sie gelegentlich
-            als simpel und unkultiviert abtun, sind Menschen äußerst anpassungs- und widerstandsfähig. Es gibt keine
-            Umgebung, die sie sich nicht zu Untertan machen können. Sie werden auch als das <i>Beständige Volk</i>
-            bezeichnet.</p>
-
+        <p>Die Menschen zählen zu den jüngsten Völker der Siebenlande, dennoch konnten sie sich innerhalb kürzester Zeit
+            zur vorherrschenden Macht des Kontinents aufschwingen. Obwohl ältere Völker sie gelegentlich als simpel und
+            unkultiviert abtun, sind Menschen äußerst anpassungs- und widerstandsfähig. Es gibt keine Umgebung, die sie
+            sich nicht zu Untertan machen können. Menschen sind ständig bestrebt, ihren Einfluss auszubreiten und
+            zählen Diplomatie wie Kriegsführung gleichermaßen zu ihrem Repertoir. Sie werden auch als das <i>Beständige
+                Volk</i> bezeichnet.</p>
         <hr>
         <div class="attributes" data-values="10,10,10,10,10,10,10,10"></div>
         <h2>Volkseigenschaften</h2>
@@ -513,7 +528,9 @@
             stammen, werden gemeinhin als Fremdländer bezeichnet.</p>
         <div class="languages" data-lang="Fremdsprache,Gemeinsprache"></div>
     </div>
+    <!---------->
 
+    <!-- ELFE -->
     <div class="entry" id="elf">
         <h1>Elfe <span class="smaller">Elbe</span></h1>
         <img src="images/voelker/elf.jpg" alt="Elfe">
@@ -524,7 +541,10 @@
             data-speed="30" data-common="Überlegene Dunkelsicht,Immunität,Beidhändigkeit"></div>
         <hr>
         <h2>Beschreibung</h2>
-        <p>Elfen sind eines der ältesten Völker der Siebenlande.</p>
+        <p>Die unsterblichen Elfen sind eines der ältesten Völker der Siebenlande und werden oft als weise und edel
+            angesehen. Ihre Schönheit ist legendär und ihre Kunstfertigkeit ist unübertroffen. Mit dieser gefühlten
+            Überlegenheit geht aber auch ein gewisses Maß an Arroganz einher; nicht wenige Elfen blicken hochnäsig auf
+            die sterblichen Völker herab. Man nennt sie auch das <i>Überdauernde Volk</i>.</p>
         <hr>
         <div class="attributes" data-values="10,11,11,10,10,11,11,10"></div>
         <h2>Volkseigenschaften</h2>
@@ -549,18 +569,21 @@
         <p>Elfen von jenseits der Berge.</p>
         <div class="languages" data-lang="Elfisch,Gemeinsprache"></div>
     </div>
+    <!----------->
 
+
+    <!-- ZWERG -->
     <div class="entry" id="dwarf">
         <h1>Zwerg</h1>
         <img src="images/voelker/dwarf.jpg" alt="Zwerg">
         <hr>
 
         <h2>Merkmale</h2>
-        <div class="traits" data-age="600 Jahre,50 Jahre" data-health="20" data-height="4 bis 5, Mittel" data-speed="25"
+        <div class="traits" data-age="600 Jahre,50 Jahre" data-health="20" data-height="4 bis 5,Mittel" data-speed="25"
             data-common="Dunkelsicht"></div>
         <hr>
         <h2>Beschreibung</h2>
-        <p>Zwerge sind toll.</p>
+        <p>Zwerge sind toll. Zwerge werden auch als das <i>Trotzige Volk</i> bezeichnet.</p>
         <hr>
 
         <div class="attributes" data-values="11,10,10,11,10,10,11,10"></div>
@@ -568,10 +591,12 @@
         <h3>Zwergische Widerstandskraft</h3>
         <p>Du hast bei Rettungswürfen gegen Vergiftung Vorteil und erhälst eine natürliche +4 Resistenz gegen
             Giftattacken.</p>
-        <h3>Zwergische Kampftausbildung</h3>
-        <p>Du bist Kompetent im Umgang mit Kriegshämmern und -äxten. Gilt nicht für Freie Zwerge</p>
+        <h3>Zwergische Kampfausbildung</h3>
+        <p>Du bist <span class="tool comp">kompetent</span> im Umgang mit Kriegshämmern und -äxten. Gilt nicht für Freie
+            Zwerge</p>
         <h3>Zwergischer Trotz</h3>
-        <p>Deine Basisausdauer steigt oder sinkt um den Wert deines Konstitutionsmodifikators.<sup>?</sup></p>
+        <p>Deine Basisausdauer steigt oder sinkt um den Wert deines Konstitutionsmodifikators.<span
+                class="tool zwkon"><sup>(?)</sup></span></p>
         <hr>
         <h2>Varianten</h2>
         <h3>Stammeszwerg</h3>
@@ -590,8 +615,8 @@
         <img src="images/voelker/gnome.jpg" alt="Gnom">
         <hr>
         <h2>Merkmale</h2>
-        <div class="traits" data-age="250 Jahre,35 Jahre" data-health="15" data-height="3 bis 4, Klein" data-speed="30"
-            data-common="Überlegene Dunkelsicht"></div>
+        <div class="traits" data-age="250 Jahre,35 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30">
+        </div>
         <hr>
         <h2>Beschreibung</h2>
         <p>Gnome sind toll.</p>
@@ -637,7 +662,8 @@
         <h3>Leichtfüßig</h3>
         <p>Du erhälts beim Schleichen einen +2 Bonus auf Heimlichkeit.</p>
         <h3>Spitze Finger</h3>
-        <p>Du verfügst über außergewöhnliche Feinmotorik; Du erhältst Kompetenz auf alle Fingerfertigkeits- und
+        <p>Du verfügst über außergewöhnliche Feinmotorik; Du erhältst <span class="tool comp">Kompetenz</span> auf alle
+            Fingerfertigkeits- und
             Gaukeleiwürfe.</p>
         <hr>
         <h2>Varianten</h2>
