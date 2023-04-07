@@ -350,7 +350,15 @@
                 let commonlabel = "<b>Eigenschaften </b>";
                 let first = true;
                 common.forEach(element => {
-                    commonlabel += (first ? "" : ", ") + element;
+                    let trait = element;
+                    switch (trait) {
+                        case "Beidhändigkeit":
+                            trait = tool('bihand', trait);
+                            break;
+                        default:
+                            break;
+                    }
+                    commonlabel += (first ? "" : ", ") + trait;
                     first = false;
                 });
                 commonItem.innerHTML = commonlabel;
@@ -404,7 +412,7 @@
             "zwkon": "Aufgrund ihrer Größenkategorie haben Zwerge eine natürliche Basisausdauer von 20; da sie aber standardmäßig eine Konstitution von 11 besitzen, steigt die Basisausdauer durch diese Eigenschaft auf 21. Daraus ergibt sich eine tatsächliche Ausdauer von<br>⌊ 21 + 1 * 0.1 * 21 ⌋ = 23<br>Bei einer Konsitution von 20 beträgt die Basisausdauer 30, die tatsächliche Ausdauer<br>⌊ 30 + 10 * 0.1 * 30 ⌋ = 60",
             "medium": "Deine Größenkategoie hat keine speziellen Auswirkungen.",
             "small": "Deine Basisausdauer beträgt bloß 15. Du hast einen Malus von -4 auf Stärkewürfe. Du hast einen Bonus von +2 aufs Ausweichen, Verstecken und Schleichen.",
-            "bihand": "Nicht nur kannst du beide Hände im gleichen Maße gut benutzen, du verfügst auch über genügen Hand-Augen-Koordination, um sie simultan für zwei verschiede Aufgaben zu verwenden."
+            "bihand": "Du bist nicht nur in der Lage, beide Hände gleich gut zu gebrauchen, sondern hast auch eine ausgeprägte Hand-Auge-Koordination, die es dir erlaubt, sie gleichzeitig für unterschiedliche Aufgaben effektiv einzusetzen, auch im Kampf."
         }
 
         function buildTooltips() {
@@ -541,26 +549,24 @@
             data-speed="30" data-common="Überlegene Dunkelsicht,Immunität,Beidhändigkeit"></div>
         <hr>
         <h2>Beschreibung</h2>
-        <p>Die unsterblichen Elfen sind eines der ältesten Völker der Siebenlande und werden oft als weise und edel
-            angesehen. Ihre Schönheit ist legendär und ihre Kunstfertigkeit ist unübertroffen. Mit dieser gefühlten
-            Überlegenheit geht aber auch ein gewisses Maß an Arroganz einher; nicht wenige Elfen blicken hochnäsig auf
-            die sterblichen Völker herab. Man nennt sie auch das <i>Überdauernde Volk</i>.</p>
+        <p>Die unsterblichen Elfen zählen zu den ältesten Völkern der Siebenlande und werden aufgrund ihres Alters von vielen als weise und edel angesehen. Ihre Schönheit ist legendär und ihre Kunstfertigkeit gilt als unübertroffen. Mit dieser gefühlten
+            Überlegenheit geht aber auch ein gewisses Maß an Arroganz einher. Viele Elfen meiden den Kontakt zu sterblichen Völkern, um nicht Generation für Genneration Zeugen der Vergänglichkeit ihrer Freunde werden zu müssen. Man nennt sie auch das <i>Überdauernde Volk</i>.</p>
         <hr>
         <div class="attributes" data-values="10,11,11,10,10,11,11,10"></div>
         <h2>Volkseigenschaften</h2>
         <h3>Elfische Trance</h3>
         <p>Statt zu schlafen kannst du in einem tranceartigen Zustand meditieren und in nur 4 Stunden den gleichen Grad
-            an Erholung erhalten, für den die meisten Völker 8 Stunden Schlaf benötigen.</p>
+            an Erholung erhalten, für den die meisten Völker 8 Stunden Schlaf benötigen. Deine <i>Lange Rast</i> dauert nur halb so lange wie normalerweise.</p>
         <h3>Elfische Erhabenheit</h3>
         <p>Du kannst während der Charaktererstellung zwei beliebige Attribute um +1 erhöhen. Zusätzlich kannst du 6
             Charakterpunkte für Fähigkeiten, Waffenkunde, oder Magie ausgeben.</p>
         <hr>
         <h2>Varianten</h2>
         <h3>Hochelfe</h3>
-        <p>Die Hochelfen sind die Bewohner Llésindurs.</p>
+        <p>Die Hochelfen von Llésindur haben sich für ein zurückgezogenes Leben in den Wäldern ihrer Vorfahren entschieden, dem einzigen Elfenreich der Siebenlande, das tatsächliche Grenzen besitzt. Viele genießen bloß die Ruhe und Abgeschiedenheit ihres Heimatlandes, doch nicht wenige Hochelfen hegen <i>radikalere</i> Ansichten gegenüber dem Verkehr mit sterblichen Völkern, allen voran den Menschen.</p>
         <div class="languages" data-lang="Elfisch,Gemeinsprache"></div>
         <h3>Freie Elfe</h3>
-        <p>Freie Elfen sind jene, die unter den Menschen in deren Reichen leben.</p>
+        <p>Besonders junge Elfen zieht es noch in die weite Welt hinaus. Sei es aus freien Stücken oder den Umständen ihrer Geburt geschuldet, Freie Elfen bereisen die Siebenlande, wo sie unter Menschen, Zwergen und Gnomen leben. Viele suchen nach einem Sinn im Leben, andere lockt bloß das Abenteuer, und manche kennen schlicht kein anderes Leben, das erstrebenswert wäre. Häufig verdingen sie sich als Künstler, Poeten und Schausteller; nicht selten kann man Elfen auch als Berater, Heiler und Zauberer zu Hofe finden.</p>
         <div class="languages" data-lang="Gemeinsprache,Elfisch+"></div>
         <h3>Waldelfe</h3>
         <p>Die Waldelfen, oder Gláddan-Elfen, sind jene, die im Gláddan-Wald leben.</p>
