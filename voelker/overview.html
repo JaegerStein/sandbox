@@ -187,7 +187,7 @@
         }
 
         .tooltip {
-            position: absolute;
+            position: fixed;
 
             background-color: rgba(64, 64, 48, 0.25);
             box-shadow: 0 0 8px rgba(128 128 128 / .8);
@@ -199,6 +199,8 @@
             color: ivory;
             padding: .5rem;
             border-radius: 1rem;
+
+            max-width: 22.5%;
 
             z-index: 1;
         }
@@ -216,11 +218,19 @@
             .entry {
                 width: 45%;
             }
+
+            .tooltip {
+                max-width: 33.75%;
+            }
         }
 
         @media screen and (max-width: 960px) {
             .entry {
                 width: 100%;
+            }
+
+            .tooltip {
+                max-width: 75%;
             }
         }
 
@@ -385,22 +395,29 @@
         function buildTooltips() {
 
             //---HELPER FUNCTIONS---
-            const findToolText = (t) => {
+            const findToolText = (tool) => {
                 let toolText = null;
-                t.classList.forEach(c => {
+                tool.classList.forEach(c => {
                     if (c in tooltips) {
-                        if (toolText) console.error(`Error: Tooltip element ${t} has multiple matching classes: ${toolText} and ${c}`);
+                        if (toolText) console.error(`Error: Tooltip element ${tool} has multiple matching classes: ${toolText} and ${c}`);
                         else toolText = tooltips[c];
                     }
                 });
                 return toolText;
             }
 
-            const styleToolTip = (t, tt) => {
-                const tRect = t.getBoundingClientRect();
-                const ttRect = tt.getBoundingClientRect();
-                tt.style.top = tRect.top - ttRect.height -10 + 'px';
-                tt.style.left = tRect.left + (tRect.width - ttRect.width) / 2 + 'px';
+            const styleToolTip = (tooltip, event) => {
+                const rect = tooltip.getBoundingClientRect();
+                let top = event.clientY - rect.height - 24;
+                let left = event.clientX - rect.width / 2;
+                const { innerWidth: vw, innerHeight: vh } = window;
+
+                if (left < 0) left = 0;
+                else if (left + rect.width > vw) left = vw - rect.width;
+                if (top < 0) top = event.clientY + 24;
+
+                tooltip.style.top = top + 'px';
+                tooltip.style.left = left + 'px';
             }
             //---END HELPER FUNCTIONS---
 
@@ -414,19 +431,18 @@
                     return;
                 };
 
-                tool.onmouseenter = () => {
-                    console.log(toolText);
-                    const toolBox = make('div');
-                    toolBox.classList.add('tooltip');
-                    toolBox.innerText = toolText;
-                    document.body.appendChild(toolBox);
+                tool.onmouseenter = (event) => {
+                    const tooltip = make('div');
+                    tooltip.classList.add('tooltip');
+                    tooltip.innerText = toolText;
+                    document.body.appendChild(tooltip);
 
-                    styleToolTip(tool, toolBox);
+                    styleToolTip(tooltip, event);
                 }
 
                 tool.onmouseleave = () => {
-                    const toolBox = query('.tooltip');
-                    toolBox.remove();
+                    const tooltip = query('.tooltip');
+                    tooltip.remove();
                 }
             });
         }
