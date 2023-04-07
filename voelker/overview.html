@@ -366,8 +366,9 @@
                 const languages = container.getAttribute('data-lang').split(',');
                 let langText = "<b>Sprachen</b> ";
                 let first = true;
-                languages.forEach(element => {
-                    langText += (first ? "" : ", ") + element;
+                languages.forEach(text => {
+                    text = text.replace(/\+/g, " zum Preis von 1 Fähigkeitspunkt");
+                    langText += (first ? "" : ", ") + text;
                     first = false;
                 });
                 container.innerHTML = langText;
