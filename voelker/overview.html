@@ -360,6 +360,24 @@
                         case "Beidhändigkeit":
                             trait = tool('bihand', trait);
                             break;
+                        case "Dunkelsicht":
+                            trait = tool('dark', trait);
+                            break;
+                        case "Überlegene Dunkelsicht":
+                            trait = tool('superdark', trait);
+                            break;
+                        case "Immunität":
+                            trait = tool('immune', trait);
+                            break;
+                        case "Raubtiersinne":
+                            trait = tool('predator', trait);
+                            break;
+                        case "Stählerner Magen":
+                            trait = tool('stomach', trait);
+                            break;
+                        case "Ziegenhufe":
+                            trait = tool('hooves', trait);
+                            break;
                         default:
                             break;
                     }
@@ -412,14 +430,24 @@
 
         //---LISTENERS---
         const tooltips = {
+            //common
             "comp": "Wenn du bei einer Aktivität, in der du kompetent bist, eine 1 würfelst, kannst du den Wurf einmalig wiederholen. Das zweite Ergebnis zählt.",
             "adult": "Das durchschnittliche Alter der physiologischen, psychologischen, und kulturellen Reife. Angehörige dieses Volkes werden ab diesem Alter als Erwachsene betrachtet.",
             "zwkon": "Aufgrund ihrer Größenkategorie haben Zwerge eine natürliche Basisausdauer von 20; da sie aber standardmäßig eine Konstitution von 11 besitzen, steigt die Basisausdauer durch diese Eigenschaft auf 21. Daraus ergibt sich eine tatsächliche Ausdauer von<br>⌊ 21 + 1 * 0.1 * 21 ⌋ = 23<br>Bei einer Konsitution von 20 beträgt die Basisausdauer 30, die tatsächliche Ausdauer<br>⌊ 30 + 10 * 0.1 * 30 ⌋ = 60",
+            "deat": "Ein riesiger Dryadenwald im Zentrum des Kontinents.",
+            //sizes
             "large": "Deine Basisausdauer beträgt 30. Du hast einen Bonus von +4 auf Stärkewürfe. Du hast einen Malus von -4 aufs Ausweichen, Verstecken und Schleichen.",
             "medium": "Deine Größenkategoie hat keine speziellen Auswirkungen.",
             "small": "Deine Basisausdauer beträgt bloß 15. Du hast einen Malus von -4 auf Stärkewürfe. Du hast einen Bonus von +4 aufs Ausweichen, Verstecken und Schleichen.",
+            //traits
             "bihand": "Du bist nicht nur in der Lage, beide Hände gleich gut zu gebrauchen, sondern hast auch eine ausgeprägte Hand-Auge-Koordination, die es dir erlaubt, sie gleichzeitig für unterschiedliche Aufgaben effektiv einzusetzen, auch im Kampf.",
-            "deat": "Ein riesiger Dryadenwald im Zentrum des Kontinents.",
+            "dark": "Du kannst bei schwachem Dämmerlicht im Umkreis von 60 Fuß sehen, als wäre es hell. Du kannst bei Dunkelheit so sehen, als herrsche Dämmerlicht. In Dämmerlicht wie Dunkelheit kannst du keine Farben erkennen, nur Grautöne.",
+            "superdark": "Deine Dunkelsicht hat eine Reichweite von 120 Fuß, verhält sich aber ansonsten wie normale Dunkelsicht.",
+            "immune": "Du bist enorm resistent gegen Gifte, Krankheiten und ähnliches, und erhältst einen +10 Bonus auf Konstitutions-Rettungswürfe dagegen. Im Kampf hast du +8 Resistenzt gegen Giftschaden.<br>Versucht man dich mit herkömmlichen Heilmitteln zu behandeln, die nicht spezifisch für dein Volk gedacht oder magisch sind, erhält dieser Heilungsversuch einen <i>Malus</i> von -10.",
+            "predator": "Du kannst frisches Blut auf bis zu 2 Meilen (5km) Entfernung wahrnehmen und dessen ungefähre Richtung bestimmen.",
+            "stomach": "Gifte, die du einnimmst, können dir nichts anhaben. Du kannst dich problemlos von rohem, völlig verrittetem, oder anderweitig ungenießbarem Essen ernähren.",
+            "hooves": "Du hast einen Vorteil beim Kletter, solande die Oberfläche nicht völlig glatt ist und die Steigung noch unter 90° liegt. Unwegsames Gelände verlangsamt dich nicht, doch Morast, Schlamm und ähnliches halbieren deine Bewegungsrate.",
+            //languages
             "dreys": "Die gemeinschaftliche Sprache der Waldvölker, die von den meisten Bewohnern des Dëat Gláddan gesprochen wird. Anderswo im Kontinent sucht man meist vergebens nach jemandem, der Dreys spricht."
         }
 
@@ -723,12 +751,20 @@
         <div class="attributes" data-values="*,*,*,*,*,10,10,11"></div>
         <p>*Körperliche Attribute sind abhängig von der imitierten Kreatur.</p>
         <h2>Volkseigenschaften</h2>
+        <h3>Wandelbar</h3>
+        <p>Du kannst als <span class="tool polymorph">wahrer Polymorph</span> deine Gestalt nach belieben in die eines anderen Volkes ändern und übernimmst dabei die Merkmale und körperlichen Attribute (mit * markiert) des imitierten Individuums. Dabei übernimmst du nur dessen Merkmalseigenschaften, keine Volkseigenschaften oder Talente.<br>Du must das Vorbild deiner Verwandlung sehen oder vor kurzem noch gesehen haben, um dich darin verwandeln zu können. Du kannst dich nur einmal pro Langer Rast verwandeln; wenn du dabei die Größenkategorie änderst, musst du zwei zusätzliche Rasten pro Kategorieänderung einlegen. Bei gleichbleibender Größe dauert die Verwandlung 10 Minuten, die Verwandlung zur nächst größeren oder kleineren dauert 1 Stunde, bei zwei Kategoriestufen unterschied 6 Stunden, etc.<br>Die Verwandlung von ausschließlich dem Kopf dauert 1 Minute, ist aber nur bei gleichem Volk möglich.</p>
+        <h3>Rekonstitution</h3>
+        <p>Beim Tod zerfließt dein Körper und sammelt sich am Boden als graue, zähflüssige Masse. Wenn nach einem Tag noch mehr als die Hälfte der Masse an einem Stück zusammenhängt, kannst du dich in deine letzte Form zurückverwandeln. Die Größe der Masse selbst ist hierbei winzig, dementsprechend lange dauert die Verwandlung in einen größeren Körper.</p>
+        <h3>Perfekte Stimme</h3>
+        <p>Du kannst deine Verwandlung nutzen, um die Stimme jeder Person perfekt zu imitieren, solange du sie noch vor kurzem hast Sprechen hören. Die Verwandlung der Stimmbänder dauert nur 6 Sekunden/1 Runde.</p>
         <hr>
         <h2>Varianten</h2>
         <h3>Bekennender Mime</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache,Volkseigene Sprache+"></div>
         <h3>Verborgener Mime</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache,Volkseigene Sprache+"></div>
     </div>
     <div class="entry" id="drow">
         <h1>Albe<br><span class="smaller">Dunkelelfe</span></h1>
@@ -826,7 +862,7 @@
         <h3>Getreuer Kobold</h3>
         <p></p>
     </div>
-    
+
     <div class="entry" id="faun">
         <h1>Faun<br><span class="smaller">Satyr</span></h1>
         <img src="images/voelker/faun.jpg" alt="Faun">
@@ -936,8 +972,8 @@
         <hr>
 
         <h2>Merkmale</h2>
-        <div class="traits" data-age="1000 Jahre,200 Jahre" data-health="20" data-height="4½ bis 6½,Mittel" data-speed="30"
-            data-common="Überlegene Dunkelsicht"></div>
+        <div class="traits" data-age="1000 Jahre,200 Jahre" data-health="20" data-height="4½ bis 6½,Mittel"
+            data-speed="30" data-common="Überlegene Dunkelsicht"></div>
         <hr>
 
         <h2>Beschreibung</h2>
