@@ -467,6 +467,10 @@
                         lang = tool('foreign', lang);
                         text = text.replace("Fremdsprache", lang);
                         break;
+                    case "Gobsch":
+                        lang = tool('gobsch', lang);
+                        text = text.replace("Gobsch", lang);
+                        break;
                     default:
                         break;
                 }
@@ -493,7 +497,7 @@
         const tooltips = {
             //common
             "comp": "Wenn du bei einer Aktivität, in der du kompetent bist, eine 1 würfelst, kannst du den Wurf einmalig wiederholen. Das zweite Ergebnis zählt.",
-            "adult": "Das durchschnittliche Alter der physiologischen, psychologischen, und kulturellen Reife. Angehörige dieses Volkes werden ab diesem Alter als Erwachsene betrachtet.",
+            "adult": "Das durchschnittliche Alter der physiologischen, psychologischen, und kulturellen Reife. Angehörige dieses Volkes werden ab diesem Alter als Erwachsene betrachtet. Je nach Kultur wird dabei mehr Wert auf die körperliche oder geistige Entwicklung gelegt.",
             "zwkon": "Aufgrund ihrer Größenkategorie haben Zwerge eine natürliche Basisausdauer von 20; da sie aber standardmäßig eine Konstitution von 11 besitzen, steigt die Basisausdauer durch diese Eigenschaft auf 21. Daraus ergibt sich eine tatsächliche Ausdauer von<br>⌊ 21 + 1 * 0.1 * 21 ⌋ = 23<br>Bei einer Konsitution von 20 beträgt die Basisausdauer 30, die tatsächliche Ausdauer<br>⌊ 30 + 10 * 0.1 * 30 ⌋ = 60",
             "deat": "Ein riesiger Dryadenwald im Zentrum des Kontinents.",
             "killed": "Du wirst getötet, wenn du durch einen einzigen Angriff Schaden in Höhe deiner Gesamtausdauer erhältst, oder deine verbleibende Ausdauer auf oder unter den negativen Wert deiner Gesamtausdauer sinkt.",
@@ -518,7 +522,8 @@
             //languages
             "dreys": "Die gemeinschaftliche Sprache der Waldvölker, die von den meisten Bewohnern des Dëat Gláddan gesprochen wird. Anderswo im Kontinent sucht man meist vergebens nach jemandem, der Dreys beherrscht.",
             "grozak": "Die Sprache der Bewohner des Orkreiches Oschotk, die sich aus der Muttersprache des vorherrschenden Stammes und einiger Lehnwörter zugezogener Völker und Orkstämme zusammensetzt.",
-            "foreign": "Ein  Sammelbegriff für verschiedene, weitgehend unbekannte Sprachen aus den Ländern jenseits der Gebirge."
+            "foreign": "Ein  Sammelbegriff für verschiedene, weitgehend unbekannte Sprachen aus den Ländern jenseits der Gebirge.",
+            "gobsch": "Gobsch ist weniger eine Sprache, als viel mehr eine Aneinanderreihung groteskter Laute, mit denen Goblins sich scheinbar verständigen können."
         }
 
         function buildTooltips() {
@@ -704,534 +709,6 @@
             Gemeinschaft, Abenteuer, Erkenntnis, oder einer letzten Ruhestätte.</p>
         <div class="languages" data-lang="Elfisch,Fremdsprache,Gemeinsprache"></div>
     </div>
-    <!----------->
-
-
-
-    <!-- ZWERG -->
-    <div class="entry" id="dwarf">
-        <h1>Zwerg</h1>
-        <img src="images/voelker/dwarf.jpg" alt="Zwerg">
-        <img src="images/voelker/dwarf-crop.jpg" alt="Zwerg" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="600 Jahre,50 Jahre" data-health="20" data-height="4 bis 5,Mittel" data-speed="25"
-            data-common="Dunkelsicht,Giftresistenz"></div>
-        <hr>
-        <h2>Beschreibung</h2>
-        <p>Zwerge sind toll. Zwerge werden auch als das <i>Trotzige Volk</i> bezeichnet.</p>
-        <hr>
-
-        <div class="attributes" data-values="11,10,10,11,10,10,11,10"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Zwergische Kampfausbildung</h3>
-        <p>Du bist <span class="tool comp">kompetent</span> im Umgang mit Kriegshämmern und -äxten. Gilt nicht für Freie
-            Zwerge</p>
-        <h3>Zwergischer Trotz</h3>
-        <p>Deine Basisausdauer steigt oder sinkt um den Wert deines Konstitutionsmodifikators.<span
-                class="tool zwkon"><sup>(?)</sup></span></p>
-        <hr>
-        <h2>Varianten</h2>
-        <h3>Stammeszwerg</h3>
-        <p></p>
-        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
-        <h3>Freier Zwerg</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache,Zwergisch+"></div>
-        <h3>Apostat</h3>
-        <p></p>
-        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
-    </div>
-    <!---------->
-
-
-
-    <!-- GNOM -->
-    <div class="entry" id="gnome">
-        <h1>Gnom<br><span class="smaller">Halbling</span></h1>
-        <img src="images/voelker/gnome.jpg" alt="Gnom">
-        <img src="images/voelker/gnome-crop.jpg" alt="Gnom" class="crop">
-        <hr>
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="250 Jahre,35 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30">
-        </div>
-        <hr>
-        <h2>Beschreibung</h2>
-        <p>Gnome sind toll.</p>
-        <hr>
-        <div class="attributes" data-values="10,10,11,10,10,11,10,11"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Flink</h3>
-        <p>Du kannst dich durch Felder von Kreaturen hindurchbewegen, die mindestens eine Kategorie größer sind als du.
-            Gegner müssen einen <i>SG10 + dein GES-Modifikator</i> Reaktionswurf bestehen, um einen Gelegenheitsangriff
-            gegen dich führen zu können.</p>
-        <h3>Natürlicher Feilscher</h3>
-        <p>Du hast bei Kreaturen, die dir neutral oder wohlgesonnen sind, einen Vorteil bei Diplomatie- und
-            Täuschungswürfen.</p>
-        <h3>Halblingsglück</h3>
-        <p>Wenn du auf einen Wurf Vorteil hast, kannst du dich stattdessen dazu entscheiden, den umgekehrten Wert des
-            Ergebnisses zu nehmen; eine 9 wird zu einer 11, eine 15 zu einer 5, eine 1 zu einer 19, etc.</p>
-        <hr>
-        <h2>Varianten</h2>
-        <h3>Freier Gnom</h3>
-        <p>Gnome, die unter den Menschen leben.</p>
-        <div class="languages" data-lang="Gemeinsprache"></div>
-        <h3>Weswam-Gnom</h3>
-        <p>Gnome, die aus der Weswam-Kommune stammen.</p>
-        <div class="languages" data-lang="Gemeinsprache,Weswam-Gnomisch"></div>
-        <h3>Zwergengnom</h3>
-        <p>Gnome, die unter den Zwergen leben.</p>
-        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
-    </div>
-    <!----------->
-
-
-
-    <!-- KENKU -->
-    <div class="entry" id="kenku">
-        <h1>Kenku</h1>
-        <img src="images/voelker/kenku.jpg" alt="Kenku">
-        <img src="images/voelker/kenku-crop.jpg" alt="Kenku" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="45 Jahre,12 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30"
-            data-common="Überlegene Dunkelsicht,Stählerner Magen"></div>
-        <hr>
-        <h2>Beschreibung</h2>
-        <p>Kenku sind toll.</p>
-        <hr>
-        <div class="attributes" data-values="10,11,11,9,10,10,11,10"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Leichtfüßig</h3>
-        <p>Du erhälts beim Schleichen einen +2 Bonus auf Heimlichkeit.</p>
-        <h3>Spitze Finger</h3>
-        <p>Du verfügst über außergewöhnliche Feinmotorik; Du erhältst <span class="tool comp">Kompetenz</span> auf alle
-            Fingerfertigkeits- und
-            Gaukeleiwürfe.</p>
-        <hr>
-        <h2>Varianten</h2>
-        <h3>Freier Kenku</h3>
-        <p>Ein Kenku, der unter den Menschen lebt.</p>
-        <div class="languages" data-lang="Gemeinsprache"></div>
-        <h3>Rachgieriger Kenku</h3>
-        <p>Die Anhänger der Vergelterschar sind religiöse Fanatiker, die sich der Vernichtung des eigenen Gottes Carsu
-            verschrieben haben.</p>
-        <div class="languages" data-lang="Gemeinsprache"></div>
-    </div>
-    <!---------->
-
-
-
-    <!-- MIME -->
-    <div class="entry" id="mime">
-        <h1>Mime<br><span class="smaller">Formwandler</span></h1>
-        <img src="images/voelker/mime.jpg" alt="Mime">
-        <img src="images/voelker/mime-crop.jpg" alt="Mime" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="Unsterblich,*" data-health="*" data-height="*,*" data-speed="*" data-common="*">
-        </div>
-        <p>* Die meisten Merkmale des Formwandlers sind abhängig von der imitierten Kreatur.</p>
-        <hr>
-        <h2>Beschreibung</h2>
-        <p>Mimes sind toll.</p>
-        <hr>
-        <div class="attributes" data-values="*,*,*,*,*,10,10,11"></div>
-        <p>*Körperliche Attribute sind abhängig von der imitierten Kreatur.</p>
-        <h2>Volkseigenschaften</h2>
-        <h3>Wandelbar</h3>
-        <p>Du kannst als <span class="tool polymorph">wahrer Polymorph</span> deine Gestalt nach belieben in die eines
-            anderen Volkes ändern und übernimmst dabei die Merkmale und körperlichen Attribute (mit * markiert) des
-            imitierten Individuums. Dabei übernimmst du nur dessen Merkmalseigenschaften, keine Volkseigenschaften oder
-            Talente.<br>Du must das Vorbild deiner Verwandlung sehen oder vor kurzem noch gesehen haben, um dich darin
-            verwandeln zu können. Du kannst dich nur einmal pro Langer Rast verwandeln; wenn du dabei die
-            Größenkategorie änderst, musst du zwei zusätzliche Rasten pro Kategorieänderung einlegen. Bei
-            gleichbleibender Größe dauert die Verwandlung 10 Minuten, die Verwandlung zur nächst größeren oder kleineren
-            dauert 1 Stunde, bei zwei Kategoriestufen unterschied 6 Stunden, etc.<br>Die Verwandlung von ausschließlich
-            dem Kopf dauert 1 Minute, ist aber nur bei gleichem Volk möglich.</p>
-        <h3>Rekonstitution</h3>
-        <p>Beim Tod zerfließt dein Körper und sammelt sich am Boden als graue, zähflüssige Masse. Wenn nach einem Tag
-            noch mehr als die Hälfte der Masse an einem Stück zusammenhängt, kannst du dich in deine letzte Form
-            zurückverwandeln. Die Größe der Masse selbst ist hierbei winzig, dementsprechend lange dauert die
-            Verwandlung in einen größeren Körper.</p>
-        <h3>Perfekte Stimme</h3>
-        <p>Du kannst deine Verwandlung nutzen, um die Stimme jeder Person perfekt zu imitieren, solange du sie noch vor
-            kurzem hast Sprechen hören. Die Verwandlung der Stimmbänder dauert nur 6 Sekunden/1 Runde.</p>
-        <hr>
-        <h2>Varianten</h2>
-        <h3>Bekennender Mime</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache,Volkseigene Sprache+"></div>
-        <h3>Verborgener Mime</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache,Volkseigene Sprache+"></div>
-    </div>
-    <!---------->
-
-
-
-    <!-- ALBE -->
-    <div class="entry" id="drow">
-        <h1>Albe<br><span class="smaller">Dunkelelfe</span></h1>
-        <img src="images/voelker/drow2.jpg" alt="Albe">
-        <img src="images/voelker/drow2-crop.jpg" alt="Albe" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="Unsterblich,100 Jahre" data-health="20" data-height="5½ bis 6,Mittel"
-            data-speed="30" data-common="Überlegene Dunkelsicht,Immunität"></div>
-        <hr>
-        <h2>Beschreibung</h2>
-        <p>Alben sind toll.</p>
-        <hr>
-        <div class="attributes" data-values="10,11,11,10,11,10,10,11"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Verbündeter der Schatten</h3>
-        <p>Du bewegst dich durch Dämmerlicht, als würdest du durch Finsternis wandeln. Andere Kreaturen können dich
-            schlechter erkennen und haben auf sichtbarsierte Wahrnehmungswürfe einen Malus von -10; bei tatsächlicher
-            Dunkelheit bist du effektiv unsichtbar und kannst nur noch von Wesen mit <span
-                class="tool dark">Dunkelsicht</span> gesehen werden.</p>
-        <h3>Blutiges Erbe</h3>
-        <p>Bei Kreaturen, deren Weisheit kleiner oder gleich deinem Charismawert ist, kannst du beim Einschüchtern mit
-            Vorteil werfen.</p>
-        <hr>
-        <h2>Varianten</h2>
-        <h3>Valur-Albe</h3>
-        <p></p>
-        <div class="languages" data-lang="Albisch,Gemeinsprache"></div>
-        <h3>Intrigierende Albe</h3>
-        <p></p>
-        <div class="languages" data-lang="Albisch,Gemeinsprache"></div>
-        <h3>Freie Albe</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache,Albisch+"></div>
-    </div>
-    <!--------->
-
-
-
-    <!-- ORK -->
-    <div class="entry" id="orc">
-        <h1>Ork</h1>
-        <img src="images/voelker/orc.jpg" alt="Ork">
-        <img src="images/voelker/orc-crop.jpg" alt="Ork" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="60 Jahre,14 Jahre" data-health="20" data-height="6 bis 7,Mittel" data-speed="30"
-            data-common="Dunkelsicht,Bedrohlich"></div>
-        <hr>
-
-        <h2>Beschreibung</h2>
-        <p>Orks sind toll.</p>
-        <hr>
-
-        <div class="attributes" data-values="12,11,10,11,10,9,10,10"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Orkischer Blutdurst</h3>
-        <p>Sofern du dich nicht bereits in Nahkampfreichweite zu einem Gegner befindest, kannst du bei Bedarf deinen
-            Sprint als Bonusaktion ausführen, musst dich aber auf direktem Weg zum nächstgelegenen, bekannten Gegner
-            bewegen.</p>
-        <h3>Unaufhaltsam</h3>
-        <p>Solltest du besiegt, aber nicht gleich <span class="tool killed">getötet</span> werden, kannst du einmalig
-            <b>pro Kampf</b> du mit 1 Ausdauerpunkt weiterkämpfen. In diesem Fall kannst du sofort eine beliebige <span
-                class="tool reaction">Reaktion</span> ausführen.
-        </p>
-        <h3>Brutaler Kampf</h3>
-        <p>Jedes Mal, wenn du im Nahkampf eine 20 wirfst, darfst du ein weiteres Mal angreifen.</p>
-        <hr>
-
-        <h2>Varianten</h2>
-        <h3>Oschotk-Ork</h3>
-        <p></p>
-        <div class="languages" data-lang="Grozak,Gemeinsprache"></div>
-        <h3>Streifender Ork</h3>
-        <p></p>
-        <div class="languages" data-lang="Fremdsprache,Gemeinsprache"></div>
-    </div>
-    <!------------>
-
-
-
-    <!-- GOBLIN -->
-    <div class="entry" id="goblin">
-        <h1>Goblin</h1>
-        <img src="images/voelker/goblin.jpg" alt="Goblin">
-        <img src="images/voelker/goblin-crop.jpg" alt="Goblin" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="40 Jahre,10 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30">
-        </div>
-        <hr>
-
-        <h2>Beschreibung</h2>
-        <p>Goblins sind toll.</p>
-        <hr>
-
-        <div class="attributes" data-values="10,10,11,11,10,9,10,10"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Soziale Raserei</h3>
-        <p>Im Kampf erhälst du +1 Bonus auf Nahkampfangriffe für jeden Verbündeten, der mindestens die Hälfte seiner
-            Leben verloren hat, und +4 Bonus für jeden gefallenen Verbündeten.</p>
-        <h3>Sprunghafte Bewegung</h3>
-        <p>Solange du dich von der Nahkampfreichweite eines Gegners direkt in die eines anderen begibts, oder der Gegner
-            von mindestens einem Verbündeten flankiert wird, riskierst du keine Gelgenheitsangriffe.</p>
-        <hr>
-
-        <h2>Varianten</h2>
-        <h3>Assimilierter Goblin</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache"></div>
-        <h3>Gezähmter Goblin</h3>
-        <p></p>
-        <div class="languages" data-lang="Gobsch,Gemeinsprache"></div>
-        <h3>Oschotk-Goblin</h3>
-        <p></p>
-        <div class="languages" data-lang="Grozak,Gemeinsprache"></div>
-    </div>
-    <!------------>
-
-
-
-    <!-- KOBOLD -->
-    <div class="entry" id="kobold">
-        <h1>Kobold</h1>
-        <img src="images/voelker/kobold.jpg" alt="Kobold">
-        <img src="images/voelker/kobold-crop.jpg" alt="Kobold" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="30 Jahre,6 Jahre" data-health="15" data-height="2½ bis 3½,Klein" data-speed="30"
-            data-common="Dunkelsicht"></div>
-        <hr>
-
-        <h2>Beschreibung</h2>
-        <p>Kobolde sind toll.</p>
-        <hr>
-
-        <div class="attributes" data-values="9,11,11,10,11,10,10,10"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Rudeltaktiken</h3>
-        <p>Du kannst jeden Gegner im Nahkampf mit Vorteil angreifen, als würdest du ihn flankieren, solange sich
-            mindestens eein Verbündeter in dessen Kampfreichweite befindet.</p>
-        <h3>Fragwürdiges Erbe</h3>
-        <p>Du hast eine +4 Resistenz gegen Feuer und eine natürliche 0|1|1 Rüstung.</p>
-        <h3>Losstürmen</h3>
-        <p>Solange du sprintest und dabei deine Bewegungsreichweite voll ausnutzt, kannst du nicht von
-            Gelegenheitsangriffen getorffen werden, außer ein Gegner bereitet sich explizit als <span
-                class="tool reaction">Reaktion</span> darauf vor.</p>
-        <h3>Fluchtinstinkt</h3>
-        <p>Immer, wenn deine Ausdauer unter die Hälfte fällt, oder ein Verbündeter besiegt wird, gerätst du in Panik und
-            fliehst auf direktem Weg aus dem Kampf. Du musst einen Willeskraft-Rettungswurf bestehen, um dich wieder zu
-            sammeln.</p>
-        <hr>
-
-        <h2>Varianten</h2>
-        <h3>Freier Kobold</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache"></div>
-        <h3>Getreuer Kobold</h3>
-        <p></p>
-        <div class="languages" data-lang="Drakonisch,Gemeinsprache"></div>
-    </div>
-    <!---------->
-
-
-
-    <!-- FAUN -->
-    <div class="entry" id="faun">
-        <h1>Faun<br><span class="smaller">Satyr</span></h1>
-        <img src="images/voelker/faun.jpg" alt="Faun">
-        <img src="images/voelker/faun-crop.jpg" alt="Faun" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="60 Jahre,20 Jahre" data-health="15" data-height="5½ bis 6½,Mittel" data-speed="35"
-            data-common="Ziegenhufe">
-        </div>
-        <hr>
-
-        <h2>Beschreibung</h2>
-        <p>Faunen sind toll.</p>
-        <hr>
-
-        <div class="attributes" data-values="10,10,11,10,10,10,10,12"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Künstlerische Begabung</h3>
-        <p>Wähle bei der Charaktererstellung jeweils eine Fähigkeit aus den Kategorien <i>Auftreten</i> und
-            <i>Instrumente</i>. Du startest mit einem +2 Bonus und <span class="tool comp">Kompetenz</span> in beiden
-            Fähigkeiten.
-        </p>
-        <h3>Rammbock</h3>
-        <p>Sofern du deine gewöhnliche Bewegungsreichweite ausgenutzt hast, kannst du deine Hörner für einen
-            Stärkeangriff während deiner Sprintaktion nutzen; dieser gilt als unbewaffneter Angriff, kann dir bei einem
-            Scheitern also Schaden zufügen.<br>Addiere +1 auf deinen Stärke-Wurf für jedes während dem Sprint
-            zurückgelegte Feld. Wenn du Schaden verursachst wirfst du den Gegner 1 Feld zurück und er musst einen
-            <i>SG10-Athletikwurf</i> bestehen, um auf den Beinen zu bleiben. Verursachst du mindestens 10 Schaden wird
-            der Gegner 2 Felder zurückgeworfen und der SG beträgt 15.<br>Die Hälfte des verursachten Schadens ist
-            hierbei Schmetterre-, die andere Stichschaden.<span class="tool faunhead"><sup>(?)</sup></span>
-        </p>
-        <hr>
-
-        <h2>Varianten</h2>
-        <h3>Gláddan-Satyr</h3>
-        <p></p>
-        <div class="languages" data-lang="Dreys,Gemeinsprache,Elfisch+"></div>
-        <h3>Freier Faun</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache"></div>
-    </div>
-    <!-------------->
-
-
-
-    <!-- LLEKAMPA -->
-    <div class="entry" id="goatman">
-        <h1 style="letter-spacing: -.05rem;">Llekampa</h1>
-        <img src="images/voelker/goatman.jpg" alt="Llekampa">
-        <img src="images/voelker/goatman-crop.jpg" alt="Llekampa" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="120 Jahre,25 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="25"
-            data-common="Ziegenhufe"></div>
-        <hr>
-
-        <h2>Beschreibung</h2>
-        <p>Llekampen sind toll.</p>
-        <hr>
-
-        <div class="attributes" data-values="10,10,11,10,10,11,11,9"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Olfaktorisches Wunder</h3>
-        <p>Du verströmst einen für intelligente Wesen ungewöhnlich starken Geruch; Kreaturen in einem 30 Fuß Radius um
-            dich herum haben Vorteil bei geruchsbasierten Wahrnehmungswürfen.</p>
-        <h3>Sicheren Fußes</h3>
-        <p>Du hast Vorteil bei Rettungswürfen, die dich vorm Stürzen bewahren.</p>
-        <hr>
-
-        <h2>Varianten</h2>
-        <h3>Gláddan-Llekampa</h3>
-        <p></p>
-        <div class="languages" data-lang="Dreys,Gemeinsprache,Elfisch+"></div>
-        <h3>Freier Llekampa</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache"></div>
-    </div>
-    <!----------->
-
-
-
-    <!-- GNOLL -->
-    <div class="entry" id="gnoll">
-        <h1>Gnoll</h1>
-        <img src="images/voelker/gnoll.jpg" alt="Gnoll">
-        <img src="images/voelker/gnoll-crop.jpg" alt="Gnoll" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="50 Jahre,10 Jahre" data-health="20" data-height="6 bis 7,Mittel" data-speed="40"
-            data-common="Dunkelsicht,Stählerner Magen,Bedrohlich,Raubtiersinne"></div>
-        <hr>
-
-        <h2>Beschreibung</h2>
-        <p>Gnolle sind toll.</p>
-        <hr>
-
-        <div class="attributes" data-values="11,11,10,10,12,10,10,8"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Fährtensucher</h3>
-        <p>Dein Gehör ist ausgeprägt, deine Augen sind geschärft und dein Geruchsinn untrüglich; du startest mit einem
-            +2 Bonus und <span class="tool comp">Kompetenz</span> in Spurensuche. Eine Fährte, deren Geruch du einmal
-            aufgenommen hast, kannst du nicht wieder verlieren, solange sie nicht von einem Gewässer, Magie, oder etwas
-            vergleichbarem unterbrochen wird.</p>
-        <hr>
-
-        <h2>Varianten</h2>
-        <h3>Oschotk-Gnoll</h3>
-        <p></p>
-        <div class="languages" data-lang="Grozak,Gemeinsprache"></div>
-        <h3>Freier Gnoll</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache"></div>
-    </div>
-    <!----------->
-
-
-
-    <!-- RIESE -->
-    <div class="entry" id="giant">
-        <h1>Riese</h1>
-        <img src="images/voelker/giant.jpg" alt="Riese">
-        <img src="images/voelker/giant-crop.jpg" alt="Riese" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="300 Jahre,40 Jahre" data-health="30" data-height="10 bis 12,Groß" data-speed="40">
-        </div>
-        <hr>
-
-        <h2>Beschreibung</h2>
-        <p>Riesen sind toll.</p>
-        <hr>
-
-        <div class="attributes" data-values="12,10,9,12,10,10,10,10"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Kultureller Pazifismus</h3>
-        <p>Als Riese verabscheust du unnötige Gewalt und vermeidest Kämpfe soweit möglich; du kannst nicht angreifen,
-            bis du oder ein Verbündeter Schaden genommen hat.</p>
-        <hr>
-
-        <h2>Varianten</h2>
-        <h3>Freier Riese</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache"></div>
-        <h3>Hügelriese</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache,Dreys+,Grozak+"></div>
-        <h3>Zwergenriese</h3>
-        <p></p>
-        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
-    </div>
-    <!----------->
-
-
-
-    <!-- OWLIN -->
-    <div class="entry" id="owlin">
-        <h1>Yespest</h1>
-        <img src="images/voelker/owlin.jpg" alt="Yespest">
-        <img src="images/voelker/owlin-crop.jpg" alt="Yespest" class="crop">
-        <hr>
-
-        <h2>Merkmale</h2>
-        <div class="traits" data-age="1000 Jahre,200 Jahre" data-health="20" data-height="4½ bis 6½,Mittel"
-            data-speed="30" data-common="Überlegene Dunkelsicht"></div>
-        <hr>
-
-        <h2>Beschreibung</h2>
-        <p>Yespesten sind toll.</p>
-        <hr>
-
-        <div class="attributes" data-values="9,10,10,9,12,10,12,10"></div>
-        <h2>Volkseigenschaften</h2>
-        <h3>Stille Federn</h3>
-        <p>Du kannst fliegen. Deine Bewegungsrate im Flug ist die doppelte deiner normalen Rate. Dein Flug ist lautlos.
-            Außerdem bist du <span class="tool comp">kompetent</span> bei Heimlichkeitswürfen.</p>
-        <hr>
-
-        <h2>Varianten</h2>
-        <h3>Freier Yespest</h3>
-        <p></p>
-        <div class="languages" data-lang="Gemeinsprache"></div>
-        <h3>Gláddan-Yespest</h3>
-        <p></p>
-        <div class="languages" data-lang="Dreys,Gemeinsprache,Elfisch+"></div>
-    </div>
     <!--------------->
 
 
@@ -1273,8 +750,550 @@
         <h3>Berufener</h3>
         <p>Was von den Menschen als die Male eines Dämons gedeutet werden, gilt unter den Elfen Llésindurs als die Ausbildung tierischer Aspekte. Halbdämonen seien keine Kinder der Höllen, sondern Auserwählte der Götter, die mit dem Schutz der Natur und der Tierewelt betraut wurden. Besonders die Hochelfen verehren die <b>Aënetnei</b> (<i>Berufene</i>) mit tiefer Ehrfurcht. Berufene sind zumeist elfische "Halbdämonen" aus Llésindur, die nur selten den Schutz ihrer Heimat verlassen, um die feindseligen Siebenlande zu bereisen.</p>
         <div class="languages" data-lang="Elfisch,Gemeinsprache"></div>
-
     </div>
+    <!----------->
+
+
+
+    <!-- ZWERG -->
+    <div class="entry" id="dwarf">
+        <h1>Zwerg</h1>
+        <img src="images/voelker/dwarf.jpg" alt="Zwerg">
+        <img src="images/voelker/dwarf-crop.jpg" alt="Zwerg" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="600 Jahre,50 Jahre" data-health="20" data-height="4 bis 5,Mittel" data-speed="25"
+            data-common="Dunkelsicht,Giftresistenz"></div>
+        <hr>
+        <h2>Beschreibung</h2>
+        <p>Für die Zwerge zählen Gemeinschaft und Solidarität. Zwar können sie recht gastfreundlich sein, aber auch leicht aufbrausend, jähzornig und rachsüchtig. Es ist ratsam, stets auf der guten Seite eines Zwerges zu stehen. Zwerge werden auch als das <i>Trotzige Volk</i> bezeichnet.</p>
+        <hr>
+
+        <div class="attributes" data-values="11,10,10,11,10,10,11,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Zwergische Kampfausbildung</h3>
+        <p>Du bist <span class="tool comp">kompetent</span> im Umgang mit Kriegshämmern und -äxten. Gilt nicht für Freie
+            Zwerge</p>
+        <h3>Zwergischer Trotz</h3>
+        <p>Deine Basisausdauer steigt oder sinkt um den Wert deines Konstitutionsmodifikators.<span
+                class="tool zwkon"><sup>(?)</sup></span></p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Stammeszwerg</h3>
+        <p>Stammeszwerge sind solche, die zu einem der drei Stämme gehören, die das Westliche, Nördliche und Östliche Gebirge der Siebenlande bewohnen. Sie widmen ihr Leben der Verteidigung des Kontinents gegen jegliche Bedrohungen von außerhalb, ganz so, wie es ihr Gott Carras vorgesehen hat.</p>
+        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
+        <h3>Freier Zwerg</h3>
+        <p>Zwerge, die entweder unter den Menschen geboren und aufgewachsen sind, oder schon vor Längerem ihren Stamm verlassen haben und sich nicht mehr diesem zugehörig fühlen. Sie gefragte Handwerker und Baumeister.</p>
+        <div class="languages" data-lang="Gemeinsprache,Zwergisch+"></div>
+        <h3>Apostat</h3>
+        <p>Die Apostaten lehnten die Aufgabe ihres Gottes ab und zogen sich in das Gebirge an der Südküste des Kontinents zurück. Die Stammeszwerge stehen ihnen feindselig gegenüber und sehen sie als Häretiker an, aber die Apostaten wollen bloß in Ruhe gelassen werden. Offensichtlich nennen sie sich auch nicht selbst Apoostaten - sie sind die Zwerge des Süd-Stamms. Mit den umgebenden Menschenreichen unterhalten sie desweilen recht gute Beziehungen, zumindest floriert der Handel.</p>
+        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
+    </div>
+    <!---------->
+
+
+
+    <!-- GNOM -->
+    <div class="entry" id="gnome">
+        <h1>Gnom<br><span class="smaller">Halbling</span></h1>
+        <img src="images/voelker/gnome.jpg" alt="Gnom">
+        <img src="images/voelker/gnome-crop.jpg" alt="Gnom" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="250 Jahre,35 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30">
+        </div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Im gegensatz zu Zwergen sind Gnome überhaupt nicht gastfreundlich und offenherzig, haben aber einen ebenso engen familiären Zusammenhalt. Es ist schwer, einen Halbling als Freund zu gewinnen, doch sollte dies gelingen, wird dieser auf ewig loyal bleiben.</p>
+        <hr>
+
+        <div class="attributes" data-values="10,10,11,10,10,11,10,11"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Flink</h3>
+        <p>Du kannst dich durch Felder von Kreaturen hindurchbewegen, die mindestens eine Kategorie größer sind als du.
+            Gegner müssen einen <i>SG10 + dein GES-Modifikator</i> Reaktionswurf bestehen, um einen Gelegenheitsangriff
+            gegen dich führen zu können.</p>
+        <h3>Natürlicher Feilscher</h3>
+        <p>Du hast bei Kreaturen, die dir neutral oder wohlgesonnen sind, einen Vorteil bei Diplomatie- und
+            Täuschungswürfen.</p>
+        <h3>Halblingsglück</h3>
+        <p>Wenn du auf einen Wurf Vorteil hast, kannst du dich stattdessen dazu entscheiden, den umgekehrten Wert des
+            Ergebnisses zu nehmen; eine 9 wird zu einer 11, eine 15 zu einer 5, eine 1 zu einer 19, etc.</p>
+        <hr>
+        
+        <h2>Varianten</h2>
+        <h3>Freier Gnom</h3>
+        <p>Gnome, die unter den Menschen leben.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+        <h3>Weswam-Gnom</h3>
+        <p>Gnome, die sich zusammengetan haben, um ein eigenes, unabhängiges Reich für sich zu erschaffen. Aussichtslos.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+        <h3>Zwergengnom</h3>
+        <p>Gnome, die unter den Zwergen leben.</p>
+        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
+    </div>
+    <!----------->
+
+
+
+    <!-- KENKU -->
+    <div class="entry" id="kenku">
+        <h1>Kenku</h1>
+        <img src="images/voelker/kenku.jpg" alt="Kenku">
+        <img src="images/voelker/kenku-crop.jpg" alt="Kenku" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="45 Jahre,12 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30"
+            data-common="Überlegene Dunkelsicht,Stählerner Magen"></div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Sprechende Raben ohne Flügel. Einzelgänger, Ruf als Räuber und Taschendiebe. Gewöhnlich sind Kenku Einzelgänger und tun sich nicht mit anderen ihres Volkes zusammen.</p>
+        <hr>
+
+        <div class="attributes" data-values="10,11,11,9,10,10,11,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Leichtfüßig</h3>
+        <p>Du erhälts beim Schleichen einen +2 Bonus auf Heimlichkeit.</p>
+        <h3>Spitze Finger</h3>
+        <p>Du verfügst über außergewöhnliche Feinmotorik; Du erhältst <span class="tool comp">Kompetenz</span> auf alle
+            Fingerfertigkeits- und
+            Gaukeleiwürfe.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Freier Kenku</h3>
+        <p>Ein Kenku, der unter den Menschen lebt.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+        <h3>Rachgieriger Kenku</h3>
+        <p>Die Anhänger der Vergelterschar sind religiöse Fanatiker, die sich der Vernichtung des eigenen Gottes Carsu
+            verschrieben haben. Sie sind auch die einzigen Kenku, denen man sowas wie eine einheitliche Kulturbewegung nachsagen könnte.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+    </div>
+    <!---------->
+
+
+
+    <!-- MIME -->
+    <div class="entry" id="mime">
+        <h1>Mime<br><span class="smaller">Formwandler</span></h1>
+        <img src="images/voelker/mime.jpg" alt="Mime">
+        <img src="images/voelker/mime-crop.jpg" alt="Mime" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="Unsterblich,*" data-health="*" data-height="*,*" data-speed="*" data-common="*">
+        </div>
+        <p>* Die meisten Merkmale des Formwandlers sind abhängig von der imitierten Kreatur.</p>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Können ihre Form ändern, sind tolle Spione, Kleidung gehört nicht mehr zur Verwandlung. Pack was zum wechseln ein.</p>
+        <hr>
+
+        <div class="attributes" data-values="*,*,*,*,*,10,10,11"></div>
+        <p>*Körperliche Attribute sind abhängig von der imitierten Kreatur.</p>
+        <h2>Volkseigenschaften</h2>
+        <h3>Wandelbar</h3>
+        <p>Du kannst als <span class="tool polymorph">wahrer Polymorph</span> deine Gestalt nach belieben in die eines
+            anderen Volkes ändern und übernimmst dabei die Merkmale und körperlichen Attribute (mit * markiert) des
+            imitierten Individuums. Dabei übernimmst du nur dessen Merkmalseigenschaften, keine Volkseigenschaften oder
+            Talente.<br>Du must das Vorbild deiner Verwandlung sehen oder vor kurzem noch gesehen haben, um dich darin
+            verwandeln zu können. Du kannst dich nur einmal pro Langer Rast verwandeln; wenn du dabei die
+            Größenkategorie änderst, musst du zwei zusätzliche Rasten pro Kategorieänderung einlegen. Bei
+            gleichbleibender Größe dauert die Verwandlung 10 Minuten, die Verwandlung zur nächst größeren oder kleineren
+            dauert 1 Stunde, bei zwei Kategoriestufen unterschied 6 Stunden, etc.<br>Die Verwandlung von ausschließlich
+            dem Kopf dauert 1 Minute, ist aber nur bei gleichem Volk möglich.</p>
+        <h3>Rekonstitution</h3>
+        <p>Beim Tod zerfließt dein Körper und sammelt sich am Boden als graue, zähflüssige Masse. Wenn nach einem Tag
+            noch mehr als die Hälfte der Masse an einem Stück zusammenhängt, kannst du dich in deine letzte Form
+            zurückverwandeln. Die Größe der Masse selbst ist hierbei winzig, dementsprechend lange dauert die
+            Verwandlung in einen größeren Körper.</p>
+        <h3>Perfekte Stimme</h3>
+        <p>Du kannst deine Verwandlung nutzen, um die Stimme jeder Person perfekt zu imitieren, solange du sie noch vor
+            kurzem hast Sprechen hören. Die Verwandlung der Stimmbänder dauert nur 6 Sekunden/1 Runde.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Bekennender Mime</h3>
+        <p>Ein Formwandler, der sich offen als solcher zu erkennen gibt, in der Hoffnung, als ehrliches Mitglied der Gesellschaft angesehen zu werden.</p>
+        <div class="languages" data-lang="Gemeinsprache,Volkseigene Sprache+"></div>
+        <h3>Verborgener Mime</h3>
+        <p>Gibt sich nicht als Mime zu erkennen, entweder um sich Ärger zu ersparen, oder für kriminelle Gründe.</p>
+        <div class="languages" data-lang="Gemeinsprache,Volkseigene Sprache+"></div>
+    </div>
+    <!---------->
+
+
+
+    <!-- ALBE -->
+    <div class="entry" id="drow">
+        <h1>Albe<br><span class="smaller">Dunkelelfe</span></h1>
+        <img src="images/voelker/drow2.jpg" alt="Albe">
+        <img src="images/voelker/drow2-crop.jpg" alt="Albe" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="Unsterblich,100 Jahre" data-health="20" data-height="5½ bis 6,Mittel"
+            data-speed="30" data-common="Überlegene Dunkelsicht,Immunität"></div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Elfen in böse.</p>
+        <hr>
+
+        <div class="attributes" data-values="10,11,11,10,11,10,10,11"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Verbündeter der Schatten</h3>
+        <p>Du bewegst dich durch Dämmerlicht, als würdest du durch Finsternis wandeln. Andere Kreaturen können dich
+            schlechter erkennen und haben auf sichtbarsierte Wahrnehmungswürfe einen Malus von -10; bei tatsächlicher
+            Dunkelheit bist du effektiv unsichtbar und kannst nur noch von Wesen mit <span
+                class="tool dark">Dunkelsicht</span> gesehen werden.</p>
+        <h3>Blutiges Erbe</h3>
+        <p>Bei Kreaturen, deren Weisheit kleiner oder gleich deinem Charismawert ist, kannst du beim Einschüchtern mit
+            Vorteil werfen.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Valur-Albe</h3>
+        <p>Alben, die aus Dsôn Valur stammen und diese Tatsache nicht verbergen. Sie haben sich aus verschiedenen Gründen von ihrer Heimat abgewandt und leben nun unter den Menschen der Siebenlande.</p>
+        <div class="languages" data-lang="Albisch,Gemeinsprache"></div>
+        <h3>Intrigierende Albe</h3>
+        <p>Stammen auch aus Dsôn Valur, sind aber Spione, welche zur Stärkung Dsôns die Politik des Landes unterwandern, oder aber eigene, finstere Ziele verfolgen.</p>
+        <div class="languages" data-lang="Albisch,Gemeinsprache"></div>
+        <h3>Freie Albe</h3>
+        <p>Alben, die unter den Menschen aufgewachsen sind, und nicht zwangsläufig hinterhältige Ziele im Namen Dsôn Valurs verfolgen. Das Misstrauen bleibt dennoch.</p>
+        <div class="languages" data-lang="Gemeinsprache,Albisch+"></div>
+    </div>
+    <!--------->
+
+
+
+    <!-- ORK -->
+    <div class="entry" id="orc">
+        <h1>Ork</h1>
+        <img src="images/voelker/orc.jpg" alt="Ork">
+        <img src="images/voelker/orc-crop.jpg" alt="Ork" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="60 Jahre,14 Jahre" data-health="20" data-height="6 bis 7,Mittel" data-speed="30"
+            data-common="Dunkelsicht,Bedrohlich"></div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Als Ork dürfte man es schwer haben in den Siebenlanden, weil sie groß und furchteinflößend sind.</p>
+        <hr>
+
+        <div class="attributes" data-values="12,11,10,11,10,9,10,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Orkischer Blutdurst</h3>
+        <p>Sofern du dich nicht bereits in Nahkampfreichweite zu einem Gegner befindest, kannst du bei Bedarf deinen
+            Sprint als Bonusaktion ausführen, musst dich aber auf direktem Weg zum nächstgelegenen, bekannten Gegner
+            bewegen.</p>
+        <h3>Unaufhaltsam</h3>
+        <p>Solltest du besiegt, aber nicht gleich <span class="tool killed">getötet</span> werden, kannst du einmalig
+            <b>pro Kampf</b> du mit 1 Ausdauerpunkt weiterkämpfen. In diesem Fall kannst du sofort eine beliebige <span
+                class="tool reaction">Reaktion</span> ausführen.
+        </p>
+        <h3>Brutaler Kampf</h3>
+        <p>Jedes Mal, wenn du im Nahkampf eine 20 wirfst, darfst du ein weiteres Mal angreifen.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Oschotk-Ork</h3>
+        <p>Orks, die aus dem Orkreich Oschotk weit im Westen der Siebenlande stammen und selbige nun bereisen, aus welchen Gründen auch immer. Ist vermutlich relevant zu erwähnen, dass Oschotk-Orks effektiv als illegale Besatzer angesehen werden und zumindest im Königreich Kaukand gejagt werden.</p>
+        <div class="languages" data-lang="Grozak,Gemeinsprache"></div>
+        <h3>Streifender Ork</h3>
+        <p>Orks, die einer umherziehenden Horde außerhalb der Siebenlande angehörten. Betrat entweder als Gefangener der Zwerge den Kontinent, oder wurde reingelassen, weil er "Bitte, bitte!" gesagt hat.</p>
+        <div class="languages" data-lang="Fremdsprache,Gemeinsprache"></div>
+    </div>
+    <!------------>
+
+
+
+    <!-- GOBLIN -->
+    <div class="entry" id="goblin">
+        <h1>Goblin</h1>
+        <img src="images/voelker/goblin.jpg" alt="Goblin">
+        <img src="images/voelker/goblin-crop.jpg" alt="Goblin" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="40 Jahre,10 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30">
+        </div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Goblins sind klein und toll.</p>
+        <hr>
+
+        <div class="attributes" data-values="10,10,11,11,10,9,10,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Soziale Raserei</h3>
+        <p>Im Kampf erhälst du +1 Bonus auf Nahkampfangriffe für jeden Verbündeten, der mindestens die Hälfte seiner
+            Leben verloren hat, und +4 Bonus für jeden gefallenen Verbündeten.</p>
+        <h3>Sprunghafte Bewegung</h3>
+        <p>Solange du dich von der Nahkampfreichweite eines Gegners direkt in die eines anderen begibts, oder der Gegner
+            von mindestens einem Verbündeten flankiert wird, riskierst du keine Gelgenheitsangriffe.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Assimilierter Goblin</h3>
+        <p>Ein Goblin, der aus welchen Gründen auch immer unter den Menschen aufwuchs. Vermutlich als Haustier.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+        <h3>Gezähmter Goblin</h3>
+        <p>Ein Goblin, der zuvor als Teil einer wildgewordenen Meute das Land bereiste und Unruhe stiftete, aus unterschiedlichen Gründen aber gezwungen war, sich zu benehmen.</p>
+        <div class="languages" data-lang="Gobsch,Gemeinsprache"></div>
+        <h3>Oschotk-Goblin</h3>
+        <p>Goblins, die den Orks von Oschotk als Fußvolk dienen.</p>
+        <div class="languages" data-lang="Grozak,Gemeinsprache"></div>
+    </div>
+    <!------------>
+
+
+
+    <!-- KOBOLD -->
+    <div class="entry" id="kobold">
+        <h1>Kobold</h1>
+        <img src="images/voelker/kobold.jpg" alt="Kobold">
+        <img src="images/voelker/kobold-crop.jpg" alt="Kobold" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="30 Jahre,6 Jahre" data-health="15" data-height="2½ bis 3½,Klein" data-speed="30"
+            data-common="Dunkelsicht"></div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Kobolde sind klein, toll und (größen)wahnsinnig.</p>
+        <hr>
+
+        <div class="attributes" data-values="9,11,11,10,11,10,10,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Rudeltaktiken</h3>
+        <p>Du kannst jeden Gegner im Nahkampf mit Vorteil angreifen, als würdest du ihn flankieren, solange sich
+            mindestens eein Verbündeter in dessen Kampfreichweite befindet.</p>
+        <h3>Fragwürdiges Erbe</h3>
+        <p>Du hast eine +4 Resistenz gegen Feuer und eine natürliche 0|1|1 Rüstung.</p>
+        <h3>Losstürmen</h3>
+        <p>Solange du sprintest und dabei deine Bewegungsreichweite voll ausnutzt, kannst du nicht von
+            Gelegenheitsangriffen getorffen werden, außer ein Gegner bereitet sich explizit als <span
+                class="tool reaction">Reaktion</span> darauf vor.</p>
+        <h3>Fluchtinstinkt</h3>
+        <p>Immer, wenn deine Ausdauer unter die Hälfte fällt, oder ein Verbündeter besiegt wird, gerätst du in Panik und
+            fliehst auf direktem Weg aus dem Kampf. Du musst einen Willeskraft-Rettungswurf bestehen, um dich wieder zu
+            sammeln.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Freier Kobold</h3>
+        <p>Kobolde, die unter den Menschen leben.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+        <h3>Getreuer Kobold</h3>
+        <p>Kobolde, die glauben, sie seien die Nachfahren von Drachen. Es sei ihre Pflicht, den feuerspeienden Bestien zu dienen und sind immer auf der Suche nach einem, dem sie sich unterwerfen können.</p>
+        <div class="languages" data-lang="Drakonisch,Gemeinsprache"></div>
+    </div>
+    <!---------->
+
+
+
+    <!-- FAUN -->
+    <div class="entry" id="faun">
+        <h1>Faun<br><span class="smaller">Satyr</span></h1>
+        <img src="images/voelker/faun.jpg" alt="Faun">
+        <img src="images/voelker/faun-crop.jpg" alt="Faun" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="60 Jahre,20 Jahre" data-health="15" data-height="5½ bis 6½,Mittel" data-speed="35"
+            data-common="Ziegenhufe">
+        </div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Faune sind toll.</p>
+        <hr>
+
+        <div class="attributes" data-values="10,10,11,10,10,10,10,12"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Künstlerische Begabung</h3>
+        <p>Wähle bei der Charaktererstellung jeweils eine Fähigkeit aus den Kategorien <i>Auftreten</i> und
+            <i>Instrumente</i>. Du startest mit einem +2 Bonus und <span class="tool comp">Kompetenz</span> in beiden
+            Fähigkeiten.
+        </p>
+        <h3>Rammbock</h3>
+        <p>Sofern du deine gewöhnliche Bewegungsreichweite ausgenutzt hast, kannst du deine Hörner für einen
+            Stärkeangriff während deiner Sprintaktion nutzen; dieser gilt als unbewaffneter Angriff, kann dir bei einem
+            Scheitern also Schaden zufügen.<br>Addiere +1 auf deinen Stärke-Wurf für jedes während dem Sprint
+            zurückgelegte Feld. Wenn du Schaden verursachst wirfst du den Gegner 1 Feld zurück und er musst einen
+            <i>SG10-Athletikwurf</i> bestehen, um auf den Beinen zu bleiben. Verursachst du mindestens 10 Schaden wird
+            der Gegner 2 Felder zurückgeworfen und der SG beträgt 15.<br>Die Hälfte des verursachten Schadens ist
+            hierbei Schmetterre-, die andere Stichschaden.<span class="tool faunhead"><sup>(?)</sup></span>
+        </p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Gláddan-Satyr</h3>
+        <p>Faune aus dem Gláddan-Wald.</p>
+        <div class="languages" data-lang="Dreys,Gemeinsprache,Elfisch+"></div>
+        <h3>Freier Faun</h3>
+        <p>Fauen, die unter den Menschen leben.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+    </div>
+    <!-------------->
+
+
+
+    <!-- LLEKAMPA -->
+    <div class="entry" id="goatman">
+        <h1 style="letter-spacing: -.05rem;">Llekampa</h1>
+        <img src="images/voelker/goatman.jpg" alt="Llekampa">
+        <img src="images/voelker/goatman-crop.jpg" alt="Llekampa" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="120 Jahre,25 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="25"
+            data-common="Ziegenhufe"></div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Llekampen sind toll.</p>
+        <hr>
+
+        <div class="attributes" data-values="10,10,11,10,10,11,11,9"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Olfaktorisches Wunder</h3>
+        <p>Du verströmst einen für intelligente Wesen ungewöhnlich starken Geruch; Kreaturen in einem 30 Fuß Radius um
+            dich herum haben Vorteil bei geruchsbasierten Wahrnehmungswürfen.</p>
+        <h3>Sicheren Fußes</h3>
+        <p>Du hast Vorteil bei Rettungswürfen, die dich vorm Stürzen bewahren.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Gláddan-Llekampa</h3>
+        <p>Llekampa aus dem Gláddan-Wald.</p>
+        <div class="languages" data-lang="Dreys,Gemeinsprache,Elfisch+"></div>
+        <h3>Freier Llekampa</h3>
+        <p>Llekampa, die unter den Menschen leben.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+    </div>
+    <!----------->
+
+
+
+    <!-- GNOLL -->
+    <div class="entry" id="gnoll">
+        <h1>Gnoll</h1>
+        <img src="images/voelker/gnoll.jpg" alt="Gnoll">
+        <img src="images/voelker/gnoll-crop.jpg" alt="Gnoll" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="50 Jahre,10 Jahre" data-health="20" data-height="6 bis 7,Mittel" data-speed="40"
+            data-common="Dunkelsicht,Stählerner Magen,Bedrohlich,Raubtiersinne"></div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Gnolle sind toll.</p>
+        <hr>
+
+        <div class="attributes" data-values="11,11,10,10,12,10,10,8"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Fährtensucher</h3>
+        <p>Dein Gehör ist ausgeprägt, deine Augen sind geschärft und dein Geruchsinn untrüglich; du startest mit einem
+            +2 Bonus und <span class="tool comp">Kompetenz</span> in Spurensuche. Eine Fährte, deren Geruch du einmal
+            aufgenommen hast, kannst du nicht wieder verlieren, solange sie nicht von einem Gewässer, Magie, oder etwas
+            vergleichbarem unterbrochen wird.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Oschotk-Gnoll</h3>
+        <p>Gnolle, die zusammen mit den Ork von Oschotk leben und kämpfen.</p>
+        <div class="languages" data-lang="Grozak,Gemeinsprache"></div>
+        <h3>Freier Gnoll</h3>
+        <p>Gnolle, die versuchen, von den Menschen als mehr als nur bloße Monster angesehen zu werden.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+    </div>
+    <!----------->
+
+
+
+    <!-- RIESE -->
+    <div class="entry" id="giant">
+        <h1>Riese</h1>
+        <img src="images/voelker/giant.jpg" alt="Riese">
+        <img src="images/voelker/giant-crop.jpg" alt="Riese" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="300 Jahre,40 Jahre" data-health="30" data-height="10 bis 12,Groß" data-speed="40">
+        </div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Riesen sind groß und toll.</p>
+        <hr>
+
+        <div class="attributes" data-values="12,10,9,12,10,10,10,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Kultureller Pazifismus</h3>
+        <p>Als Riese verabscheust du unnötige Gewalt und vermeidest Kämpfe soweit möglich; du kannst nicht angreifen,
+            bis du oder ein Verbündeter Schaden genommen hat.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Freier Riese</h3>
+        <p>Ein Riese der sich gedacht hat, es wäre ne gute Idee, unter den Menschen zu leben.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+        <h3>Hügelriese</h3>
+        <p>Ein Riese, der die meiste Zeit seines Lebens einsiedlerisch und weit weg von den Menschen gelebt hat. Entweder völlig alleine, bei den Orks von Oschotk, oder im Gláddan-Wald.</p>
+        <div class="languages" data-lang="Gemeinsprache,Dreys+,Grozak+"></div>
+        <h3>Zwergenriese</h3>
+        <p>Ein Riese, der zusammen mit den Zwergen in den Bergen lebt.</p>
+        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
+    </div>
+    <!----------->
+
+
+
+    <!-- OWLIN -->
+    <div class="entry" id="owlin">
+        <h1>Yespest</h1>
+        <img src="images/voelker/owlin.jpg" alt="Yespest">
+        <img src="images/voelker/owlin-crop.jpg" alt="Yespest" class="crop">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="1000 Jahre,200 Jahre" data-health="20" data-height="4½ bis 6½,Mittel"
+            data-speed="30" data-common="Überlegene Dunkelsicht"></div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Yespesten (gesp. Je-pescht) sind toll.</p>
+        <hr>
+
+        <div class="attributes" data-values="9,10,10,9,12,10,12,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Stille Federn</h3>
+        <p>Du kannst fliegen. Deine Bewegungsrate im Flug ist die doppelte deiner normalen Rate. Dein Flug ist lautlos.
+            Außerdem bist du <span class="tool comp">kompetent</span> bei Heimlichkeitswürfen.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Freier Yespest</h3>
+        <p>Eulenmann bei Menschen.</p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
+        <h3>Gláddan-Yespest</h3>
+        <p>Eulenmann im Wald.</p>
+        <div class="languages" data-lang="Dreys,Gemeinsprache,Elfisch+"></div>
+    </div>
+    <!--------------->
 </body>
 
 </html>
