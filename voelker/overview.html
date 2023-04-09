@@ -83,7 +83,7 @@
             margin-bottom: 1rem;
             text-align: justify;
             text-align-last: none;
-            hyphens: auto;
+            hyphens: auto !important;
         }
 
         .entry p,
@@ -108,6 +108,8 @@
         .entry hr {
             margin: .5rem 0;
             box-shadow: 0 4px 8px rgba(0 0 0 / .5);
+
+            border: 1px solid rgba(0 0 0 / .25);
         }
 
         .entry ul {
@@ -240,6 +242,27 @@
                 float: none;
                 margin: 1rem 0;
             }
+
+            .attributes table {
+                table-layout: fixed;
+                border-collapse: collapse;
+                width: 100%;
+                overflow: hidden;
+                border-radius: 1rem;
+            }
+
+            .attributes thead {
+                font-weight: bold;
+            }
+
+            .attributes th,
+            .attributes td {
+                font-size: .9rem;
+                padding: 4px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
         }
     </style>
 
@@ -266,6 +289,8 @@
             if (cl) cell.className = cl;
             return cell;
         }
+
+        const tool = (tool, content) => `<span class="tool ${tool}">${content}</span>`;
 
         //------ATTRIBUTES TABLES------
         function createAttributeTable(data) {
@@ -304,8 +329,6 @@
         //------TRAITS LISTS------
         function createTraitsList(age, health, height, speed, common) {
             const list = make("ul");
-
-            const tool = (tool, content) => `<span class="tool ${tool}">${content}</span>`;
 
             const ageToolOpen = '<span class="tool adult">';
             const ageToolClose = '</span>';
@@ -378,6 +401,9 @@
                         case "Ziegenhufe":
                             trait = tool('hooves', trait);
                             break;
+                        case "Bedrohlich":
+                            trait = tool('threat', trait);
+                            break;
                         default:
                             break;
                     }
@@ -413,6 +439,28 @@
                 container.appendChild(list);
             }
 
+            // presume text may containt whitespaces, always take first element
+            const languageTool = (text) => {
+                let lang = text.split(' ')[0];
+                switch (lang) {
+                    case "Dreys":
+                        lang = tool('dreys', lang);
+                        text = text.replace("Dreys", lang);
+                        break;
+                    case "Grozak":
+                        lang = tool('grozak', lang);
+                        text = text.replace("Grozak", lang);
+                        break;
+                    case "Fremdsprache":
+                        lang = tool('foreign', lang);
+                        text = text.replace("Fremdsprache", lang);
+                        break;
+                    default:
+                        break;
+                }
+                return text;
+            }
+
             const languageContainer = queryAll('.languages');
             for (const container of languageContainer) {
                 const languages = container.getAttribute('data-lang').split(',');
@@ -420,6 +468,7 @@
                 let first = true;
                 languages.forEach(text => {
                     text = text.replace(/\+/g, " zum Preis von 1 Fähigkeitspunkt");
+                    text = languageTool(text);
                     langText += (first ? "" : ", ") + text;
                     first = false;
                 });
@@ -435,8 +484,11 @@
             "adult": "Das durchschnittliche Alter der physiologischen, psychologischen, und kulturellen Reife. Angehörige dieses Volkes werden ab diesem Alter als Erwachsene betrachtet.",
             "zwkon": "Aufgrund ihrer Größenkategorie haben Zwerge eine natürliche Basisausdauer von 20; da sie aber standardmäßig eine Konstitution von 11 besitzen, steigt die Basisausdauer durch diese Eigenschaft auf 21. Daraus ergibt sich eine tatsächliche Ausdauer von<br>⌊ 21 + 1 * 0.1 * 21 ⌋ = 23<br>Bei einer Konsitution von 20 beträgt die Basisausdauer 30, die tatsächliche Ausdauer<br>⌊ 30 + 10 * 0.1 * 30 ⌋ = 60",
             "deat": "Ein riesiger Dryadenwald im Zentrum des Kontinents.",
+            "killed": "Du wirst getötet, wenn du durch einen einzigen Angriff Schaden in Höhe deiner Gesamtausdauer erhältst, oder deine verbleibende Ausdauer auf oder unter den negativen Wert deiner Gesamtausdauer sinkt.",
+            "reaction": "Du kannst eine einzige Bewegung, Aktion, <b>oder</b> Bonusaktion durchführen. Abgesehen von einigen Ausnahmen müssen spezifische Reaktionen zuvor im eigenen Zug vorbereitet werden und ersetzen damit die eigentliche Aktion dieses Zuges.",
+            "faunhead": "Bei ungeradem Schaden ist der größere Anteil Schmetterschaden.",
             //sizes
-            "large": "Deine Basisausdauer beträgt 30. Du hast einen Bonus von +4 auf Stärkewürfe. Du hast einen Malus von -4 aufs Ausweichen, Verstecken und Schleichen.",
+            "large": "Deine Basisausdauer beträgt 30. Du hast einen Bonus von +4 auf Stärkewürfe. Du hast einen Malus von -4 aufs Ausweichen, Verstecken und Schleichen. Du belegst außerdem eine 10x10-Fuß-Fläche auf dem Schlachtfeld.",
             "medium": "Deine Größenkategoie hat keine speziellen Auswirkungen.",
             "small": "Deine Basisausdauer beträgt bloß 15. Du hast einen Malus von -4 auf Stärkewürfe. Du hast einen Bonus von +4 aufs Ausweichen, Verstecken und Schleichen.",
             //traits
@@ -447,8 +499,11 @@
             "predator": "Du kannst frisches Blut auf bis zu 2 Meilen (5km) Entfernung wahrnehmen und dessen ungefähre Richtung bestimmen.",
             "stomach": "Gifte, die du einnimmst, können dir nichts anhaben. Du kannst dich problemlos von rohem, völlig verrittetem, oder anderweitig ungenießbarem Essen ernähren.",
             "hooves": "Du hast einen Vorteil beim Kletter, solande die Oberfläche nicht völlig glatt ist und die Steigung noch unter 90° liegt. Unwegsames Gelände verlangsamt dich nicht, doch Morast, Schlamm und ähnliches halbieren deine Bewegungsrate.",
+            "threat": "Statt deines Charismawertes kannst du zum Einschüchtern Stärke verwenden.",
             //languages
-            "dreys": "Die gemeinschaftliche Sprache der Waldvölker, die von den meisten Bewohnern des Dëat Gláddan gesprochen wird. Anderswo im Kontinent sucht man meist vergebens nach jemandem, der Dreys spricht."
+            "dreys": "Die gemeinschaftliche Sprache der Waldvölker, die von den meisten Bewohnern des Dëat Gláddan gesprochen wird. Anderswo im Kontinent sucht man meist vergebens nach jemandem, der Dreys beherrscht.",
+            "grozak": "Die Sprache der Bewohner des Orkreiches Oschotk, die sich aus der Muttersprache des vorherrschenden Stammes und einiger Lehnwörter zugezogener Völker und Orkstämme zusammensetzt.",
+            "foreign": "Ein  Sammelbegriff für verschiedene, weitgehend unbekannte Sprachen aus den Ländern jenseits der Gebirge."
         }
 
         function buildTooltips() {
@@ -752,11 +807,23 @@
         <p>*Körperliche Attribute sind abhängig von der imitierten Kreatur.</p>
         <h2>Volkseigenschaften</h2>
         <h3>Wandelbar</h3>
-        <p>Du kannst als <span class="tool polymorph">wahrer Polymorph</span> deine Gestalt nach belieben in die eines anderen Volkes ändern und übernimmst dabei die Merkmale und körperlichen Attribute (mit * markiert) des imitierten Individuums. Dabei übernimmst du nur dessen Merkmalseigenschaften, keine Volkseigenschaften oder Talente.<br>Du must das Vorbild deiner Verwandlung sehen oder vor kurzem noch gesehen haben, um dich darin verwandeln zu können. Du kannst dich nur einmal pro Langer Rast verwandeln; wenn du dabei die Größenkategorie änderst, musst du zwei zusätzliche Rasten pro Kategorieänderung einlegen. Bei gleichbleibender Größe dauert die Verwandlung 10 Minuten, die Verwandlung zur nächst größeren oder kleineren dauert 1 Stunde, bei zwei Kategoriestufen unterschied 6 Stunden, etc.<br>Die Verwandlung von ausschließlich dem Kopf dauert 1 Minute, ist aber nur bei gleichem Volk möglich.</p>
+        <p>Du kannst als <span class="tool polymorph">wahrer Polymorph</span> deine Gestalt nach belieben in die eines
+            anderen Volkes ändern und übernimmst dabei die Merkmale und körperlichen Attribute (mit * markiert) des
+            imitierten Individuums. Dabei übernimmst du nur dessen Merkmalseigenschaften, keine Volkseigenschaften oder
+            Talente.<br>Du must das Vorbild deiner Verwandlung sehen oder vor kurzem noch gesehen haben, um dich darin
+            verwandeln zu können. Du kannst dich nur einmal pro Langer Rast verwandeln; wenn du dabei die
+            Größenkategorie änderst, musst du zwei zusätzliche Rasten pro Kategorieänderung einlegen. Bei
+            gleichbleibender Größe dauert die Verwandlung 10 Minuten, die Verwandlung zur nächst größeren oder kleineren
+            dauert 1 Stunde, bei zwei Kategoriestufen unterschied 6 Stunden, etc.<br>Die Verwandlung von ausschließlich
+            dem Kopf dauert 1 Minute, ist aber nur bei gleichem Volk möglich.</p>
         <h3>Rekonstitution</h3>
-        <p>Beim Tod zerfließt dein Körper und sammelt sich am Boden als graue, zähflüssige Masse. Wenn nach einem Tag noch mehr als die Hälfte der Masse an einem Stück zusammenhängt, kannst du dich in deine letzte Form zurückverwandeln. Die Größe der Masse selbst ist hierbei winzig, dementsprechend lange dauert die Verwandlung in einen größeren Körper.</p>
+        <p>Beim Tod zerfließt dein Körper und sammelt sich am Boden als graue, zähflüssige Masse. Wenn nach einem Tag
+            noch mehr als die Hälfte der Masse an einem Stück zusammenhängt, kannst du dich in deine letzte Form
+            zurückverwandeln. Die Größe der Masse selbst ist hierbei winzig, dementsprechend lange dauert die
+            Verwandlung in einen größeren Körper.</p>
         <h3>Perfekte Stimme</h3>
-        <p>Du kannst deine Verwandlung nutzen, um die Stimme jeder Person perfekt zu imitieren, solange du sie noch vor kurzem hast Sprechen hören. Die Verwandlung der Stimmbänder dauert nur 6 Sekunden/1 Runde.</p>
+        <p>Du kannst deine Verwandlung nutzen, um die Stimme jeder Person perfekt zu imitieren, solange du sie noch vor
+            kurzem hast Sprechen hören. Die Verwandlung der Stimmbänder dauert nur 6 Sekunden/1 Runde.</p>
         <hr>
         <h2>Varianten</h2>
         <h3>Bekennender Mime</h3>
@@ -780,15 +847,24 @@
         <div class="attributes" data-values="10,11,11,10,11,10,10,11"></div>
         <h2>Volkseigenschaften</h2>
         <h3>Verbündeter der Schatten</h3>
-        <p>Du bewegst dich durch Dämmerlicht, als würdest du durch Finsternis wandeln. Andere Kreaturen können dich schlechter erkennen und haben auf sichtbarsierte Wahrnehmungswürfe einen Malus von -10; bei tatsächlicher Dunkelheit bist du effektiv unsichtbar und kannst nur noch von Wesen mit <span class="tool dark">Dunkelsicht</span> gesehen werden.</p>
+        <p>Du bewegst dich durch Dämmerlicht, als würdest du durch Finsternis wandeln. Andere Kreaturen können dich
+            schlechter erkennen und haben auf sichtbarsierte Wahrnehmungswürfe einen Malus von -10; bei tatsächlicher
+            Dunkelheit bist du effektiv unsichtbar und kannst nur noch von Wesen mit <span
+                class="tool dark">Dunkelsicht</span> gesehen werden.</p>
+        <h3>Blutiges Erbe</h3>
+        <p>Bei Kreaturen, deren Weisheit kleiner oder gleich deinem Charismawert ist, kannst du beim Einschüchtern mit
+            Vorteil werfen.</p>
         <hr>
         <h2>Varianten</h2>
         <h3>Valur-Albe</h3>
         <p></p>
+        <div class="languages" data-lang="Albisch,Gemeinsprache"></div>
         <h3>Intrigierende Albe</h3>
         <p></p>
+        <div class="languages" data-lang="Albisch,Gemeinsprache"></div>
         <h3>Freie Albe</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache,Albisch+"></div>
     </div>
     <div class="entry" id="orc">
         <h1>Ork</h1>
@@ -797,7 +873,7 @@
 
         <h2>Merkmale</h2>
         <div class="traits" data-age="60 Jahre,14 Jahre" data-health="20" data-height="6 bis 7,Mittel" data-speed="30"
-            data-common="Dunkelsicht"></div>
+            data-common="Dunkelsicht,Bedrohlich"></div>
         <hr>
 
         <h2>Beschreibung</h2>
@@ -806,13 +882,26 @@
 
         <div class="attributes" data-values="12,11,10,11,10,9,10,10"></div>
         <h2>Volkseigenschaften</h2>
+        <h3>Orkischer Blutdurst</h3>
+        <p>Sofern du dich nicht bereits in Nahkampfreichweite zu einem Gegner befindest, kannst du bei Bedarf deinen
+            Sprint als Bonusaktion ausführen, musst dich aber auf direktem Weg zum nächstgelegenen, bekannten Gegner
+            bewegen.</p>
+        <h3>Unaufhaltsam</h3>
+        <p>Solltest du besiegt, aber nicht gleich <span class="tool killed">getötet</span> werden, kannst du einmalig
+            <b>pro Kampf</b> du mit 1 Ausdauerpunkt weiterkämpfen. In diesem Fall kannst du sofort eine beliebige <span
+                class="tool reaction">Reaktion</span> ausführen.</p>
+        <h3>Brutaler Kampf</h3>
+        <p>Jedes Mal, wenn du im Nahkampf eine 20 wirfst, darfst du ein weiteres Mal angreifen.</p>
         <hr>
 
         <h2>Varianten</h2>
         <h3>Oschotk-Ork</h3>
         <p></p>
+        <div class="languages" data-lang="Grozak,Gemeinsprache"></div>
         <h3>Streifender Ork</h3>
         <p></p>
+        <div class="languages" data-lang="Fremdsprache,Gemeinsprache"></div>
+
     </div>
     <div class="entry" id="goblin">
         <h1>Goblin</h1>
@@ -829,15 +918,22 @@
 
         <div class="attributes" data-values="10,10,11,11,10,9,10,10"></div>
         <h2>Volkseigenschaften</h2>
+        <h3>Soziale Raserei</h3>
+        <p>Im Kampf erhälst du +1 Bonus auf Nahkampfangriffe für jeden Verbündeten, der mindestens die Hälfte seiner Leben verloren hat, und +4 Bonus für jeden gefallenen Verbündeten.</p>
+        <h3>Sprunghafte Bewegung</h3>
+        <p>Solange du dich von der Nahkampfreichweite eines Gegners direkt in die eines anderen begibts, oder der Gegner von mindestens einem Verbündeten flankiert wird, riskierst du keine Gelgenheitsangriffe.</p>
         <hr>
 
         <h2>Varianten</h2>
         <h3>Assimilierter Goblin</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
         <h3>Gezähmter Goblin</h3>
         <p></p>
+        <div class="languages" data-lang="Gobsch,Gemeinsprache"></div>
         <h3>Oschotk-Goblin</h3>
         <p></p>
+        <div class="languages" data-lang="Grozak,Gemeinsprache"></div>
     </div>
 
     <div class="entry" id="kobold">
@@ -856,13 +952,23 @@
 
         <div class="attributes" data-values="9,11,11,10,11,10,10,10"></div>
         <h2>Volkseigenschaften</h2>
+        <h3>Rudeltaktiken</h3>
+        <p>Du kannst jeden Gegner im Nahkampf mit Vorteil angreifen, als würdest du ihn flankieren, solange sich mindestens eein Verbündeter in dessen Kampfreichweite befindet.</p>
+        <h3>Fragwürdiges Erbe</h3>
+        <p>Du hast eine +4 Resistenz gegen Feuer und eine natürliche 0|1|1 Rüstung.</p>
+        <h3>Losstürmen</h3>
+        <p>Solange du sprintest und dabei deine Bewegungsreichweite voll ausnutzt, kannst du nicht von Gelegenheitsangriffen getorffen werden, außer ein Gegner bereitet sich explizit als <span class="tool reaction">Reaktion</span> darauf vor.</p>
+        <h3>Fluchtinstinkt</h3>
+        <p>Immer, wenn deine Ausdauer unter die Hälfte fällt, oder ein Verbündeter besiegt wird, gerätst du in Panik und fliehst auf direktem Weg aus dem Kampf. Du musst einen Willeskraft-Rettungswurf bestehen, um dich wieder zu sammeln.</p>
         <hr>
 
         <h2>Varianten</h2>
         <h3>Freier Kobold</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
         <h3>Getreuer Kobold</h3>
         <p></p>
+        <div class="languages" data-lang="Drakonisch,Gemeinsprache"></div>
     </div>
 
     <div class="entry" id="faun">
@@ -882,13 +988,19 @@
 
         <div class="attributes" data-values="10,10,11,10,10,10,10,12"></div>
         <h2>Volkseigenschaften</h2>
+        <h3>Künstlerische Begabung</h3>
+        <p>Wähle bei der Charaktererstellung jeweils eine Fähigkeit aus den Kategorien <i>Auftreten</i> und <i>Instrumente</i>. Du startest mit einem +2 Bonus und <span class="tool comp">Kompetenz</span> in beiden Fähigkeiten.</p>
+        <h3>Rammbock</h3>
+        <p>Sofern du deine gewöhnliche Bewegungsreichweite ausgenutzt hast, kannst du deine Hörner für einen Stärkeangriff während deiner Sprintaktion nutzen; dieser gilt als unbewaffneter Angriff, kann dir bei einem Scheitern also Schaden zufügen.<br>Addiere +1 auf deinen Stärke-Wurf für jedes während dem Sprint zurückgelegte Feld. Wenn du Schaden verursachst wirfst du den Gegner 1 Feld zurück und er musst einen <i>SG10-Athletikwurf</i> bestehen, um auf den Beinen zu bleiben. Verursachst du mindestens 10 Schaden wird der Gegner 2 Felder zurückgeworfen und der SG beträgt 15.<br>Die Hälfte des verursachten Schadens ist hierbei Schmetterre-, die andere Stichschaden.<span class="tool faunhead"><sup>(?)</sup></span></p>
         <hr>
 
         <h2>Varianten</h2>
         <h3>Gláddan-Satyr</h3>
         <p></p>
+        <div class="languages" data-lang="Dreys,Gemeinsprache,Elfisch+"></div>
         <h3>Freier Faun</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
     </div>
 
     <div class="entry" id="goatman">
@@ -907,13 +1019,19 @@
 
         <div class="attributes" data-values="10,10,11,10,10,11,11,9"></div>
         <h2>Volkseigenschaften</h2>
+        h3>Olfaktorisches Wunder</h3>
+        <p>Du verströmst einen für intelligente Wesen ungewöhnlich starken Geruch; Kreaturen in einem 30 Fuß Radius um dich herum haben Vorteil bei geruchsbasierten Wahrnehmungswürfen.</p>
+        <h3>Sicheren Fußes</h3>
+        <p>Du hast Vorteil bei Rettungswürfen, die dich vorm Stürzen bewahren.</p>
         <hr>
 
         <h2>Varianten</h2>
         <h3>Gláddan-Llekampa</h3>
         <p></p>
+        <div class="languages" data-lang="Dreys,Gemeinsprache,Elfisch+"></div>
         <h3>Freier Llekampa</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
     </div>
 
     <div class="entry" id="gnoll">
@@ -923,7 +1041,7 @@
 
         <h2>Merkmale</h2>
         <div class="traits" data-age="50 Jahre,10 Jahre" data-health="20" data-height="6 bis 7,Mittel" data-speed="40"
-            data-common="Dunkelsicht,Stählerner Magen"></div>
+            data-common="Dunkelsicht,Stählerner Magen,Bedrohlich,Raubtiersinne"></div>
         <hr>
 
         <h2>Beschreibung</h2>
@@ -932,13 +1050,17 @@
 
         <div class="attributes" data-values="11,11,10,10,12,10,10,8"></div>
         <h2>Volkseigenschaften</h2>
+        <h3>Fährtensucher</h3>
+        <p>Dein Gehör ist ausgeprägt, deine Augen sind geschärft und dein Geruchsinn untrüglich; du startest mit einem +2 Bonus und <span class="tool comp">Kompetenz</span> in Spurensuche. Eine Fährte, deren Geruch du einmal aufgenommen hast, kannst du nicht wieder verlieren, solange sie nicht von einem Gewässer, Magie, oder etwas vergleichbarem unterbrochen wird.</p>
         <hr>
 
         <h2>Varianten</h2>
         <h3>Oschotk-Gnoll</h3>
         <p></p>
+        <div class="languages" data-lang="Grozak,Gemeinsprache"></div>
         <h3>Freier Gnoll</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
     </div>
 
     <div class="entry" id="giant">
@@ -947,7 +1069,7 @@
         <hr>
 
         <h2>Merkmale</h2>
-        <div class="traits" data-age="300 Jahre,40 Jahre" data-health="30" data-height="12 bis 14,Groß" data-speed="40">
+        <div class="traits" data-age="300 Jahre,40 Jahre" data-health="30" data-height="10 bis 12,Groß" data-speed="40">
         </div>
         <hr>
 
@@ -957,15 +1079,20 @@
 
         <div class="attributes" data-values="12,10,9,12,10,10,10,10"></div>
         <h2>Volkseigenschaften</h2>
+        <h3>Kultureller Pazifismus</h3>
+        <p>Als Riese verabscheust du unnötige Gewalt und vermeidest Kämpfe soweit möglich; du kannst nicht angreifen, bis du oder ein Verbündeter Schaden genommen hat.</p>
         <hr>
 
         <h2>Varianten</h2>
         <h3>Freier Riese</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
         <h3>Hügelriese</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache,Dreys+,Grozak+"></div>
         <h3>Zwergenriese</h3>
         <p></p>
+        <div class="languages" data-lang="Zwergisch,Gemeinsprache"></div>
     </div>
 
     <div class="entry" id="owlin">
@@ -989,8 +1116,10 @@
         <h2>Varianten</h2>
         <h3>Freier Yespest</h3>
         <p></p>
+        <div class="languages" data-lang="Gemeinsprache"></div>
         <h3>Gláddan-Yespest</h3>
         <p></p>
+        <div class="languages" data-lang="Dreys,Gemeinsprache,Elfisch+"></div>
     </div>
 </body>
 
