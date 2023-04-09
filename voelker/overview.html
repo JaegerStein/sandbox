@@ -69,6 +69,10 @@
             box-shadow: -4px 4px 8px rgba(0 0 0 / .5);
         }
 
+        .entry .crop {
+            display: none;
+        }
+
         .entry h2 {
             font-size: 1.8rem;
             margin-bottom: .5rem;
@@ -241,6 +245,11 @@
                 width: 100%;
                 float: none;
                 margin: 1rem 0;
+                display: none;
+            }
+
+            .entry .crop {
+                display: block !important;
             }
 
             .attributes table {
@@ -577,6 +586,7 @@
     <div class="entry" id="human">
         <h1>Mensch</h1>
         <img src="images/voelker/human.jpg" alt="Mensch">
+        <img src="images/voelker/human-crop.jpg" alt="Mensch" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
@@ -638,6 +648,7 @@
     <div class="entry" id="elf">
         <h1>Elfe<br><span class="smaller">Elbe</span></h1>
         <img src="images/voelker/elf.jpg" alt="Elfe">
+        <img src="images/voelker/elf-crop.jpg" alt="Elfe" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
@@ -698,6 +709,7 @@
     <div class="entry" id="dwarf">
         <h1>Zwerg</h1>
         <img src="images/voelker/dwarf.jpg" alt="Zwerg">
+        <img src="images/voelker/dwarf-crop.jpg" alt="Zwerg" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
@@ -739,6 +751,7 @@
     <div class="entry" id="gnome">
         <h1>Gnom<br><span class="smaller">Halbling</span></h1>
         <img src="images/voelker/gnome.jpg" alt="Gnom">
+        <img src="images/voelker/gnome-crop.jpg" alt="Gnom" class="crop">
         <hr>
         <h2>Merkmale</h2>
         <div class="traits" data-age="250 Jahre,35 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30">
@@ -779,7 +792,9 @@
     <div class="entry" id="kenku">
         <h1>Kenku</h1>
         <img src="images/voelker/kenku.jpg" alt="Kenku">
+        <img src="images/voelker/kenku-crop.jpg" alt="Kenku" class="crop">
         <hr>
+
         <h2>Merkmale</h2>
         <div class="traits" data-age="45 Jahre,12 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30"
             data-common="Überlegene Dunkelsicht,Stählerner Magen"></div>
@@ -813,7 +828,9 @@
     <div class="entry" id="mime">
         <h1>Mime<br><span class="smaller">Formwandler</span></h1>
         <img src="images/voelker/mime.jpg" alt="Mime">
+        <img src="images/voelker/mime-crop.jpg" alt="Mime" class="crop">
         <hr>
+
         <h2>Merkmale</h2>
         <div class="traits" data-age="Unsterblich,*" data-health="*" data-height="*,*" data-speed="*" data-common="*">
         </div>
@@ -860,7 +877,9 @@
     <div class="entry" id="drow">
         <h1>Albe<br><span class="smaller">Dunkelelfe</span></h1>
         <img src="images/voelker/drow2.jpg" alt="Albe">
+        <img src="images/voelker/drow2-crop.jpg" alt="Albe" class="crop">
         <hr>
+
         <h2>Merkmale</h2>
         <div class="traits" data-age="Unsterblich,100 Jahre" data-health="20" data-height="5½ bis 6,Mittel"
             data-speed="30" data-common="Überlegene Dunkelsicht,Immunität"></div>
@@ -898,6 +917,7 @@
     <div class="entry" id="orc">
         <h1>Ork</h1>
         <img src="images/voelker/orc.jpg" alt="Ork">
+        <img src="images/voelker/orc-crop.jpg" alt="Ork" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
@@ -940,7 +960,9 @@
     <div class="entry" id="goblin">
         <h1>Goblin</h1>
         <img src="images/voelker/goblin.jpg" alt="Goblin">
+        <img src="images/voelker/goblin-crop.jpg" alt="Goblin" class="crop">
         <hr>
+
         <h2>Merkmale</h2>
         <div class="traits" data-age="40 Jahre,10 Jahre" data-health="15" data-height="3 bis 4,Klein" data-speed="30">
         </div>
@@ -979,6 +1001,7 @@
     <div class="entry" id="kobold">
         <h1>Kobold</h1>
         <img src="images/voelker/kobold.jpg" alt="Kobold">
+        <img src="images/voelker/kobold-crop.jpg" alt="Kobold" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
@@ -1023,6 +1046,7 @@
     <div class="entry" id="faun">
         <h1>Faun<br><span class="smaller">Satyr</span></h1>
         <img src="images/voelker/faun.jpg" alt="Faun">
+        <img src="images/voelker/faun-crop.jpg" alt="Faun" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
@@ -1069,6 +1093,7 @@
     <div class="entry" id="goatman">
         <h1 style="letter-spacing: -.05rem;">Llekampa</h1>
         <img src="images/voelker/goatman.jpg" alt="Llekampa">
+        <img src="images/voelker/goatman-crop.jpg" alt="Llekampa" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
@@ -1105,6 +1130,7 @@
     <div class="entry" id="gnoll">
         <h1>Gnoll</h1>
         <img src="images/voelker/gnoll.jpg" alt="Gnoll">
+        <img src="images/voelker/gnoll-crop.jpg" alt="Gnoll" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
@@ -1141,6 +1167,7 @@
     <div class="entry" id="giant">
         <h1>Riese</h1>
         <img src="images/voelker/giant.jpg" alt="Riese">
+        <img src="images/voelker/giant-crop.jpg" alt="Riese" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
@@ -1178,6 +1205,7 @@
     <div class="entry" id="owlin">
         <h1>Yespest</h1>
         <img src="images/voelker/owlin.jpg" alt="Yespest">
+        <img src="images/voelker/owlin-crop.jpg" alt="Yespest" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
@@ -1212,6 +1240,7 @@
     <div class="entry" id="tiefling">
         <h1>Halbdämon<br><span class="smaller">Aënetnei, Tiefling</span></h1>
         <img src="images/voelker/tiefling.jpg" alt="Halbdämon">
+        <img src="images/voelker/tiefling-crop.jpg" alt="Halbdämon" class="crop">
         <hr>
 
         <h2>Merkmale</h2>
