@@ -220,7 +220,7 @@
             margin-bottom: 1rem;
         }
 
-        @media screen and (max-width: 1400px) {
+        @media screen and (max-width: 1600px) {
             .entry {
                 width: 45%;
             }
@@ -413,6 +413,9 @@
                         case "Bedrohlich":
                             trait = tool('threat', trait);
                             break;
+                        case "Giftresistenz":
+                            trait = tool('poison', trait);
+                            break;
                         default:
                             break;
                     }
@@ -498,7 +501,7 @@
             "faunhead": "Bei ungeradem Schaden ist der größere Anteil Schmetterschaden.",
             "demon": "Ein Halbdämon kann eines, mehrere, alle, oder keines dieser Merkmale aufweisen: Hörner oder Geweih, verfärbte Haut, dämonischer Schwanz, leuchtende und verfärbte Augen, scharfe Klauen, spitze Zähne, schuppige Haut oder gleich ganze Schuppenplatten, teilweise oder vollständige Haarlosigkeit, Hufe, Flügel.",
             "speci": "<i>Artgenossen</i> ist hierbei ein recht fragwürdiger Begriff, da Halbdämonen von verschiedensten Völkern abstammen können und außer den physischen Merkmalen keine wirklichen Gemeinsamkeiten haben.",
-            "poison": "",
+            "poison": "Du hast bei Rettungswürfen gegen Vergiftung Vorteil und erhälst eine natürliche +4 Resistenz gegen Giftattacken.",
             //sizes
             "large": "Deine Basisausdauer beträgt 30. Du hast einen Bonus von +4 auf Stärkewürfe. Du hast einen Malus von -4 aufs Ausweichen, Verstecken und Schleichen. Du belegst außerdem eine 10x10-Fuß-Fläche auf dem Schlachtfeld.",
             "medium": "Deine Größenkategoie hat keine speziellen Auswirkungen.",
@@ -714,7 +717,7 @@
 
         <h2>Merkmale</h2>
         <div class="traits" data-age="600 Jahre,50 Jahre" data-health="20" data-height="4 bis 5,Mittel" data-speed="25"
-            data-common="Dunkelsicht"></div>
+            data-common="Dunkelsicht,Giftresistenz"></div>
         <hr>
         <h2>Beschreibung</h2>
         <p>Zwerge sind toll. Zwerge werden auch als das <i>Trotzige Volk</i> bezeichnet.</p>
@@ -722,9 +725,6 @@
 
         <div class="attributes" data-values="11,10,10,11,10,10,11,10"></div>
         <h2>Volkseigenschaften</h2>
-        <h3>Zwergische Widerstandskraft</h3>
-        <p>Du hast bei Rettungswürfen gegen Vergiftung Vorteil und erhälst eine natürliche +4 Resistenz gegen
-            Giftattacken.</p>
         <h3>Zwergische Kampfausbildung</h3>
         <p>Du bist <span class="tool comp">kompetent</span> im Umgang mit Kriegshämmern und -äxten. Gilt nicht für Freie
             Zwerge</p>
@@ -1244,7 +1244,7 @@
         <hr>
 
         <h2>Merkmale</h2>
-        <div class="traits" data-age="* + 100%,*" data-health="* + 10%" data-height="*,*" data-speed="*" data-common="*,Dunkelsicht">
+        <div class="traits" data-age="* + 100%,*" data-health="* + 10%" data-height="*,*" data-speed="*" data-common="*,Überlegene Dunkelsicht,Giftresistenz">
         </div>
         <p>* Die Merkmale eines Halbdämons sind abhängig von denen des Volkes seiner Eltern.</p>
         <hr>
@@ -1261,8 +1261,6 @@
         <p>Vorausgesetzt, du besitzt erkennbare Merkmale eines Halbdämons, hast du gegen die meisten Menschen Vorteil beim Einschüchtern, aber Nachteil bei Diplomatiewürfen.</p>
         <h3>Raue Haut</h3>
         <p>Deine Haut ist rau und schuppig, und bietet einen gewissen Schutz gegen Angriffe. Du hast eine natürliche 0|1|1 Rüstung. Diese Eigenschaft ist optional und setzt voraus, dass dein Halbdämon ein sichtbar veränderte Haut besitzt.</p>
-        <h3>Infernale Resistenz</h3>
-        <p>Du hast bei Rettungswürfen gegen Vergiftung Vorteil und erhälst eine natürliche +4 Resistenz gegen Giftattacken.</p>
         <hr>
 
         <h2>Varianten</h2>
