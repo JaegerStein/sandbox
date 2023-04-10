@@ -17,74 +17,96 @@
         body {
             background-color: beige;
             position: relative;
-            padding: 1rem;
+            padding: 2rem;
             width: 100vw;
             height: 100vh;
         }
 
-        #questmap {
+        #quests {
             background-color: ivory;
+            border-radius: 3rem;
+            box-shadow: 1rem 1rem 2rem rgba(0 0 0 / .5), -1rem -1rem 2rem rgba(255 255 255 / .5);
             width: 100%;
             height: 100%;
-
-            border-radius: 2rem;
-            box-shadow: .5rem .5rem 1rem rgba(0 0 0 / .5), -.5rem -.5rem 1rem rgba(255 255 255 / .5);
         }
 
-        .quest .node circle {
+        .quest circle {
             fill: white;
-            stroke: #444;
-            stroke-width: 2px;
+            filter: drop-shadow(1px 1px 8px rgba(0 0 0 / .5));
         }
 
-        .quest .node text {
-            font-size: 1rem;
-            text-anchor: middle;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        }
-
-        .quest .link line {
-            stroke: #444;
+        .quest line {
+            stroke: black;
             stroke-width: 2px;
         }
     </style>
 
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="d3.min.js"></script>
     <script>
-        function buildGraph() {
-            d3.json('quests.json').then(data => {
-                const svg = d3.select('#questmap')
-                    .append('svg')
-                    .attr('width', '100%')
-                    .attr('height', '100%');
+        const el = (id) => document.getElementById(id);
 
-                // creates a group element for the nodes
-                const nodes = svg.selectAll('g')
-                    .data(data.nodes)
-                    .enter()
-                    .append('g')
-                    .attr('transform', (d, i) => {
-                        const x = (i % 3) * 200 + 100;
-                        const y = Math.floor(i / 3) * 200 + 100;
-                        return `translate(${x}, ${y})`;
-                    }).attr('class', 'node');;
+        function buildQuestMap() {
+            el('quests').innerHTML = '';
 
-                nodes.append('circle')
-                    .attr('r', 50);
+            const { width, height } = el('quests').getBoundingClientRect();
 
-                nodes.append('text')
-                    .text(d => d.name)
-                    .attr('y', 5);
+            const nodes = [
+                { name: "Node 1" },
+                { name: "Node 2" },
+                { name: "Node 3" }
+            ];
 
+            const links = [
+                { source: 0, target: 1 },
+                { source: 1, target: 2 },
+                { source: 2, target: 0 }
+            ];
+
+            const svg = d3.select('#quests')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height);
+
+            const simulation = d3.forceSimulation(nodes)
+                .force('link', d3.forceLink(links).id(d => d.index))
+                .force('charge', d3.forceManyBody().strength(-500))
+                .force('center', d3.forceCenter(width / 2, height / 2));
+
+            const link = svg.selectAll('.link')
+                .data(links)
+                .enter()
+                .append('line')
+                .attr('class', 'link');
+
+            const node = svg.selectAll('.node')
+                .data(nodes)
+                .enter()
+                .append('circle')
+                .attr('class', 'node')
+                .attr('r', 25);
+
+            node.append('title').text(d => d.name);
+
+            simulation.on('tick', () => {
+                link
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+
+                node
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
             });
         }
 
-        window.onload = buildGraph;
+        window.onload = buildQuestMap;
+        window.onresize = buildQuestMap;
     </script>
 </head>
 
 <body>
-    <div id="questmap" class="quest"></div>
+    <div id="quests" class="quest"></div>
 </body>
 
 </html>
