@@ -1,0 +1,28 @@
+{
+    "nodes": [
+        {
+            "id": "A",
+            "name": "Node A",
+            "content": "http://www.google.com",
+            "links": [
+                "B"
+            ]
+        },
+        {
+            "id": "B",
+            "name": "Node B",
+            "content": "http://www.google.com",
+            "links": [
+                "C"
+            ]
+        },
+        {
+            "id": "C",
+            "name": "Node C",
+            "content": "http://www.google.com",
+            "links": [
+                "A"
+            ]
+        }
+    ]
+}

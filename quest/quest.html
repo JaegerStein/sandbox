@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest Map</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: beige;
+            position: relative;
+            padding: 1rem;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #questmap {
+            background-color: ivory;
+            width: 100%;
+            height: 100%;
+
+            border-radius: 2rem;
+            box-shadow: .5rem .5rem 1rem rgba(0 0 0 / .5), -.5rem -.5rem 1rem rgba(255 255 255 / .5);
+        }
+
+        .quest .node circle {
+            fill: white;
+            stroke: #444;
+            stroke-width: 2px;
+        }
+
+        .quest .node text {
+            font-size: 1rem;
+            text-anchor: middle;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .quest .link line {
+            stroke: #444;
+            stroke-width: 2px;
+        }
+    </style>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        function buildGraph() {
+            d3.json('quests.json').then(data => {
+                const svg = d3.select('#questmap')
+                    .append('svg')
+                    .attr('width', '100%')
+                    .attr('height', '100%');
+
+                // creates a group element for the nodes
+                const nodes = svg.selectAll('g')
+                    .data(data.nodes)
+                    .enter()
+                    .append('g')
+                    .attr('transform', (d, i) => {
+                        const x = (i % 3) * 200 + 100;
+                        const y = Math.floor(i / 3) * 200 + 100;
+                        return `translate(${x}, ${y})`;
+                    }).attr('class', 'node');;
+
+                nodes.append('circle')
+                    .attr('r', 50);
+
+                nodes.append('text')
+                    .text(d => d.name)
+                    .attr('y', 5);
+
+            });
+        }
+
+        window.onload = buildGraph;
+    </script>
+</head>
+
+<body>
+    <div id="questmap" class="quest"></div>
+</body>
+
+</html>
