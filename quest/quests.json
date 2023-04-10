@@ -1,31 +1,32 @@
 {
     "nodes": [
         {
-            "id": "A",
-            "title": "Node A",
-            "type": "task",
-            "content": "The content of node A.",
-            "links": [
-                "B"
-            ]
+            "id": "peretin",
+            "label": "Besiegt den Nekromanten Peretin",
+            "title": "Graf Stevano hat euch beauftragt, den Nekromanten Peretin zur Strecke zu bringen. Er verspricht eine Belohnung von 50 Goldmünzen.",
+            "type": "task"
         },
         {
-            "id": "B",
-            "title": "Node B",
-            "type": "info",
-            "content": "The content of node B.",
-            "links": [
-                "C"
-            ]
+            "id": "peretin_malravia",
+            "label": "Peretin ist in die Niedermark geflohen",
+            "title": "Im Brief von Stevano stand, dass Peretin über die Zwergenfestung Hadorim nach Malravien geflohen ist.",
+            "type": "clue"
         },
         {
-            "id": "C",
-            "title": "Node C",
-            "type": "query",
-            "content": "The content of node C.",
-            "links": [
-                "A"
-            ]
+            "id": "peretin_where",
+            "label": "Wo ist Peretin jetzt?",
+            "title": "Ihr seid in die Niedermark gereist, doch hier verliert sich die Spur.",
+            "type": "query"
+        }
+    ],
+    "edges": [
+        {
+            "from": "peretin",
+            "to": "peretin_malravia"
+        },
+        {
+            "from": "peretin_malravia",
+            "to": "peretin_where"
         }
     ]
 }

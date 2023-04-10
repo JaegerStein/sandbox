@@ -30,115 +30,39 @@
             box-shadow: 1rem 1rem 2rem rgba(0 0 0 / .5), -1rem -1rem 2rem rgba(255 255 255 / .5);
             width: 100%;
             height: 100%;
-        }
 
-        .quest rect {
-            fill: white;
-            filter: drop-shadow(1px 1px 8px rgba(0 0 0 / .5));
+            overflow: hidden;
         }
     </style>
 
-    <script src="d3.min.js"></script>
-    <script>
-        const el = (id) => document.getElementById(id);
-
-        function buildQuestMap() {
-            el('quests').innerHTML = '';
-
-            const { width, height } = el('quests').getBoundingClientRect();
-
-            const nodes = [
-                { name: "Node 1" },
-                { name: "Node 2" },
-                { name: "Node 3" }
-            ];
-
-            const links = [
-                { source: 0, target: 1 },
-                { source: 1, target: 2 },
-                { source: 2, target: 0 }
-            ];
-
-            const svg = d3.select('#quests')
-                .append('svg')
-                .attr('width', width)
-                .attr('height', height);
-
-            const simulation = d3.forceSimulation(nodes)
-                .force('link', d3.forceLink(links).id(d => d.index))
-                .force('charge', d3.forceManyBody().strength(-2000))
-                .force('center', d3.forceCenter(width / 2, height / 2));
-
-            const link = svg.selectAll('.link')
-                .data(links)
-                .enter()
-                .append('line')
-                .attr('class', 'link');
-
-            const node = svg.selectAll('.node')
-                .data(nodes)
-                .enter()
-                .append('rect')
-                .attr('class', 'node')
-                .attr('width', 50)
-                .attr('height', 50)
-                .attr('rx', 5);
-
-            node.append('title').text(d => d.name);
-
-            simulation.on('tick', () => {
-                link
-                    .attr('x1', d => d.source.x)
-                    .attr('y1', d => d.source.y)
-                    .attr('x2', d => d.target.x)
-                    .attr('y2', d => d.target.y);
-
-                node
-                    .attr('x', d => d.x - 25)
-                    .attr('y', d => d.y - 25);
-            });
-        }
-
-        function testMap() {
-            const quests = el('quests');
-            quests.innerHTML = '';
-            const { offsetWidth: width, offsetHeight: height } = quests;
-
-            d3.json('test.json').then(data => {
-                const svg = d3.select('#quests')
-                    .append('svg')
-                    .attr('width', width)
-                    .attr('height', height);
-
-                const node = svg.selectAll('g')
-                    .data(data.nodes)
-                    .enter()
-                    .append('g')
-                    .attr('transform', 'translate(50,50)');
-
-                node.append('rect')
-                    .attr('width', 100)
-                    .attr('height', 50)
-                    .attr('rx', 10)
-                    .on('click', function (d) {
-                        console.log("clicked");
-                        d3.select(this).select('text').text(d.content);
-                    });
-
-                node.append('text')
-                    .attr('x', 50)
-                    .attr('y', 25)
-                    .attr('text-anchor', 'middle')
-                    .attr('alignment-baseline', 'central')
-                    .text(d => d.title);
-            });
-        }
-        window.onload = testMap;
-    </script>
+    <script type="text/javascript" src="vn.min.js"></script>
 </head>
 
 <body>
     <div id="quests" class="quest"></div>
+
+    <script>
+        fetch('quests.json').then(r => r.json()).then(data => {
+            const quests = document.getElementById("quests");
+            const options = {
+                nodes: {
+                    shape: 'box',
+                    borderRadius: 10
+                },
+                edges: {
+                    
+                },
+                physics: {
+                    repulsion: {
+                        nodeDistance: 200,
+                        springLenght: 400,
+                        springConstant: 0.01
+                    }
+                }
+            };
+            const network = new vis.Network(quests, data, options);
+        });
+    </script>
 </body>
 
 </html>
