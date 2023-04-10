@@ -30,7 +30,7 @@
             height: 100%;
         }
 
-        .quest circle {
+        .quest rect {
             fill: white;
             filter: drop-shadow(1px 1px 8px rgba(0 0 0 / .5));
         }
@@ -69,7 +69,7 @@
 
             const simulation = d3.forceSimulation(nodes)
                 .force('link', d3.forceLink(links).id(d => d.index))
-                .force('charge', d3.forceManyBody().strength(-500))
+                .force('charge', d3.forceManyBody().strength(-2000))
                 .force('center', d3.forceCenter(width / 2, height / 2));
 
             const link = svg.selectAll('.link')
@@ -81,9 +81,11 @@
             const node = svg.selectAll('.node')
                 .data(nodes)
                 .enter()
-                .append('circle')
+                .append('rect')
                 .attr('class', 'node')
-                .attr('r', 25);
+                .attr('width', 50)
+                .attr('height', 50)
+                .attr('rx', 5);
 
             node.append('title').text(d => d.name);
 
@@ -95,8 +97,8 @@
                     .attr('y2', d => d.target.y);
 
                 node
-                    .attr('cx', d => d.x)
-                    .attr('cy', d => d.y);
+                    .attr('x', d => d.x - 25)
+                    .attr('y', d => d.y - 25);
             });
         }
 
