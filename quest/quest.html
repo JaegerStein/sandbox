@@ -33,83 +33,156 @@
             height: 100%;
             overflow: hidden;
         }
-        #quest-canvas {
-            width: 100%;
-            height: 100%;
+
+        .quest .node {
+            fill: white;
+            filter: drop-shadow(.5rem .5rem 1rem rgba(0 0 0 / .5)) drop-shadow(-.5rem -.5rem 1rem rgba(255 255 255 / .5));
+        }
+
+        .quest .link {
+            stroke: rgba(0 0 0 / .5);
+            stroke-width: 2px;
         }
     </style>
+    <script type="text/javascript" src="d3.min.js"></script>
+    <script>
+        const el = (id) => document.getElementById(id);
 
+        const data = {
+            nodes: [
+                {
+                    id: "peretin",
+                    name: "Besiegt den Nekromanten Peretin"
+                },
+                {
+                    id: "peretin_is",
+                    name: "Peretin ist in die Niedermark geflohen"
+                },
+                {
+                    id: "peretin_where",
+                    name: "Wo ist Peretin jetzt?"
+                },
+                {
+                    id: "peretin_how",
+                    name: "Wie wurde Peretin zum Nekromanten?"
+                },
+                {
+                    id: "peretin_why",
+                    name: "Warum wurde Peretin Nekromant?"
+                },
+                {
+                    id: "unknown1",
+                    name: "?"
+                },
+                {
+                    id: "unknown2",
+                    name: "?"
+                }
+            ],
+            links: [
+                { source: "peretin", target: "peretin_is" },
+                { source: "peretin", target: "peretin_why" },
+                { source: "peretin", target: "peretin_how" },
+                { source: "peretin", target: "unknown1" },
+                { source: "peretin_is", target: "peretin_where" },
+                { source: "peretin_why", target: "peretin_how" },
+                { source: "peretin_why", target: "unknown2" },
+                { source: "peretin_how", target: "peretin_why" },
+                { source: "peretin_how", target: "unknown2" }
+            ]
+        };
+
+        function buildQuestMap() {
+            const { offsetWidth: width, offsetHeight: height } = el("quests");
+
+            const svg = d3.select("#quests")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+            // create the simulation
+            const simulation = d3.forceSimulation()
+                .force("link", d3.forceLink().id((d) => d.id).distance(120))
+                .force("charge", d3.forceManyBody().strength(-200))
+                .force("center", d3.forceCenter(width / 2, height / 2));
+
+            // create the links
+            const links = svg.selectAll(".link")
+                .data(data.links)
+                .enter().append("line")
+                .attr("class", "link");
+
+            // create the nodes
+            const nodes = svg.selectAll(".node")
+                .data(data.nodes)
+                .enter().append("circle")
+                .attr("class", "node")
+                .attr("r", 30)
+                .call(drag(simulation));
+
+            // add labels target the nodes
+            const labels = svg.selectAll(".label")
+                .data(data.nodes)
+                .enter().append("text")
+                .attr("class", "label")
+                .text((d) => d.name)
+                .attr("text-anchor", "middle")
+                .attr("alignment-baseline", "middle");
+
+            // add the nodes and links target the simulation
+            simulation.nodes(data.nodes).on("tick", ticked);
+            simulation.force("link").links(data.links);
+
+            // function target update the position of the nodes and links on each tick
+            function ticked() {
+                links
+                    .attr("x1", (d) => d.source.x)
+                    .attr("y1", (d) => d.source.y)
+                    .attr("x2", (d) => d.target.x)
+                    .attr("y2", (d) => d.target.y);
+
+                nodes
+                    .attr("cx", (d) => d.x)
+                    .attr("cy", (d) => d.y);
+
+                labels
+                    .attr("x", (d) => d.x)
+                    .attr("y", (d) => d.y - 40);
+            }
+
+            // function target enable dragging of nodes
+            function drag(simulation) {
+
+                function dragstarted(event, d) {
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    d.fx = d.x;
+                    d.fy = d.y;
+                }
+
+                function dragged(event, d) {
+                    d.fx = event.x;
+                    d.fy = event.y;
+                }
+
+                function dragended(event, d) {
+                    if (!event.active) simulation.alphaTarget(0);
+                    d.fx = null;
+                    d.fy = null;
+                }
+
+                return d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended);
+            }
+        }
+
+        window.onload = buildQuestMap;
+    </script>
 </head>
 
 <body>
-    <div id="quests" class="quest">
-        <object id="quest-canvas" type="image/svg+xml" data="quests.svg"></object>
-    </div>
-    <script>
-        var svgObject = document.getElementById("quest-canvas");
-        var svgDoc;
-
-        svgObject.addEventListener("load", function () {
-            svgDoc = svgObject.contentDocument;
-            var svgRoot = svgDoc.documentElement;
-
-            var viewBox = svgRoot.getAttribute("viewBox").split(" ");
-            var minX = parseFloat(viewBox[0]);
-            var minY = parseFloat(viewBox[1]);
-            var width = parseFloat(viewBox[2]);
-            var height = parseFloat(viewBox[3]);
-
-            var zoomSpeed = 0.1;
-            var panSpeed = 1;
-            var isPanning = false;
-            var startX;
-            var startY;
-
-            svgRoot.addEventListener("wheel", function (e) {
-                e.preventDefault();
-                var delta = e.deltaY > 0 ? zoomSpeed : -zoomSpeed;
-                var point = getPointFromEvent(e);
-                var scale = 1 + delta;
-                var newWidth = width * scale;
-                var newHeight = height * scale;
-                var newX = minX - (point.x / width * (newWidth - width));
-                var newY = minY - (point.y / height * (newHeight - height));
-                svgRoot.setAttribute("viewBox", [newX, newY, newWidth, newHeight].join(" "));
-            });
-
-            svgRoot.addEventListener("mousedown", function (e) {
-                if (e.button === 0) {
-                    isPanning = true;
-                    startX = e.clientX;
-                    startY = e.clientY;
-                }
-            });
-
-            svgRoot.addEventListener("mousemove", function (e) {
-                if (isPanning) {
-                    var deltaX = e.clientX - startX;
-                    var deltaY = e.clientY - startY;
-                    var newMinX = minX - deltaX * panSpeed;
-                    var newMinY = minY - deltaY * panSpeed;
-                    svgRoot.setAttribute("viewBox", [newMinX, newMinY, width, height].join(" "));
-                }
-            });
-
-            svgRoot.addEventListener("mouseup", function (e) {
-                if (e.button === 0) {
-                    isPanning = false;
-                }
-            });
-        });
-
-        function getPointFromEvent(e) {
-            var rect = svgObject.getBoundingClientRect();
-            return {
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top
-            };
-        }
-    </script>
+    <div id="quests" class="quest"></div>
 </body>
 
 </html>
