@@ -2,24 +2,27 @@
     "nodes": [
         {
             "id": "A",
-            "name": "Node A",
-            "content": "http://www.google.com",
+            "title": "Node A",
+            "type": "task",
+            "content": "The content of node A.",
             "links": [
                 "B"
             ]
         },
         {
             "id": "B",
-            "name": "Node B",
-            "content": "http://www.google.com",
+            "title": "Node B",
+            "type": "info",
+            "content": "The content of node B.",
             "links": [
                 "C"
             ]
         },
         {
             "id": "C",
-            "name": "Node C",
-            "content": "http://www.google.com",
+            "title": "Node C",
+            "type": "query",
+            "content": "The content of node C.",
             "links": [
                 "A"
             ]
