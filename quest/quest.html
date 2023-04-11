@@ -34,155 +34,28 @@
             overflow: hidden;
         }
 
-        .quest .node {
-            fill: white;
-            filter: drop-shadow(.5rem .5rem 1rem rgba(0 0 0 / .5)) drop-shadow(-.5rem -.5rem 1rem rgba(255 255 255 / .5));
-        }
-
-        .quest .link {
-            stroke: rgba(0 0 0 / .5);
-            stroke-width: 2px;
+        #quests iframe {
+            border: none;
         }
     </style>
-    <script type="text/javascript" src="d3.min.js"></script>
     <script>
-        const el = (id) => document.getElementById(id);
 
-        const data = {
-            nodes: [
-                {
-                    id: "peretin",
-                    name: "Besiegt den Nekromanten Peretin"
-                },
-                {
-                    id: "peretin_is",
-                    name: "Peretin ist in die Niedermark geflohen"
-                },
-                {
-                    id: "peretin_where",
-                    name: "Wo ist Peretin jetzt?"
-                },
-                {
-                    id: "peretin_how",
-                    name: "Wie wurde Peretin zum Nekromanten?"
-                },
-                {
-                    id: "peretin_why",
-                    name: "Warum wurde Peretin Nekromant?"
-                },
-                {
-                    id: "unknown1",
-                    name: "?"
-                },
-                {
-                    id: "unknown2",
-                    name: "?"
-                }
-            ],
-            links: [
-                { source: "peretin", target: "peretin_is" },
-                { source: "peretin", target: "peretin_why" },
-                { source: "peretin", target: "peretin_how" },
-                { source: "peretin", target: "unknown1" },
-                { source: "peretin_is", target: "peretin_where" },
-                { source: "peretin_why", target: "peretin_how" },
-                { source: "peretin_why", target: "unknown2" },
-                { source: "peretin_how", target: "peretin_why" },
-                { source: "peretin_how", target: "unknown2" }
-            ]
-        };
-
-        function buildQuestMap() {
-            const { offsetWidth: width, offsetHeight: height } = el("quests");
-
-            const svg = d3.select("#quests")
-                .append("svg")
-                .attr("width", width)
-                .attr("height", height);
-
-            // create the simulation
-            const simulation = d3.forceSimulation()
-                .force("link", d3.forceLink().id((d) => d.id).distance(120))
-                .force("charge", d3.forceManyBody().strength(-200))
-                .force("center", d3.forceCenter(width / 2, height / 2));
-
-            // create the links
-            const links = svg.selectAll(".link")
-                .data(data.links)
-                .enter().append("line")
-                .attr("class", "link");
-
-            // create the nodes
-            const nodes = svg.selectAll(".node")
-                .data(data.nodes)
-                .enter().append("circle")
-                .attr("class", "node")
-                .attr("r", 30)
-                .call(drag(simulation));
-
-            // add labels target the nodes
-            const labels = svg.selectAll(".label")
-                .data(data.nodes)
-                .enter().append("text")
-                .attr("class", "label")
-                .text((d) => d.name)
-                .attr("text-anchor", "middle")
-                .attr("alignment-baseline", "middle");
-
-            // add the nodes and links target the simulation
-            simulation.nodes(data.nodes).on("tick", ticked);
-            simulation.force("link").links(data.links);
-
-            // function target update the position of the nodes and links on each tick
-            function ticked() {
-                links
-                    .attr("x1", (d) => d.source.x)
-                    .attr("y1", (d) => d.source.y)
-                    .attr("x2", (d) => d.target.x)
-                    .attr("y2", (d) => d.target.y);
-
-                nodes
-                    .attr("cx", (d) => d.x)
-                    .attr("cy", (d) => d.y);
-
-                labels
-                    .attr("x", (d) => d.x)
-                    .attr("y", (d) => d.y - 40);
-            }
-
-            // function target enable dragging of nodes
-            function drag(simulation) {
-
-                function dragstarted(event, d) {
-                    if (!event.active) simulation.alphaTarget(0.3).restart();
-                    d.fx = d.x;
-                    d.fy = d.y;
-                }
-
-                function dragged(event, d) {
-                    d.fx = event.x;
-                    d.fy = event.y;
-                }
-
-                function dragended(event, d) {
-                    if (!event.active) simulation.alphaTarget(0);
-                    d.fx = null;
-                    d.fy = null;
-                }
-
-                return d3.drag()
-                    .on("start", dragstarted)
-                    .on("drag", dragged)
-                    .on("end", dragended);
+        function enablePanAndZoom() {
+            const questmap = document.getElementById('questmap');
+            questmap.onload = () => {
+                const idoc = questmap.contentDocument || questmap.contentWindow.document;
+                idoc.body.style.zoom = '80%';
             }
         }
 
-        window.onload = buildQuestMap;
+        window.onload = enablePanAndZoom;
     </script>
 </head>
 
 <body>
-    <div id="quests" class="quest"></div>
+    <div id="quests">
+        <iframe src="quests.svg" id="questmap" width="100%" height="100%">
+    </div>
 </body>
 
 </html>
