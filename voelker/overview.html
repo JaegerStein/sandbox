@@ -18,6 +18,10 @@
             src: url("fonts/Angie Small Caps.ttf");
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -32,6 +36,33 @@
             justify-content: space-evenly;
             gap: 1rem;
             padding: 1rem;
+            padding-top: 3.5rem;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            gap: 1rem;
+            background-image: url("images/other/parchment.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 2.5rem;
+            box-shadow: 0 4px 8px rgba(0 0 0 / .5);
+            overflow-y: hidden;
+            overflow-x: auto;
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+
+        nav a {
+            font-size: 1.25rem;
         }
 
         .entry {
@@ -515,6 +546,9 @@
             "speci": "<i>Artgenossen</i> ist hierbei ein recht fragwürdiger Begriff, da Halbdämonen von verschiedensten Völkern abstammen können und außer den physischen Merkmalen keine wirklichen Gemeinsamkeiten haben.",
             "poison": "Du hast bei Rettungswürfen gegen Vergiftung Vorteil und erhälst eine natürliche +4 Resistenz gegen Giftattacken.",
             "polymorph": "Deine Verwandlung ist keine bloße Illusion oder magische Hülle, in die du dich kleidest, sondern findet tatsächlich statt. Dein Kröper wird zu dem der Kreatur, in die du dich verwandlest und muss nicht aktiv aufrecht erhalten werden. Hierbei ist zu bedenken, dass eine Verwandlung in ein Wesen (oder ein Objekt) mit unzureichendem Verstand eine Rückverwandlung unmöglich macht. Den Körper eines Tieres anzunehmen ist gleichbedeutend mit dem Freitod, da so die Vernunft des Polymorphen ausgelöscht wird.",
+            "eon": "Ein willkürlicher Zeitraum, der über einschneidende und weitreichende, historische Ereignisse definiert ist, anstelle einer festgelegten Zeitspanne. Zeitalter dauern in der Regeln mehrere Jahrhunderte an, aber selten mehr als tausend Jahre.",
+            "mino": "Bei ungeradem Schaden macht der größere Anteil Stichschaden aus. Deine Sprintaktion reicht im Normalfall 8 Felder weit, jede erfolgreiche Kollision kostet aber 2 Felder; du kannst im optimalen Fall also 4 Menschen oder 8 Gnome rammen.",
+            "ominous-pact": "Die Eigenschaft <b>Schutz der Herde</b> wird bei Verschwiegenen Minotauren durch eine andere ersetzt: Du hast einen permanenten +1 Bonus auf Angriffe gegen Menschen. Dieser steigt um +1 für jeden von dir im Kampf getöteten Menschen, für die Dauer dieses Kampfes. Die Änderung tritt nur in Kraft, wenn du dem Spielleiter mitteilst, dass du diesen geheimen Tooltip gefunden hast :)",
             //sizes
             "large": "Deine Basisausdauer beträgt 30. Du hast einen Bonus von +4 auf Stärkewürfe. Du hast einen Malus von -4 aufs Ausweichen, Verstecken und Schleichen. Du belegst außerdem eine 10x10-Fuß-Fläche auf dem Schlachtfeld.",
             "medium": "Deine Größenkategoie hat keine speziellen Auswirkungen.",
@@ -600,6 +634,17 @@
 </head>
 
 <body>
+    <nav>
+        <a href="#human">Mensch</a>
+        <a href="#elf">Elfe</a>
+        <a href="#dwarf">Zwerg</a>
+        <a href="#gnome">Gnom</a>
+        <a href="#kenku">Kenku</a>
+        <a href="#tiefling">Halbdämon</a>
+        <a href="#mime">Mime</a>
+        <a href="#minotaur">Minotaure</a>
+    </nav>
+
     <!-- MENSCH -->
     <div class="entry" id="human">
         <h1>Mensch</h1>
@@ -1041,6 +1086,73 @@
             tunlichst, ihre Tarnung zu gefährden. Üblicherweise behalten sie einen einzigen Körper für die Dauer seiner
             Lebensspanne bei und verwandeln sich nur in seltenen Fällen.</p>
         <div class="languages" data-lang="Gemeinsprache,Volkseigene Sprache+"></div>
+    </div>
+    <!----------------->
+
+
+
+    <!--- Minotaure --->
+    <div class="entry" id="minotaur">
+        <h1>Minotaure</h1>
+        <img src="images/voelker/minotaur.jpg" alt="Minotaure" loading="lazy">
+        <img src="images/voelker/minotaur-crop.jpg" alt="Minotaure" class="crop" loading="lazy">
+        <hr>
+
+        <h2>Merkmale</h2>
+        <div class="traits" data-age="60,14 Jahre" data-health="30" data-height="8 bis 9½,Groß" data-speed="40"></div>
+        <hr>
+
+        <h2>Beschreibung</h2>
+        <p>Die Minotauren waren einst heimisch in den Siebenlanden, wurden aber durch die ersten Menschen mutmaßlich
+            ausgerottet. Anders als die meisten Völker verbargen die Stierwesen sich nicht in Wäldern und Bergen
+            oder arrangierten sich mit den Neuankömmlingen, wie es die Elfen und Zwerge taten, sondern zogen gegen die
+            fremdländischen Invasoren in die Schlacht. Angetrieben vom Verlust ihrer Heimat und Herden kämpften sie ohne
+            Rücksicht auf Verluste, welche sich mit der Zeit immer mehr häuften. Auch die Aufgabe war nun keine Option
+            mehr, wurden sie doch von den Menschen als nichts weiter als Monster angesehen und bis zur Auslöschung
+            gejagt.</p>
+        <p>Über mehrere <span class="tool eon">Zeitalter</span> hinweg wurde kein Minotaure in den Siebenlanden
+            gesichtet; in den vergangenen zwei Jahrhunderten jedoch tauchten sie vereinzelt erneut im
+            Kontinent auf, die einstigen Animositäten längst von den Menschen vergessen. Nun leben und arbeiten sie
+            unter den anderen Völkern, als sei ihre Vergangenheit nie geschehen. Auch wenn sie den Zusammenhalt einer
+            Herde bevorzugen, bleibt ihnen aufgrund ihrer geringen Zahl oft nichts anderes übrig, als sich als
+            Einzelgänger durchzuschlagen.</p>
+        <hr>
+
+        <div class="attributes" data-values="11,11,10,10,10,10,11,10"></div>
+        <h2>Volkseigenschaften</h2>
+        <h3>Pflanzenfresser</h3>
+        <p>Du kannst dich nicht von Fleisch ernähren, um deinen Hunger zu stillen.</p>
+        <h3>Unaufhaltsamer Ansturm</h3>
+        <p>Sobald du mindestens 10 Fuß zurückgelegt hast, kannst du deine Sprintaktion als unbewaffneten Angriff nutzen,
+            der zu gleichen Teilen Schmetter- und Stichschaden verursacht; dies hebt die verbleibende, reguläre
+            Bewegungsreichweite auf. Sprinte in einer geraden Linie durch Feinde hindurch, die mindestens eine
+            Größenkategorie kleiner sind als du. Wirf für jede Kollision einen neuen Stärkeangriff; ein geglückter
+            Angriff kostet ein zusätzliches Feld Reichweite und wirft den getroffenen Gegner 1 Feld nach Hinten und zur
+            Seite - ein gescheiterter Angriff stoppt deine Aktion. Gegner, die mindestens 2 Kategorie kleiner sind,
+            werden 2 Felder weit geworfen und kosten keine zusätzliche Bewegungsreichweite. Gegner der gleichen Größe
+            können nicht umgerannt werden und stoppen den Angriff, können dadurch aber immer noch Schaden nehmen.<span
+                class="tool mino"><sup>(?)</sup></span></p>
+        <h3>Schutz der Herde</h3>
+        <p>Du erhältsts einen +1 Bonus auf Angriffswürfe gegen einen Feind, in dessen Nahkampfreichweite sich mindestens
+            ein Verbündeter befindet. Hat einer dieser Verbündeten gleich oder weniger als die Hälfte seiner Ausdauer,
+            steigt dieser Bonus auf +2.</p>
+        <hr>
+
+        <h2>Varianten</h2>
+        <h3>Fremdländischer Minotaure</h3>
+        <p>Die meisten Minotauren, die sich heute in den Siebenlanden finden lassen, sind in kleinen Gruppen aus den
+            jenseitigen Landen zugezogen, nachdem die Zwerge sich endlich dazu herabließen, sie einzulassen. Zwar ist
+            jede Herde ein eigenständiger Stamm mit einzigartigen Sitten und Gebräuchen, jedoch eint sie das Bedürfnis
+            nach Zusammenhalt; Minotauren bleiben nur ungern allein.</p>
+        <div class="languages" data-lang="Fremdsprache,Gemeinsprache"></div>
+        <h3>Verschwiegener Minotaure</h3>
+        <p>Forscht man genauer nach, wird man feststellen, dass nicht alle Minotauren aus den Fremden Landen zu stammen
+            scheinen. Selten trifft man einzelgängerische Exemplare dieses Volkes an, die nicht über ihre Herkunft
+            sprechen wollen und zu keiner Herde gehören. Woher sie kommen, ist ein Rätsel; manch einer munkelt, dass es
+            sich um die Nachkommen derjenigen handelt, die einst der Auslöschung durch die Menschen entgehen konnten und
+            sich seither in den Siebenlanden versteckt hielten. Aber das sind nur haltlose Spekulationen<span
+                class="tool ominous-pact">...</span></p>
+        <div class="languages" data-lang="Gemeinsprache,Zwergisch+"></div>
     </div>
     <!---------->
 
